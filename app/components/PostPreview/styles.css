@@ -1,0 +1,28 @@
+.image {
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+  margin-top: 0.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.titleLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.titleLink:hover {
+  text-decoration: underline;
+}
+
+.createdBy {
+  text-align: center;
+  color: gray;
+  font-size: smaller;
+}
+
+.lead {
+  margin-top: 0;
+}

@@ -1,0 +1,15 @@
+.post {
+  margin: 0 auto;
+}
+
+.title {
+  margin-bottom: 0;
+}
+
+.meta {
+  color: gray;
+}
+
+.createdBy {
+  margin-right: 0.3rem;
+}
