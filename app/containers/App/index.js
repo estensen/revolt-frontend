@@ -12,27 +12,31 @@
  */
 
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Link } from 'react-router';
 
 import svgLogo from './radiorevolt.svg';
 import styles from './styles.css';
 
 import Footer from 'components/Footer';
+import HeaderLiveButton from 'components/HeaderLiveButton';
 
 import Player from 'containers/Player';
+import { playLive } from 'containers/Player/actions';
 
 const navbarLinks = [
+  {
+    path: '/',
+    title: 'Hjem',
+  },
   {
     path: '/programmer',
     title: 'Programmer',
   },
-  {
-    path: '/om',
-    title: 'Om Oss',
-  },
 ];
 
-export default class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
     children: React.PropTypes.node,
@@ -52,12 +56,17 @@ export default class App extends React.Component { // eslint-disable-line react/
     return (
       <div className={styles.container}>
         <header className={styles.header}>
-          <Link to="/">
+          <div className={styles.liveButton} onClick={() => this.props.playLive()}>
+            <HeaderLiveButton />
+          </div>
+          <Link className={styles.logoLink} to="/">
             <img src={svgLogo} alt="Logo" className={styles.logo} />
           </Link>
-          <ul className={styles.navbar}>
-            {navbarItems}
-          </ul>
+          <div className={styles.navbarContainer}>
+            <ul className={styles.navbar}>
+              {navbarItems}
+            </ul>
+          </div>
         </header>
         <div className={styles.content}>
           {this.props.children}
@@ -68,3 +77,18 @@ export default class App extends React.Component { // eslint-disable-line react/
     );
   }
 }
+
+App.propTypes = {
+  playLive: React.PropTypes.func,
+};
+
+const mapStateToProps = createStructuredSelector({});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    playLive: (offset = 0) => dispatch(playLive(offset)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

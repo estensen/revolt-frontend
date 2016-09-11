@@ -45,7 +45,7 @@ class Player extends React.Component {
     // The controller handling playlist actions
     this.playlistController = new PlaylistController();
     // The live URL
-    this.liveUrl = 'http://streamer.radiorevolt.no:8000/revolt';
+    this.liveUrl = 'http://streamer.radiorevolt.no:8001/revolt';
     // Max live offset in seconds
     this.maxLiveOffset = 60 * 60 * 4; // four hours
   }
@@ -175,7 +175,7 @@ class Player extends React.Component {
 
   playLive = () => {
     this.setState({
-      displayText: 'LIVE',
+      displayText: 'Radio Revolt',
       url: `${this.liveUrl}?offset=${this.props.offset}`,
     });
 
