@@ -6,8 +6,7 @@
 }
 
 .header {
-  margin: auto;
-  margin-bottom: 2rem;
+  margin: auto auto 2rem;
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
@@ -17,14 +16,22 @@
   width: 12rem;
 }
 
+.logoLink {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .liveButton {
   display: flex;
   align-items: center;
+  flex: 1;
+  justify-content: flex-end;
   cursor: pointer;
 }
 
 .navbarContainer {
   display: flex;
+  flex: 1;
   align-items: center;
 }
 
