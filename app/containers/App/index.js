@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Link } from 'react-router';
 
-import svgLogo from './radiorevolt.svg';
+import svgLogo from './RR_logo.png';
 import styles from './styles.css';
 
 import Footer from 'components/Footer';
