@@ -5,6 +5,7 @@
 */
 
 import React from 'react';
+import { Link } from 'react-router';
 
 
 import styles from './styles.css';
@@ -19,6 +20,11 @@ function Footer() {
         <p>Radioredaktør: Torstein Bakke</p>
         <p>Ansvarlig redaktør: Anette Sivertstøl</p>
         <br />
+        <p>
+          <Link className={styles.footerLink} to="/om">
+            Om oss
+          </Link>
+        </p>
         <p>2016 © Radio Revolt</p>
       </div>
     </div>

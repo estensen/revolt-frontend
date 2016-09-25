@@ -13,6 +13,15 @@
   text-align: center;
 }
 
+.footerLink {
+  color: #D7D7D7;
+  text-decoration: none;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}
+
 @media (min-width: 800px) {
   .content {
     width: 70%;
