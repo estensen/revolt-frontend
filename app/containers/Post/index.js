@@ -33,10 +33,10 @@ export class Post extends React.Component { // eslint-disable-line react/prefer-
   getNormalizedDateString(dateString) {
     const paddedString = i => (i < 10 ? `0${i}` : `${i}`);
 
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
+    const date = moment(dateString);
+    const year = date.year();
+    const month = date.month() + 1;
+    const day = date.date();
 
     return `${paddedString(day)}.${paddedString(month)}.${year}`;
   }
