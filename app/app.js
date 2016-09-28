@@ -20,6 +20,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import useScroll from 'react-router-scroll';
 import LanguageProvider from 'containers/LanguageProvider';
 import configureStore from './store';
+import googleAnalytics from 'react-ga';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
@@ -50,6 +51,13 @@ const rootRoute = {
   childRoutes: createRoutes(store),
 };
 
+// Set up Google Analytics
+googleAnalytics.initialize('UA-4404225-6');
+const logPageView = () => {
+  googleAnalytics.set({ page: window.location.pathname });
+  googleAnalytics.pageview(window.location.pathname);
+};
+
 
 const render = (translatedMessages) => {
   ReactDOM.render(
@@ -58,6 +66,7 @@ const render = (translatedMessages) => {
         <Router
           history={history}
           routes={rootRoute}
+          onUpdate={logPageView}
           render={
             // Scroll to top when going to a new page, imitating default browser
             // behaviour
