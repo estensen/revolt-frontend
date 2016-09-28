@@ -24,14 +24,12 @@
 .liveButton {
   display: flex;
   align-items: center;
-  flex: 1;
   justify-content: flex-end;
   cursor: pointer;
 }
 
 .navbarContainer {
   display: flex;
-  flex: 1;
   align-items: center;
 }
 
@@ -85,15 +83,11 @@
 @media (max-width: 1000px) {
   .header {
     flex-direction: column;
-    width: 100%;
+    align-items: center;
   }
 
   .liveButton {
     display: none;
-  }
-
-  .logoLink {
-    margin: 0 auto;
   }
 
   .navbarContainer {

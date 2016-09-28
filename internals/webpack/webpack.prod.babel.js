@@ -33,7 +33,7 @@ module.exports = require('./webpack.base.babel')({
   postcssPlugins: [
     postcssFocus(),
     cssnext({
-      browsers: ['last 2 versions', 'IE > 10'],
+      browsers: ['last 2 versions', 'IE >= 10', 'ios_saf >= 8'],
     }),
     postcssReporter({
       clearMessages: true,
