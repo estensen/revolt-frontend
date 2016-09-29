@@ -7,6 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import moment from 'moment';
 import {
   selectShow,
   selectShowLoading,
@@ -45,10 +46,10 @@ export class Show extends React.Component { // eslint-disable-line react/prefer-
     }));
 
     const elementList = posts.concat(episodes).sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      if (dateA < dateB) return 1;
-      if (dateA > dateB) return -1;
+      const dateA = moment(a.date);
+      const dateB = moment(b.date);
+      if (dateA.isBefore(dateB)) return 1;
+      if (dateB.isBefore(dateA)) return -1;
       return 0;
     });
 
