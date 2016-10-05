@@ -106,6 +106,26 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/admin',
+      name: 'admin',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Admin/reducer'),
+          System.import('containers/Admin/sagas'),
+          System.import('containers/Admin'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('admin', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
