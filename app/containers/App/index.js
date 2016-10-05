@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Link } from 'react-router';
 
-import svgLogo from './RR_logo.png';
+import pngLogo from './RR_logo.png';
 import styles from './styles.css';
 
 import Footer from 'components/Footer';
@@ -65,7 +65,7 @@ class App extends React.Component {
             <HeaderLiveButton />
           </div>
           <Link className={styles.logoLink} to="/">
-            <img src={svgLogo} alt="Logo" className={styles.logo} />
+            <img src={pngLogo} alt="Logo" className={styles.logo} />
           </Link>
           <div className={styles.navbarContainer}>
             <ul className={styles.navbar}>
