@@ -10,9 +10,9 @@ import { Link } from 'react-router';
 
 import selectAdmin from './selectors';
 import styles from './styles.css';
-import svgBlog from './blog.svg'
-import svgMic from './microphone.svg'
-import svgShow from './show.svg'
+import svgBlog from './blog.svg';
+import svgMic from './microphone.svg';
+import svgShow from './show.svg';
 import AdminOptionButton from 'components/AdminOptionButton';
 
 export class Admin extends React.Component { // eslint-disable-line react/prefer-stateless-function
