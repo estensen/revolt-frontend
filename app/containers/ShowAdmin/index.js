@@ -98,7 +98,6 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
         </div>
         <ShowDetailHeader show={this.state} />
       </div>
-
     );
   }
 }
