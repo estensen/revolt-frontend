@@ -24,7 +24,11 @@
   color: inherit;
 }
 
-
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
 
 .nameLink:hover {
   text-decoration: underline;
@@ -40,11 +44,15 @@ textarea {
 
 .submitButton {
     padding:5px 15px;
-    background:#ccc;
+    background:#0c0;
     border:0 none;
     cursor:pointer;
     border-radius: 5px;
 
+}
+
+.archivedCheckBox {
+  display: block;
 }
 
 .textField {
@@ -60,7 +68,7 @@ span {
   font-weight: bold;
   display:block;
 }
-.lead {
+textarea {
   display:block;
   border: 1px solid #AAA;
   border-radius: 3px;
@@ -83,9 +91,10 @@ span {
   border: 1px solid black;
 }
 
-.previewWrapper {
+.listPreviewWrapper {
   display: flex;
   flex-wrap: wrap;
+  flex-grow: 0;
   align-content: center;
   justify-content: space-around;
   margin-bottom: 2rem;

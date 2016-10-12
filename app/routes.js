@@ -146,8 +146,8 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/admin/episode/ny',
-      name: 'episodeAdmin',
+      path: '/admin/episoder/ny',
+      name: 'EpisodeAdmin',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/EpisodeAdmin/reducer'),
@@ -159,26 +159,6 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('episodeAdmin', reducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    }, {
-      path: '/admin/blogg/ny',
-      name: 'postAdmin',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/PostAdmin/reducer'),
-          System.import('containers/PostAdmin/sagas'),
-          System.import('containers/PostAdmin'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('postAdmin', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });
