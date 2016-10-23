@@ -1,9 +1,10 @@
 .activeShows {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   margin-bottom: 2rem;
 }
+
 
 .archivedShows {
   display: flex;
