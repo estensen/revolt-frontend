@@ -1,45 +1,12 @@
 .ShowAdmin { /* stylelint-disable */
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-around;
-  align-content: center;
-}
-.container {
-  width: 20rem;
-  margin: 1rem;
-  background-color: #FFF;
-  padding: 1rem;
-  box-shadow: -1px 0 2px 0 rgba(0, 0, 0, 0.12), 1px 0 2px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.24);
-  border-radius: 1px;
-  border-top: 3px solid #EBB71F;
-}
-
-.previewImage {
-  width: 100%;
-}
-
-.nameLink {
-  text-decoration: none;
-  color: inherit;
-}
-
-.wrapper {
-  display: flex;
   flex-direction: column;
   align-content: center;
 }
 
-.nameLink:hover {
-  text-decoration: underline;
-}
-
-input {
-  margin-bottom: 20px;
-}
-
-textarea {
-  margin-bottom: 20px;
+.wrapper {
+  display: flex;
+  justify-content: center;
 }
 
 .submitButton {
@@ -48,54 +15,4 @@ textarea {
     border:0 none;
     cursor:pointer;
     border-radius: 5px;
-
-}
-
-.archivedCheckBox {
-  display: block;
-}
-
-.textField {
-  display:block;
-  border: 1px solid #AAA;
-  border-radius: 3px;
-  padding: 5px;
-  width: 20rem;
-}
-
-
-span {
-  font-weight: bold;
-  display:block;
-}
-textarea {
-  display:block;
-  border: 1px solid #AAA;
-  border-radius: 3px;
-	padding: 5px;
-  width: 20rem;
-  height: auto;
-}
-
-.lead:focus {
-  outline-color: #EBB71F;
-}
-
-
-.name {
-  text-align: center;
-}
-.previewText {
-  width: 100%;
-  text-align: center;
-  border: 1px solid black;
-}
-
-.listPreviewWrapper {
-  display: flex;
-  flex-wrap: wrap;
-  flex-grow: 0;
-  align-content: center;
-  justify-content: space-around;
-  margin-bottom: 2rem;
 }

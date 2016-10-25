@@ -6,42 +6,57 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import selectShowAdmin from './selectors';
+import { addShow } from './actions';
 import styles from './styles.css';
 
-import ShowDetailHeader from 'components/ShowDetailHeader';
+import TextInput from 'components/TextInput';
+import TextAreaInput from 'components/TextAreaInput';
+import CheckboxInput from 'components/CheckboxInput';
 
 export class ShowAdmin extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.state = { name: '',
-                  file: '',
-                  lead: '',
-                  content: '',
-                  imagePreviewUrl: '' };
-    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      title: '',
+      description: '',
+      rssFeed: '',
+      logoImage: '',
+      lead: '',
+      explicitContent: false,
+      archived: false,
+      language: 'no',
+    };
+    this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleLeadChange = this.handleLeadChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+    this.handleArchivedChange = this.handleArchivedChange.bind(this);
+    this.handleExplicitContentChange = this.handleExplicitContentChange.bind(this);
+    this.handleRssFeedChange = this.handleRssFeedChange.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({ name: event.target.value });
-  }
-
-  _handleSubmit(e) {
-    e.preventDefault();
-    // TODO: do something with -> this.state.file
-    // console.log('handle uploading-', this.state.file);
+  handleTitleChange(event) {
+    event.preventDefault();
+    this.setState({ title: event.target.value });
   }
 
   handleLeadChange(event) {
-    // console.log('New lead: ' + event.target.value);
+    event.preventDefault();
     this.setState({ lead: event.target.value });
   }
   handleDescriptionChange(event) {
-    this.setState({ content: event.target.value });
+    event.preventDefault();
+    this.setState({ description: event.target.value });
   }
-
+  handleRssFeedChange(event) {
+    event.preventDefault();
+    this.setState({ rssFeed: event.target.value });
+  }
+  handleArchivedChange() {
+    this.setState({ archived: !this.state.archived });
+  }
+  handleExplicitContentChange() {
+    this.setState({ explicitContent: !this.state.explicitContent });
+  }
 
   handleImageChange(e) {
     e.preventDefault();
@@ -61,52 +76,45 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
   }
 
   render() {
-    let { imagePreviewUrl } = this.state;
-    let $imagePreview = null;
-    if (imagePreviewUrl) {
-      $imagePreview = (<img className={styles.previewImage} src={imagePreviewUrl} alt="Preview" />);
-    } else {
-      $imagePreview = <div className={styles.previewText}>Vennligst last opp et bilde</div>;
-    }
     return (
       <div className={styles.wrapper}>
-        <h1>Opprett nytt program</h1>
         <div className={styles.ShowAdmin}>
+          <h1>Opprett nytt program</h1>
           <div>
-            <form>
-              <span>Tittel</span>
-              <input type="text" className={styles.textField} onChange={this.handleChange} value={this.state.name} id="title" />
-              <span>Programbilde</span>
-              <input className="fileInput" type="file" onChange={(e) => this.handleImageChange(e)} />
-              <span>Kort beskrivelse</span>
-              <textarea type="text" className={styles.lead} value={this.state.lead} onChange={this.handleLeadChange} />
-              <span>Lang beskrivelse</span>
-              <textarea type="text" className={styles.description} value={this.state.content} onChange={this.handleDescriptionChange} />
-              <label htmlFor="archived" className={styles.archivedCheckBox}><input type="checkbox" name="archived" value={this.state.archived} /> Arkivert?</label>
-              <button className={styles.submitButton} type="submit" value="Lagre">Lagre</button>
-            </form>
-          </div>
-          <div className={styles.listPreviewWrapper}>
-            <div className={styles.container}>
-              {$imagePreview}
-              <h2 className={styles.name}>
-                {this.state.title}
-              </h2>
-              <div className={styles.previewLead}>{this.state.lead}</div>
-            </div>
+            <TextInput label={'Tittel'} onChange={this.handleTitleChange} value={this.state.title} />
+            <span>Programbilde</span>
+            <input className="fileInput" type="file" onChange={(e) => this.handleImageChange(e)} />
+            <TextAreaInput label={'Kort beskrivelse'} onChange={this.handleLeadChange} value={this.state.lead} />
+            <TextAreaInput label={'Lang beskrivelse'} onChange={this.handleDescriptionChange} value={this.state.description} />
+            <TextInput label={'RSS-feed'} onChange={this.handleRssFeedChange} value={this.state.rssFeed} />
+            <CheckboxInput label={'Arkivert?'} onChange={this.handleArchivedChange} value={this.state.archived} />
+            <CheckboxInput label={'Ikke-barnevennlig innhold'} onChange={this.handleExplicitContentChange} value={this.state.explicitContent} />
+            <div>Språk</div>
+            <button className={styles.submitButton} onClick={() => this.props.onAddShow(this.state)} value="Lagre">Lagre</button>
+            {
+              // TODO: Add selection box for languages and automatic fetching of RSS-feed.
+            }
           </div>
         </div>
-        <ShowDetailHeader show={this.state} />
       </div>
     );
   }
 }
 
-const mapStateToProps = selectShowAdmin();
+ShowAdmin.propTypes = {
+  onAddShow: React.PropTypes.func,
+};
+
+function mapStateToProps(state) {
+  return {
+    shows: state.shows,
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onAddShow: (show) => dispatch(addShow(show)),
+
   };
 }
 
