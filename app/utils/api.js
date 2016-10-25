@@ -8,6 +8,8 @@ const handleError = res => {
   throw err;
 };
 
+export const NEW_API_URL = 'http://localhost:9000/';
+
 export const get = url => fetch(url).then(handleError).then(res => res.json());
 
 export const getGraphQL = query => get(`${API_URL}?query=${query}`);
