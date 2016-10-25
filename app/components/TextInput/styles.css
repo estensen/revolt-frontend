@@ -1,9 +1,10 @@
 .textFieldWrapper {
   margin-bottom: 20px;
 }
+
 .textField {
   margin-bottom: 20px;
-  display:block;
+  display: block;
   border: 1px solid #AAA;
   border-radius: 3px;
   padding: 5px;
@@ -12,5 +13,5 @@
 
 .label {
   font-weight: bold;
-  display:block;
+  display: block;
 }
