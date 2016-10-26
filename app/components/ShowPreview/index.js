@@ -21,6 +21,7 @@ function ShowPreview(props) {
         </h2>
       </Link>
       <div className={styles.lead}>{props.lead}</div>
+      <div className={styles.catbox}>Musikk</div>
     </div>
   );
 }
