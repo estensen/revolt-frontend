@@ -19,7 +19,7 @@ export class Admin extends React.Component { // eslint-disable-line react/prefer
   render() {
     return (
       <div className={styles.admin}>
-        <Link className={styles.titleLink} to={'/admin/blogg/ny'}>
+        <Link className={styles.titleLink} to={'/admin/post/ny'}>
           <AdminOptionButton name="Nytt blogginnlegg" image={svgBlog} />
         </Link>
         <Link className={styles.titleLink} to={'/admin/episoder/ny'}>

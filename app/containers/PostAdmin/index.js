@@ -13,6 +13,7 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
   render() {
     return (
       <div className={styles.postAdmin}>
+        Insert post here.
       </div>
     );
   }
