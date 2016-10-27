@@ -20,7 +20,7 @@ function AdminOptionButton(props) {
 }
 
 AdminOptionButton.propTypes = {
-  image: React.PropTypes.array,
+  image: React.PropTypes.string,
   name: React.PropTypes.string,
   slug: React.PropTypes.string,
 };

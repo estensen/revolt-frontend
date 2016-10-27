@@ -8,11 +8,3 @@
   display: flex;
   justify-content: center;
 }
-
-.submitButton {
-    padding:5px 15px;
-    background:#0c0;
-    border:0 none;
-    cursor:pointer;
-    border-radius: 5px;
-}

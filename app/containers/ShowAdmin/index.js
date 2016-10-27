@@ -12,6 +12,7 @@ import styles from './styles.css';
 import TextInput from 'components/TextInput';
 import TextAreaInput from 'components/TextAreaInput';
 import CheckboxInput from 'components/CheckboxInput';
+import SubmitButton from 'components/SubmitButton';
 
 export class ShowAdmin extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -90,7 +91,7 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
             <CheckboxInput label={'Arkivert?'} onChange={this.handleArchivedChange} value={this.state.archived} />
             <CheckboxInput label={'Ikke-barnevennlig innhold'} onChange={this.handleExplicitContentChange} value={this.state.explicitContent} />
             <div>Språk</div>
-            <button className={styles.submitButton} onClick={() => this.props.onAddShow(this.state)} value="Lagre">Lagre</button>
+            <SubmitButton onClick={() => this.props.onAddShow(this.state)}>Lagre</SubmitButton>
             {
               // TODO: Add selection box for languages and automatic fetching of RSS-feed.
             }
