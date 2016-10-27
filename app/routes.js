@@ -166,6 +166,26 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/admin/post/ny',
+      name: 'PostAdmin',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/PostAdmin/reducer'),
+          System.import('containers/PostAdmin/sagas'),
+          System.import('containers/PostAdmin'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('postAdmin', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
