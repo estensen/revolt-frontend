@@ -151,15 +151,19 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/EpisodeAdmin/reducer'),
+          System.import('containers/Shows/reducer'),
           System.import('containers/EpisodeAdmin/sagas'),
+          System.import('containers/Shows/sagas'),
           System.import('containers/EpisodeAdmin'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('episodeAdmin', reducer.default);
-          injectSagas(sagas.default);
+        importModules.then(([episodeReducer, showReducer, episodeSagas, showSagas, component]) => {
+          injectReducer('episodeAdmin', episodeReducer.default);
+          injectReducer('shows', showReducer.default);
+          injectSagas(episodeSagas.default);
+          injectSagas(showSagas.default);
           renderRoute(component);
         });
 
