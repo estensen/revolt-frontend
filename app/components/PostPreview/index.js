@@ -13,7 +13,7 @@ function PostPreview(props) {
   return (
     <div className={styles.postPreview}>
       <Link className={styles.imageLink} to={`/post/${props.slug}`}>
-        <img className={styles.image} src={`/media/${props.image}`} alt={props.title} />
+        <img className={styles.image} src={props.coverPhoto} alt={props.title} />
       </Link>
       <Link className={styles.titleLink} to={`/post/${props.slug}`}>
         <h2 className={styles.title}>
@@ -27,10 +27,9 @@ function PostPreview(props) {
 
 PostPreview.propTypes = {
   title: React.PropTypes.string,
-  createdBy: React.PropTypes.string,
   slug: React.PropTypes.string,
   lead: React.PropTypes.string,
-  image: React.PropTypes.string,
+  coverPhoto: React.PropTypes.string,
 };
 
 export default PostPreview;
