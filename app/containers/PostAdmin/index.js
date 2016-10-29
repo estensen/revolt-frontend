@@ -89,7 +89,7 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
     ];
     return (
       <div className={styles.postAdmin}>
-        <h1>Opprett nytt program</h1>
+        <h1>Opprett ny bloggpost</h1>
         <div>
           <TextInput label={'Tittel'} onChange={this.handleTitleChange} value={this.state.title} />
           <UploadFileInput label={'Forsidebilde'} onChange={this.handleCoverPhotoChange} />
