@@ -13,6 +13,8 @@ import TextInput from 'components/TextInput';
 import TextAreaInput from 'components/TextAreaInput';
 import CheckboxInput from 'components/CheckboxInput';
 import SubmitButton from 'components/SubmitButton';
+import UploadFileInput from 'components/UploadFileInput';
+import SelectInput from 'components/SelectInput';
 
 export class ShowAdmin extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -77,24 +79,25 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
   }
 
   render() {
+    const languages = [
+      <option value={'no'} key={'no'}>Norsk</option>,
+      <option value={'en'} key={'en'}>Engelsk</option>,
+    ];
+
     return (
       <div className={styles.wrapper}>
         <div className={styles.ShowAdmin}>
           <h1>Opprett nytt program</h1>
           <div>
             <TextInput label={'Tittel'} onChange={this.handleTitleChange} value={this.state.title} />
-            <span>Programbilde</span>
-            <input className="fileInput" type="file" onChange={(e) => this.handleImageChange(e)} />
+            <UploadFileInput label={'Programbilde'} onChange={this.handleImageChange} />
             <TextAreaInput label={'Kort beskrivelse'} onChange={this.handleLeadChange} value={this.state.lead} />
             <TextAreaInput label={'Lang beskrivelse'} onChange={this.handleDescriptionChange} value={this.state.description} />
             <TextInput label={'RSS-feed'} onChange={this.handleRssFeedChange} value={this.state.rssFeed} />
+            <SelectInput label={'Språk'} options={languages} />
             <CheckboxInput label={'Arkivert?'} onChange={this.handleArchivedChange} value={this.state.archived} />
             <CheckboxInput label={'Ikke-barnevennlig innhold'} onChange={this.handleExplicitContentChange} value={this.state.explicitContent} />
-            <div>Språk</div>
             <SubmitButton onClick={() => this.props.onAddShow(this.state)}>Lagre</SubmitButton>
-            {
-              // TODO: Add selection box for languages and automatic fetching of RSS-feed.
-            }
           </div>
         </div>
       </div>
