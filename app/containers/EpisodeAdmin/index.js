@@ -20,6 +20,7 @@ import styles from './styles.css';
 import TextInput from 'components/TextInput';
 import TextAreaInput from 'components/TextAreaInput';
 import SubmitButton from 'components/SubmitButton';
+import SelectInput from 'components/SelectInput';
 
 export class EpisodeAdmin extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -71,10 +72,10 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
         <h1>Opprett ny episode</h1>
         <TextInput label={'Tittel'} onChange={this.handleTitleChange} value={this.state.title} />
         <TextAreaInput label={'Kort beskrivelse'} onChange={this.handleLeadChange} value={this.state.lead} />
-        <select>{shows}</select>
+        <SelectInput label={'Hvilket show hører episoden til?'} options={shows} />
          {/* TODO */}
-        <TextInput label={'PodcastUrl - Burde legges inn automatisk?'} onChange={this.handlePodcastUrlChange} value={this.state.podcastUrl} />
-        <TextInput label={'SoundUrl - Burde legges inn automatisk?'} onChange={this.handleSoundUrlChange} value={this.state.soundUrl} />
+        <TextInput label={'PodcastUrl - Automatiser!'} onChange={this.handlePodcastUrlChange} value={this.state.podcastUrl} />
+        <TextInput label={'SoundUrl - Automatiser!'} onChange={this.handleSoundUrlChange} value={this.state.soundUrl} />
 
         <SubmitButton onClick={() => this.props.onAddEpisode(this.state)}>Lagre</SubmitButton>
       </div>
