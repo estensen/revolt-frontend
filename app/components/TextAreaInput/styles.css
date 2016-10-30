@@ -2,7 +2,9 @@
   margin-bottom: 20px;
 }
 
-.textAreaInput { /* stylelint-disable */
+.textAreaInput {
+  font-family: inherit;
+  font-size: inherit;
   display:block;
   border: 1px solid #AAA;
   border-radius: 3px;
