@@ -19,15 +19,28 @@ export class Admin extends React.Component { // eslint-disable-line react/prefer
   render() {
     return (
       <div className={styles.admin}>
-        <Link className={styles.titleLink} to={'/admin/post/ny'}>
-          <AdminOptionButton name="Nytt blogginnlegg" image={svgBlog} />
-        </Link>
-        <Link className={styles.titleLink} to={'/admin/episoder/ny'}>
-          <AdminOptionButton name="Ny Episode" image={svgMic} />
-        </Link>
-        <Link className={styles.titleLink} to={'/admin/programmer/ny'}>
-          <AdminOptionButton name="Nytt Program" image={svgShow} />
-        </Link>
+        <div className={styles.adminRow}>
+          <Link className={styles.titleLink} to={'/admin/post/ny'}>
+            <AdminOptionButton name="Nytt Blogginnlegg" image={svgBlog} />
+          </Link>
+          <Link className={styles.titleLink} to={'/admin/episoder/ny'}>
+            <AdminOptionButton name="Ny Episode" image={svgMic} />
+          </Link>
+          <Link className={styles.titleLink} to={'/admin/programmer/ny'}>
+            <AdminOptionButton name="Nytt Program" image={svgShow} />
+          </Link>
+        </div>
+        <div className={styles.adminRow}>
+          <Link className={styles.titleLink} to={'/admin/post/endre'}>
+            <AdminOptionButton name="Endre Blogginnlegg" image={svgBlog} />
+          </Link>
+          <Link className={styles.titleLink} to={'/admin/episoder/endre'}>
+            <AdminOptionButton name="Endre Episode" image={svgMic} />
+          </Link>
+          <Link className={styles.titleLink} to={'/admin/programmer/endre'}>
+            <AdminOptionButton name="Endre Program" image={svgShow} />
+          </Link>
+        </div>
       </div>
     );
   }

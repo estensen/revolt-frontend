@@ -1,7 +1,7 @@
 
-.admin { /* stylelint-disable */
+.adminRow { /* stylelint-disable */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-content: center;
+  align-content: space-between;
 }
