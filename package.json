@@ -267,7 +267,7 @@
     "ngrok": "2.2.2",
     "null-loader": "0.1.1",
     "offline-plugin": "3.4.2",
-    "plop": "1.6.0",
+    "plop": "1.7.0",
     "postcss-cssnext": "2.7.0",
     "postcss-focus": "1.0.0",
     "postcss-loader": "0.9.1",
