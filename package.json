@@ -264,7 +264,7 @@
     "lint-staged": "2.0.3",
     "minimist": "1.2.0",
     "mocha": "3.2.0",
-    "ngrok": "2.2.2",
+    "ngrok": "2.2.4",
     "null-loader": "0.1.1",
     "offline-plugin": "4.5.3",
     "plop": "1.5.0",
