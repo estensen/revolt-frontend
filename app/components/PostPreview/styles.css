@@ -1,4 +1,5 @@
-.image {
+.image-container {
+  position: absolute;
   width: 100%;
 }
 

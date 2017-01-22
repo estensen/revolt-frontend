@@ -10,7 +10,7 @@ import Show from 'components/ShowPreview';
 import styles from './styles.css';
 
 function ShowPreviewList(props) {
-  const compareShows = (showA, showB) => showA.name.localeCompare(showB.name);
+  const compareShows = (showA, showB) => showA.title.localeCompare(showB.title);
 
   const activeShows = props.shows
   .filter(show => !show.archived)

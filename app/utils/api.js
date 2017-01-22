@@ -1,6 +1,6 @@
 
 const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/graphql' : '/graphql';
-
+export const NEW_API_URL = 'http://localhost:9000/';
 const handleError = res => {
   if (res.status < 300) return res;
   const err = new Error(res.status);

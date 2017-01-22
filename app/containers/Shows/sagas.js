@@ -4,23 +4,13 @@ import {
   showsLoadedError,
 } from 'containers/Shows/actions';
 import { LOAD_SHOWS_PENDING } from './constants';
-import { getGraphQL } from 'utils/api';
+import { get, NEW_API_URL } from 'utils/api';
 
 // Individual exports for testing
 export function* getShows() {
-  const query = `query {
-    allShows {
-      id,
-      name,
-      image,
-      lead,
-      slug,
-      archived
-    }
-  }`;
   try {
-    const result = yield call(getGraphQL, query);
-    yield put(showsLoaded(result.data.allShows));
+    const result = yield call(get, `posts/${NEW_API_URL}`);
+    yield put(showsLoaded(result));
   } catch (error) {
     yield put(showsLoadedError());
   }
