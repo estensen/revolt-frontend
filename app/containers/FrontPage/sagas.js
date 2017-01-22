@@ -4,21 +4,12 @@ import {
   frontPagePostsError,
 } from './actions';
 import { LOAD_FRONT_PAGE_POSTS_PENDING } from './constants';
-import { get, new_API_URL } from 'utils/api';
+import { get, NEW_API_URL } from 'utils/api';
 
 // Individual exports for testing
 export function* loadFrontPageArticles() {
-  const query = `query {
-    frontPagePosts {
-      id,
-      title,
-      slug,
-      image,
-      lead
-    }
-  }`;
   try {
-    const result = yield call(get, new_API_URL + 'posts/');
+    const result = yield call(get, `posts/${NEW_API_URL}`);
     yield put(frontPagePostsLoaded(result));
   } catch (error) {
     yield put(frontPagePostsError());
