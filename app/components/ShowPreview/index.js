@@ -12,12 +12,12 @@ import styles from './styles.css';
 function ShowPreview(props) {
   return (
     <div className={styles.container}>
-      <Link className={styles.imageLink} to={`/programmer/${props.slug}`}>
-        <img className={styles.image} src={props.image} alt={props.name} />
+      <Link className={styles.imageLink} to={`/programmer/${props.title}`}>
+        <img className={styles.image} src={props.logoImage} alt={props.title} />
       </Link>
       <Link className={styles.nameLink} to={`/programmer/${props.slug}`}>
         <h2 className={styles.name}>
-          {props.name}
+          {props.title}
         </h2>
       </Link>
       <div className={styles.lead}>{props.lead}</div>
@@ -26,8 +26,8 @@ function ShowPreview(props) {
 }
 
 ShowPreview.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  image: React.PropTypes.string.isRequired,
+  title: React.PropTypes.string.isRequired,
+  logoImage: React.PropTypes.string.isRequired,
   slug: React.PropTypes.string.isRequired,
   lead: React.PropTypes.string.isRequired,
 };

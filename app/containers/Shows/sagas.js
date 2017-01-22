@@ -1,26 +1,16 @@
-import { take, call, put, select } from 'redux-saga/effects'; // eslint-disable-line
+import { take, call, put } from 'redux-saga/effects';
 import {
   showsLoaded,
   showsLoadedError,
 } from 'containers/Shows/actions';
 import { LOAD_SHOWS_PENDING } from './constants';
-import { getGraphQL } from 'utils/api';
+import { get, SHOWS_URL } from 'utils/api';
 
 // Individual exports for testing
 export function* getShows() {
-  const query = `query {
-    allShows {
-      id,
-      name,
-      image,
-      lead,
-      slug,
-      archived
-    }
-  }`;
   try {
-    const result = yield call(getGraphQL, query);
-    yield put(showsLoaded(result.data.allShows));
+    const result = yield get(SHOWS_URL);
+    yield put(showsLoaded(result));
   } catch (error) {
     yield put(showsLoadedError());
   }
