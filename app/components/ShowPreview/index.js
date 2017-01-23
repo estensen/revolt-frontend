@@ -21,6 +21,7 @@ function ShowPreview(props) {
         </h2>
       </Link>
       <div className={styles.lead}>{props.lead}</div>
+      <div className={styles.catTag}>Tag</div>
     </div>
   );
 }
@@ -30,6 +31,7 @@ ShowPreview.propTypes = {
   image: React.PropTypes.string.isRequired,
   slug: React.PropTypes.string.isRequired,
   lead: React.PropTypes.string.isRequired,
+  catTag: React.PropTypes.number.isRequired,
 };
 
 export default ShowPreview;
