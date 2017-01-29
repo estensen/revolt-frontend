@@ -12,7 +12,13 @@ import {
   selectShowsLoading,
   selectShowsError,
 } from 'containers/Shows/selectors';
+import {
+  selectCategories,
+  selectCategoriesLoading,
+  selectCategoriesError,
+} from 'containers/Categories/selectors';
 import { loadShows } from 'containers/Shows/actions';
+import { loadCategories } from 'containers/Categories/actions';
 import { addPostPending } from './actions';
 import styles from './styles.css';
 
@@ -49,6 +55,7 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
   }
   componentWillMount() {
     this.props.loadShows();
+    this.props.loadCategories();
   }
 
   handleTitleChange(event) {
@@ -65,10 +72,10 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
     this.setState({ content: event.target.value });
   }
   handleShowChange(event) {
-    this.setState({ show: event.target.value });
+    this.setState({ showId: event.target.value || null });
   }
   handleCategoryChange(event) {
-    this.setState({ category: event.target.value });
+    this.setState({ categoryId: event.target.value || null });
   }
   handlePinnedChange() {
     this.setState({ pinned: !this.state.pinned });
@@ -93,15 +100,20 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
 
   render() {
     let shows;
-    if (this.props.shows !== false) {
+    if (this.props.shows !== false && this.props.shows.length > 0) {
       shows = this.props.shows.map(
-        show => <option value={show.title} key={show.id}>{show.title}</option>
+        show => <option value={show.id} key={show.id}>{show.title}</option>
       );
+      shows.unshift(<option value={''} key={'show-placeholder'}>Velg show</option>);
     }
-    const DUMMY_CATEGORIES = [
-      <option value={1} key={1}>Kategori 1</option>,
-      <option value={2} key={2}>Kategori 2</option>,
-    ];
+
+    let categories;
+    if (this.props.categories !== false && this.props.categories.length > 0) {
+      categories = this.props.categories.map(
+        category => <option value={category.id} key={category.id}>{category.title}</option>
+      );
+      categories.unshift(<option value={''} key={'category-placeholder'}>Velg kategori</option>);
+    }
     return (
       <div className={styles.postAdmin}>
         <h1>Opprett ny bloggpost</h1>
@@ -111,9 +123,9 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
           <TextAreaInput label={'Kort beskrivelse'} onChange={this.handleLeadChange} value={this.state.lead} />
           <TextAreaInput label={'Innhold'} onChange={this.handleContentChange} value={this.state.content} />
           <SelectInput label={'Tilhørende show'} onChange={this.handleShowChange} options={shows} />
-          <SelectInput label={'Kategori'} onChange={this.handleCategoryChange} options={DUMMY_CATEGORIES} />
+          <SelectInput label={'Kategori'} onChange={this.handleCategoryChange} options={categories} />
           <CheckboxInput label={'Fest til toppen av forsiden?'} onChange={this.handlePinnedChange} value={this.state.pinned} />
-          <SubmitButton onClick={() => this.props.onAddPost(this.state)}>Lagre</SubmitButton>
+          <SubmitButton onClick={() => this.props.onAddPost(this.state)}>Opprett ny bloggpost</SubmitButton>
         </div>
       </div>
     );
@@ -125,27 +137,39 @@ PostAdmin.propTypes = {
     React.PropTypes.bool,
     React.PropTypes.array,
   ]),
+  categories: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.array,
+  ]),
   onAddPost: React.PropTypes.func,
   loadShows: React.PropTypes.func,
+  loadCategories: React.PropTypes.func,
 };
 
 
 PostAdmin.defaultProps = {
-  loading: false,
-  error: false,
+  showsLoading: false,
+  showsError: false,
+  categoriesLoading: false,
+  categoriesError: false,
   shows: [],
+  categories: [],
 };
 
 const mapStateToProps = createStructuredSelector({
   shows: selectShows(),
-  loading: selectShowsLoading(),
-  error: selectShowsError(),
+  categories: selectCategories(),
+  showsLoading: selectShowsLoading(),
+  showsError: selectShowsError(),
+  categoriesLoading: selectCategoriesLoading(),
+  categoriesError: selectCategoriesError(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onAddPost: (post) => dispatch(addPostPending(post)),
     loadShows: () => dispatch(loadShows()),
+    loadCategories: () => dispatch(loadCategories()),
   };
 }
 
