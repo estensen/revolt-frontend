@@ -182,15 +182,19 @@ export default function createRoutes(store) {
           System.import('containers/PostAdmin'),
           System.import('containers/Shows/reducer'),
           System.import('containers/Shows/sagas'),
+          System.import('containers/Categories/reducer'),
+          System.import('containers/Categories/sagas'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([PostAdminReducer, PostAdminSagas, PostAdminComponent, ShowsReducer, ShowsSagas]) => {
+        importModules.then(([PostAdminReducer, PostAdminSagas, PostAdminComponent, ShowsReducer, ShowsSagas, CategoriesReducer, CategoriesSagas]) => {
           injectReducer('postAdmin', PostAdminReducer.default);
           injectSagas(PostAdminSagas.default);
           injectReducer('shows', ShowsReducer.default);
           injectSagas(ShowsSagas.default);
+          injectReducer('categories', CategoriesReducer.default);
+          injectSagas(CategoriesSagas.default);
           renderRoute(PostAdminComponent);
         });
 
