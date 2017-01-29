@@ -9,7 +9,6 @@ import { post, POSTS_URL } from 'utils/api';
 export function* addPost(postData) {
   try {
     const result = yield call(post, POSTS_URL, postData);
-    console.log(JSON.stringify(result, null, 4));
     yield put(addPostSuccess(result));
   } catch (error) {
     yield put(addPostError(error));
