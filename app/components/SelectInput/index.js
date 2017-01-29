@@ -21,7 +21,7 @@ function SelectInput(props) {
 SelectInput.propTypes = {
   label: React.PropTypes.string,
   options: React.PropTypes.array,
-  onChange: React.PropTypes.func,
+  onChange: React.PropTypes.func.isRequired,
 };
 
 export default SelectInput;

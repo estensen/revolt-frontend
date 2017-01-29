@@ -133,14 +133,17 @@ export default function createRoutes(store) {
           System.import('containers/ShowAdmin/reducer'),
           System.import('containers/ShowAdmin/sagas'),
           System.import('containers/ShowAdmin'),
+          System.import('containers/Shows/reducer'),
+          System.import('containers/Shows/sagas'),
+          System.import('containers/Shows'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('ShowAdmin', reducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
+        importModules.then(([ShowAdminReducer, ShowAdminSagas, ShowAdminComponent]) => {
+          injectReducer('ShowAdmin', ShowAdminReducer.default);
+          injectSagas(ShowAdminSagas.default);
+          renderRoute(ShowAdminComponent);
         });
 
         importModules.catch(errorLoading);
@@ -177,14 +180,18 @@ export default function createRoutes(store) {
           System.import('containers/PostAdmin/reducer'),
           System.import('containers/PostAdmin/sagas'),
           System.import('containers/PostAdmin'),
+          System.import('containers/Shows/reducer'),
+          System.import('containers/Shows/sagas'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('postAdmin', reducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
+        importModules.then(([PostAdminReducer, PostAdminSagas, PostAdminComponent, ShowsReducer, ShowsSagas]) => {
+          injectReducer('postAdmin', PostAdminReducer.default);
+          injectSagas(PostAdminSagas.default);
+          injectReducer('shows', ShowsReducer.default);
+          injectSagas(ShowsSagas.default);
+          renderRoute(PostAdminComponent);
         });
 
         importModules.catch(errorLoading);

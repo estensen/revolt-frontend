@@ -23,7 +23,7 @@ export class FrontPage extends React.Component { // eslint-disable-line react/pr
   }
 
   render() {
-    let posts = null;
+    let posts;
     if (this.props.posts !== false) {
       posts = <PostPreviewList posts={this.props.posts} />;
     }

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { addShow } from './actions';
+import { addShowPending } from './actions';
 import styles from './styles.css';
 
 import TextInput from 'components/TextInput';
@@ -117,8 +117,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onAddShow: (show) => dispatch(addShow(show)),
-
+    onAddShow: (show) => dispatch(addShowPending(show)),
   };
 }
 

@@ -82,7 +82,6 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
       );
     }
 
-
     return (
       <div className={styles.episodeAdmin}>
         <h1>Opprett ny episode</h1>
@@ -120,7 +119,6 @@ EpisodeAdmin.defaultProps = {
   loading: false,
   error: false,
   shows: [],
-
 };
 
 

@@ -6,8 +6,14 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import selectPostAdmin from './selectors';
-import { addPost } from './actions';
+import { createStructuredSelector } from 'reselect';
+import {
+  selectShows,
+  selectShowsLoading,
+  selectShowsError,
+} from 'containers/Shows/selectors';
+import { loadShows } from 'containers/Shows/actions';
+import { addPostPending } from './actions';
 import styles from './styles.css';
 
 import TextInput from 'components/TextInput';
@@ -27,8 +33,8 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
       coverPhoto: '',
       authorId: null,
       pinned: false,
-      category: '',
-      show: '',
+      categoryId: null,
+      showId: null,
       // Fields below should be refactored at a later stage
       file: '',
       imagePreviewUrl: '',
@@ -40,6 +46,9 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleShowChange = this.handleShowChange.bind(this);
     this.handleCoverPhotoChange = this.handleCoverPhotoChange.bind(this);
+  }
+  componentWillMount() {
+    this.props.loadShows();
   }
 
   handleTitleChange(event) {
@@ -55,14 +64,14 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
     event.preventDefault();
     this.setState({ content: event.target.value });
   }
+  handleShowChange(event) {
+    this.setState({ show: event.target.value });
+  }
+  handleCategoryChange(event) {
+    this.setState({ category: event.target.value });
+  }
   handlePinnedChange() {
     this.setState({ pinned: !this.state.pinned });
-  }
-  handleCategoryChange() {
-    this.setState({ category: !this.state.archived });
-  }
-  handleShowChange() {
-    this.setState({ show: !this.state.explicitContent });
   }
 
   handleCoverPhotoChange(e) {
@@ -83,6 +92,12 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
   }
 
   render() {
+    let shows;
+    if (this.props.shows !== false) {
+      shows = this.props.shows.map(
+        show => <option value={show.title} key={show.id}>{show.title}</option>
+      );
+    }
     const DUMMY_CATEGORIES = [
       <option value={1} key={1}>Kategori 1</option>,
       <option value={2} key={2}>Kategori 2</option>,
@@ -95,8 +110,9 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
           <UploadFileInput label={'Forsidebilde'} onChange={this.handleCoverPhotoChange} />
           <TextAreaInput label={'Kort beskrivelse'} onChange={this.handleLeadChange} value={this.state.lead} />
           <TextAreaInput label={'Innhold'} onChange={this.handleContentChange} value={this.state.content} />
-          <SelectInput label={'Kategori'} options={DUMMY_CATEGORIES} />
-          <CheckboxInput label={'Toppen av forsiden?'} onChange={this.handlePinnedChange} value={this.state.pinned} />
+          <SelectInput label={'Tilhørende show'} onChange={this.handleShowChange} options={shows} />
+          <SelectInput label={'Kategori'} onChange={this.handleCategoryChange} options={DUMMY_CATEGORIES} />
+          <CheckboxInput label={'Fest til toppen av forsiden?'} onChange={this.handlePinnedChange} value={this.state.pinned} />
           <SubmitButton onClick={() => this.props.onAddPost(this.state)}>Lagre</SubmitButton>
         </div>
       </div>
@@ -105,15 +121,31 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
 }
 
 PostAdmin.propTypes = {
+  shows: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.array,
+  ]),
   onAddPost: React.PropTypes.func,
+  loadShows: React.PropTypes.func,
 };
 
-const mapStateToProps = selectPostAdmin();
+
+PostAdmin.defaultProps = {
+  loading: false,
+  error: false,
+  shows: [],
+};
+
+const mapStateToProps = createStructuredSelector({
+  shows: selectShows(),
+  loading: selectShowsLoading(),
+  error: selectShowsError(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
-    onAddPost: (episode) => dispatch(addPost(episode)),
-    dispatch,
+    onAddPost: (post) => dispatch(addPostPending(post)),
+    loadShows: () => dispatch(loadShows()),
   };
 }
 
