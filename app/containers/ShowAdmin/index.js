@@ -6,7 +6,16 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { addShowPending } from './actions';
+import { createStructuredSelector } from 'reselect';
+import {
+  selectDigasShows,
+  selectDigasShowsLoading,
+  selectDigasShowsError,
+} from './selectors';
+import {
+  addShowPending,
+  loadDigasShowsPending,
+} from './actions';
 import styles from './styles.css';
 
 import TextInput from 'components/TextInput';
@@ -22,6 +31,7 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
     this.state = {
       title: '',
       description: '',
+      digasId: null,
       rssFeed: '',
       logoImage: '',
       lead: '',
@@ -32,9 +42,15 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleLeadChange = this.handleLeadChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleArchivedChange = this.handleArchivedChange.bind(this);
-    this.handleExplicitContentChange = this.handleExplicitContentChange.bind(this);
+    this.handleDigasIdChange = this.handleDigasIdChange.bind(this);
     this.handleRssFeedChange = this.handleRssFeedChange.bind(this);
+    this.handleArchivedChange = this.handleArchivedChange.bind(this);
+    this.handleLanguageChange = this.handleLanguageChange.bind(this);
+    this.handleExplicitContentChange = this.handleExplicitContentChange.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.loadDigasShows();
   }
 
   handleTitleChange(event) {
@@ -50,12 +66,18 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
     event.preventDefault();
     this.setState({ description: event.target.value });
   }
+  handleDigasIdChange(event) {
+    this.setState({ digasId: event.target.value || null });
+  }
   handleRssFeedChange(event) {
     event.preventDefault();
     this.setState({ rssFeed: event.target.value });
   }
   handleArchivedChange() {
     this.setState({ archived: !this.state.archived });
+  }
+  handleLanguageChange(event) {
+    this.setState({ language: event.target.value });
   }
   handleExplicitContentChange() {
     this.setState({ explicitContent: !this.state.explicitContent });
@@ -84,6 +106,13 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
       <option value={'en'} key={'en'}>Engelsk</option>,
     ];
 
+    let digasShows;
+    if (this.props.digasShows !== false && this.props.digasShows.length > 0) {
+      digasShows = this.props.digasShows.map(
+        show => <option value={show.id} key={show.id}>{show.name}</option>
+      );
+      digasShows.unshift(<option value={''} key={'digasShow-placeholder'}>Velg show</option>);
+    }
     return (
       <div className={styles.wrapper}>
         <div className={styles.ShowAdmin}>
@@ -93,8 +122,10 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
             <UploadFileInput label={'Programbilde'} onChange={this.handleImageChange} />
             <TextAreaInput label={'Kort beskrivelse'} onChange={this.handleLeadChange} value={this.state.lead} />
             <TextAreaInput label={'Lang beskrivelse'} onChange={this.handleDescriptionChange} value={this.state.description} />
+            <SelectInput label={'Hva heter programmet i Digas?'} onChange={this.handleDigasIdChange} options={digasShows} />
+
             <TextInput label={'RSS-feed'} onChange={this.handleRssFeedChange} value={this.state.rssFeed} />
-            <SelectInput label={'Språk'} options={languages} />
+            <SelectInput label={'Språk'} onChange={this.handleLanguageChange} options={languages} />
             <CheckboxInput label={'Arkivert?'} onChange={this.handleArchivedChange} value={this.state.archived} />
             <CheckboxInput label={'Ikke-barnevennlig innhold'} onChange={this.handleExplicitContentChange} value={this.state.explicitContent} />
             <SubmitButton onClick={() => this.props.onAddShow(this.state)}>Lagre</SubmitButton>
@@ -106,18 +137,34 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
 }
 
 ShowAdmin.propTypes = {
-  onAddShow: React.PropTypes.func,
+  onAddShow: React.PropTypes.func.isRequired,
+  loadDigasShows: React.PropTypes.func.isRequired,
+  digasLoading: React.PropTypes.bool,
+  digasError: React.PropTypes.bool,
+  digasShows: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.array,
+  ]),
 };
 
-function mapStateToProps(state) {
-  return {
-    shows: state.shows,
-  };
-}
+ShowAdmin.defaultProps = {
+  addShowLoading: false,
+  addShowError: false,
+  digasLoading: false,
+  digasError: false,
+  digasShows: [],
+};
+
+const mapStateToProps = createStructuredSelector({
+  digasShows: selectDigasShows(),
+  digasLoading: selectDigasShowsLoading(),
+  digasError: selectDigasShowsError(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
     onAddShow: (show) => dispatch(addShowPending(show)),
+    loadDigasShows: () => dispatch(loadDigasShowsPending()),
   };
 }
 

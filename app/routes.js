@@ -133,9 +133,6 @@ export default function createRoutes(store) {
           System.import('containers/ShowAdmin/reducer'),
           System.import('containers/ShowAdmin/sagas'),
           System.import('containers/ShowAdmin'),
-          System.import('containers/Shows/reducer'),
-          System.import('containers/Shows/sagas'),
-          System.import('containers/Shows'),
         ]);
 
         const renderRoute = loadModule(cb);

@@ -3,12 +3,13 @@
  * ShowAdmin actions
  *
  */
-import axios from 'axios';
-import { NEW_API_URL } from 'utils/api';
 import {
   ADD_SHOW_PENDING,
   ADD_SHOW_SUCCESS,
   ADD_SHOW_FAILED,
+  LOAD_DIGAS_SHOWS_PENDING,
+  LOAD_DIGAS_SHOWS_SUCCESS,
+  LOAD_DIGAS_SHOWS_FAILED,
 } from './constants';
 
 export function addShowPending(show) {
@@ -18,10 +19,9 @@ export function addShowPending(show) {
   };
 }
 
-export function addShowSuccess(show) {
+export function addShowSuccess() {
   return {
     type: ADD_SHOW_SUCCESS,
-    show,
   };
 }
 
@@ -31,14 +31,23 @@ export function addShowError(error) {
     error,
   };
 }
-export function addShow(show) {
-  return (dispatch) => {
-    dispatch(addShowPending());
-    // TODO: Change from NEW_API_URL to API_URL when new backend deployed.
-    axios.post(`${NEW_API_URL}shows`, show)
-    .then((res) => res.data)
-    .then()
-    .then((resShow) => dispatch(addShowSuccess(resShow)))
-    .catch((err) => dispatch(addShowError(err)));
+
+export function loadDigasShowsPending() {
+  return {
+    type: LOAD_DIGAS_SHOWS_PENDING,
+  };
+}
+
+export function loadDigasShowsSuccess(shows) {
+  return {
+    type: LOAD_DIGAS_SHOWS_SUCCESS,
+    shows,
+  };
+}
+
+export function loadDigasShowsError(error) {
+  return {
+    type: LOAD_DIGAS_SHOWS_FAILED,
+    error,
   };
 }
