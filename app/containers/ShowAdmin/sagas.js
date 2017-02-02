@@ -27,7 +27,6 @@ export function* addShowWatcher() {
 export function* getDigasShows() {
   try {
     const result = yield get(PAPPAGORG_SHOWS_URL);
-    console.log(result);
     yield put(loadDigasShowsSuccess(result));
   } catch (error) {
     yield put(loadDigasShowsError());

@@ -14,12 +14,10 @@ const selectShowAdminDomain = () => state => state.get('ShowAdmin');
  * Default selector used by Shows
  */
 
-const selectDigasShows = () => {
-  console.log('Selecting digasShows');
-  return createSelector(
-    selectShowAdminDomain(),
+const selectDigasShows = () => createSelector(
+  selectShowAdminDomain(),
   (showState) => showState.get('digasShows')
-); };
+);
 
 const selectDigasShowsLoading = () => createSelector(
   selectShowAdminDomain(),
