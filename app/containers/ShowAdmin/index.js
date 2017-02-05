@@ -11,9 +11,14 @@ import {
   selectDigasShows,
   selectDigasShowsLoading,
   selectDigasShowsError,
+  selectDigasPodcastUrl,
+  selectDigasPodcastUrlLoading,
+  selectDigasPodcastUrlError,
 } from './selectors';
 import {
   addShowPending,
+  loadDigasPodcastUrlPending,
+  clearDigasPodcastUrl,
   loadDigasShowsPending,
 } from './actions';
 import styles from './styles.css';
@@ -32,7 +37,6 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
       title: '',
       description: '',
       digasId: null,
-      rssFeed: '',
       logoImage: '',
       lead: '',
       explicitContent: false,
@@ -43,10 +47,10 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
     this.handleLeadChange = this.handleLeadChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleDigasIdChange = this.handleDigasIdChange.bind(this);
-    this.handleRssFeedChange = this.handleRssFeedChange.bind(this);
     this.handleArchivedChange = this.handleArchivedChange.bind(this);
     this.handleLanguageChange = this.handleLanguageChange.bind(this);
     this.handleExplicitContentChange = this.handleExplicitContentChange.bind(this);
+    this.handleAddShow = this.handleAddShow.bind(this);
   }
 
   componentWillMount() {
@@ -67,11 +71,13 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
     this.setState({ description: event.target.value });
   }
   handleDigasIdChange(event) {
-    this.setState({ digasId: event.target.value || null });
-  }
-  handleRssFeedChange(event) {
-    event.preventDefault();
-    this.setState({ rssFeed: event.target.value });
+    const digasId = event.target.value || null;
+    this.setState({ digasId });
+    if (digasId !== null) {
+      this.props.dispatchDigasIdChange(digasId);
+    } else {
+      this.props.clearDigasPodcastUrl();
+    }
   }
   handleArchivedChange() {
     this.setState({ archived: !this.state.archived });
@@ -100,6 +106,13 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
     reader.readAsDataURL(file);
   }
 
+  handleAddShow() {
+    this.props.onAddShow({
+      podcastRssFeedUrl: this.props.digasPodcastUrl,
+      ...this.state,
+    });
+  }
+
   render() {
     const languages = [
       <option value={'no'} key={'no'}>Norsk</option>,
@@ -123,12 +136,10 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
             <TextAreaInput label={'Kort beskrivelse'} onChange={this.handleLeadChange} value={this.state.lead} />
             <TextAreaInput label={'Lang beskrivelse'} onChange={this.handleDescriptionChange} value={this.state.description} />
             <SelectInput label={'Hva heter programmet i Digas?'} onChange={this.handleDigasIdChange} options={digasShows} />
-
-            <TextInput label={'RSS-feed'} onChange={this.handleRssFeedChange} value={this.state.rssFeed} />
             <SelectInput label={'Språk'} onChange={this.handleLanguageChange} options={languages} />
             <CheckboxInput label={'Arkivert?'} onChange={this.handleArchivedChange} value={this.state.archived} />
             <CheckboxInput label={'Ikke-barnevennlig innhold'} onChange={this.handleExplicitContentChange} value={this.state.explicitContent} />
-            <SubmitButton onClick={() => this.props.onAddShow(this.state)}>Lagre</SubmitButton>
+            <SubmitButton onClick={this.handleAddShow}>Opprett nytt program</SubmitButton>
           </div>
         </div>
       </div>
@@ -138,7 +149,10 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
 
 ShowAdmin.propTypes = {
   onAddShow: React.PropTypes.func.isRequired,
+  dispatchDigasIdChange: React.PropTypes.func.isRequired,
+  clearDigasPodcastUrl: React.PropTypes.func.isRequired,
   loadDigasShows: React.PropTypes.func.isRequired,
+  digasPodcastUrl: React.PropTypes.string,
   digasLoading: React.PropTypes.bool,
   digasError: React.PropTypes.bool,
   digasShows: React.PropTypes.oneOfType([
@@ -157,13 +171,18 @@ ShowAdmin.defaultProps = {
 
 const mapStateToProps = createStructuredSelector({
   digasShows: selectDigasShows(),
-  digasLoading: selectDigasShowsLoading(),
-  digasError: selectDigasShowsError(),
+  digasShowsLoading: selectDigasShowsLoading(),
+  digasShowsError: selectDigasShowsError(),
+  digasPodcastUrl: selectDigasPodcastUrl(),
+  digasPodcastUrlLoading: selectDigasPodcastUrlLoading(),
+  digasPodcastUrlError: selectDigasPodcastUrlError(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onAddShow: (show) => dispatch(addShowPending(show)),
+    dispatchDigasIdChange: (showId) => dispatch(loadDigasPodcastUrlPending(showId)),
+    clearDigasPodcastUrl: () => dispatch(clearDigasPodcastUrl()),
     loadDigasShows: () => dispatch(loadDigasShowsPending()),
   };
 }

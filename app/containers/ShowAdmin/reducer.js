@@ -12,6 +12,10 @@ import {
   LOAD_DIGAS_SHOWS_PENDING,
   LOAD_DIGAS_SHOWS_SUCCESS,
   LOAD_DIGAS_SHOWS_FAILED,
+  LOAD_DIGAS_PODCASTURL_PENDING,
+  LOAD_DIGAS_PODCASTURL_SUCCESS,
+  LOAD_DIGAS_PODCASTURL_FAILED,
+  CLEAR_DIGAS_PODCASTURL,
 } from './constants';
 
 const initialState = fromJS({
@@ -49,6 +53,23 @@ function ShowAdminReducer(state = initialState, action) {
       return state
         .set('digasLoading', false)
         .set('digasError', true);
+    case LOAD_DIGAS_PODCASTURL_PENDING:
+      return state
+        .set('digasPodcastUrlLoading', true)
+        .set('digasPodcastUrlError', false)
+        .set('digasPodcastUrl', null);
+    case LOAD_DIGAS_PODCASTURL_SUCCESS:
+      return state
+        .set('digasPodcastUrlLoading', false)
+        .set('digasPodcastUrlError', false)
+        .set('digasPodcastUrl', action.url);
+    case LOAD_DIGAS_PODCASTURL_FAILED:
+      return state
+        .set('digasPodcastUrlLoading', false)
+        .set('digasPodcastUrlError', true);
+    case CLEAR_DIGAS_PODCASTURL:
+      return state
+      .set('digasPodcastUrl', null);
     default:
       return state;
   }
