@@ -5,15 +5,6 @@ import { createSelector } from 'reselect';
  */
 const selectShowAdminDomain = () => state => state.get('ShowAdmin');
 
-/**
- * Other specific selectors
- */
-
-
-/**
- * Default selector used by Shows
- */
-
 const selectDigasShows = () => createSelector(
   selectShowAdminDomain(),
   (showState) => showState.get('digasShows')
@@ -29,9 +20,27 @@ const selectDigasShowsError = () => createSelector(
   (showState) => showState.get('digasError')
 );
 
+const selectDigasPodcastUrl = () => createSelector(
+  selectShowAdminDomain(),
+  (state) => state.get('digasPodcastUrl')
+);
+
+const selectDigasPodcastUrlLoading = () => createSelector(
+  selectShowAdminDomain(),
+  (state) => state.get('digasPodcastUrlLoading')
+);
+
+const selectDigasPodcastUrlError = () => createSelector(
+  selectShowAdminDomain(),
+  (state) => state.get('digasPodcastUrlError')
+);
+
 export {
   selectShowAdminDomain,
   selectDigasShows,
   selectDigasShowsLoading,
   selectDigasShowsError,
+  selectDigasPodcastUrl,
+  selectDigasPodcastUrlLoading,
+  selectDigasPodcastUrlError,
 };

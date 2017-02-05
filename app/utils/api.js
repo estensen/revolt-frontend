@@ -1,6 +1,7 @@
 
 const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/graphql' : '/graphql';
 const PAPPAGORG_API_URL = 'http://pappagorg.radiorevolt.no/v1/';
+const PODKAST_API_URL = 'http://podkast.radiorevolt.no/api/url/';
 
 const handleError = res => {
   if (res.ok) return res;
@@ -19,7 +20,6 @@ export const PAPPAGORG_EPISODE_URL = `${PAPPAGORG_API_URL}lyd/ondemand/`;
 export const PAPPAGORG_SHOWS_URL = `${PAPPAGORG_API_URL}programmer/list/`;
 
 export const get = url => fetch(url).then(handleError).then(res => res.json());
-export const getPappagorgEpisodes = url => fetch(url).then(res => res.json());
 
 export const post = (url, body) => fetch(url, {
   method: 'POST',
@@ -30,6 +30,8 @@ export const post = (url, body) => fetch(url, {
 }).then(handleError).then(res => res.json());
 
 export const getGraphQL = query => get(`${API_URL}?query=${query}`);
+
+export const getPodcastUrl = showId => fetch(`${PODKAST_API_URL}${showId}`).then(res => res.text());
 
 export const getPodcasts = showId => get(`http://pappagorg.radiorevolt.no/v1/lyd/podcast/${showId}`);
 
