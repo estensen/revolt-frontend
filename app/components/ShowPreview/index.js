@@ -7,6 +7,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import Tags from '../Tags';
+
 import styles from './styles.css';
 
 function ShowPreview(props) {
@@ -14,6 +16,7 @@ function ShowPreview(props) {
     <div className={styles.container}>
       <Link className={styles.imageLink} to={`/programmer/${props.slug}`}>
         <img className={styles.image} src={props.image} alt={props.name} />
+        <Tags className={styles.Tags} />
       </Link>
       <Link className={styles.nameLink} to={`/programmer/${props.slug}`}>
         <h2 className={styles.name}>
