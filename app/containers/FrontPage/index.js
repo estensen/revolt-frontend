@@ -13,7 +13,9 @@ import {
   selectFrontPagePostsLoading,
   selectFrontPagePostsError,
 } from './selectors';
-import { loadFrontPagePosts } from './actions';
+import {
+  loadFrontPagePosts,
+} from './actions';
 
 import PostPreviewList from 'components/PostPreviewList';
 

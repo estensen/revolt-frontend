@@ -4,8 +4,6 @@ const PAPPAGORG_API_URL = 'http://pappagorg.radiorevolt.no/v1/';
 const PODKAST_API_URL = 'http://podkast.radiorevolt.no/api/url/';
 
 
-
-
 const handleError = res => {
   if (res.ok) return res;
   const err = new Error(res.status);
@@ -24,6 +22,7 @@ export const PAPPAGORG_PODCAST_EPISODES_URL = `${PAPPAGORG_API_URL}lyd/podcast/`
 export const PAPPAGORG_SHOWS_URL = `${PAPPAGORG_API_URL}programmer/list/`;
 
 export const get = url => fetch(url).then(handleError).then(res => res.json());
+export const getQuery = (url, attribute, value) => fetch(`${url}?${attribute}=${value}`).then(handleError).then(res => res.json());
 
 export const post = (url, body) => fetch(url, {
   method: 'POST',
