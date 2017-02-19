@@ -3,6 +3,9 @@ const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/
 const PAPPAGORG_API_URL = 'http://pappagorg.radiorevolt.no/v1/';
 const PODKAST_API_URL = 'http://podkast.radiorevolt.no/api/url/';
 
+
+
+
 const handleError = res => {
   if (res.ok) return res;
   const err = new Error(res.status);
@@ -16,7 +19,8 @@ export const POSTS_URL = `${NEW_API_URL}posts/`;
 export const EPISODES_URL = `${NEW_API_URL}episodes/`;
 export const CATEGORIES_URL = `${NEW_API_URL}categories/`;
 
-export const PAPPAGORG_EPISODE_URL = `${PAPPAGORG_API_URL}lyd/ondemand/`;
+export const PAPPAGORG_ONDEMAND_EPISODES_URL = `${PAPPAGORG_API_URL}lyd/ondemand/`;
+export const PAPPAGORG_PODCAST_EPISODES_URL = `${PAPPAGORG_API_URL}lyd/podcast/`;
 export const PAPPAGORG_SHOWS_URL = `${PAPPAGORG_API_URL}programmer/list/`;
 
 export const get = url => fetch(url).then(handleError).then(res => res.json());
@@ -35,4 +39,5 @@ export const getPodcastUrl = showId => fetch(`${PODKAST_API_URL}${showId}`).then
 
 export const getPodcasts = showId => get(`http://pappagorg.radiorevolt.no/v1/lyd/podcast/${showId}`);
 
-export const getOnDemand = showId => get(`http://pappagorg.radiorevolt.no/v1/lyd/ondemand/${showId}`);
+export const getDigasOnDemandEpisodes = digasShowId => get(`${PAPPAGORG_ONDEMAND_EPISODES_URL}${digasShowId}`);
+export const getDigasPodcastEpisodes = digasShowId => get(`${PAPPAGORG_PODCAST_EPISODES_URL}${digasShowId}`);

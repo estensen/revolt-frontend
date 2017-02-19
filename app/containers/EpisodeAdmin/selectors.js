@@ -5,21 +5,43 @@ import { createSelector } from 'reselect';
  */
 const selectEpisodeAdminDomain = () => state => state.get('episodeAdmin');
 
-/**
- * Other specific selectors
- */
 
-
-/**
- * Default selector used by EpisodeAdmin
- */
-
-const selectEpisodeAdmin = () => createSelector(
+const selectAddEpisodeLoading = () => createSelector(
   selectEpisodeAdminDomain(),
-  (substate) => substate.toJS()
+  (state) => state.get('addEpisodeLoading')
 );
 
-export default selectEpisodeAdmin;
+const selectAddEpisodeError = () => createSelector(
+  selectEpisodeAdminDomain(),
+  (state) => state.get('addEpisodeError')
+);
+
+const selectDigasEpisodesLoading = () => createSelector(
+  selectEpisodeAdminDomain(),
+  (state) => state.get('digasLoading')
+);
+
+const selectDigasEpisodesError = () => createSelector(
+  selectEpisodeAdminDomain(),
+  (state) => state.get('digasError')
+);
+
+const selectDigasOnDemandEpisodes = () => createSelector(
+  selectEpisodeAdminDomain(),
+  (state) => state.get('digasOnDemandEpisodes')
+);
+
+const selectDigasPodcastEpisodes = () => createSelector(
+  selectEpisodeAdminDomain(),
+  (state) => state.get('digasPodcastEpisodes')
+);
+
 export {
   selectEpisodeAdminDomain,
+  selectAddEpisodeLoading,
+  selectAddEpisodeError,
+  selectDigasOnDemandEpisodes,
+  selectDigasPodcastEpisodes,
+  selectDigasEpisodesLoading,
+  selectDigasEpisodesError,
 };
