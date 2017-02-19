@@ -1,4 +1,5 @@
 import { take, call, put } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 import {
   ADD_SHOW_PENDING,
   LOAD_DIGAS_SHOWS_PENDING,
@@ -24,6 +25,7 @@ export function* addShow(show) {
   try {
     const result = yield call(post, SHOWS_URL, show);
     yield put(addShowSuccess(result));
+    yield put(push('/admin'));
   } catch (error) {
     yield put(addShowError());
   }
