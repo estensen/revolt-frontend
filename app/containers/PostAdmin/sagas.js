@@ -1,4 +1,5 @@
 import { take, call, put } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 import { ADD_POST_PENDING } from './constants';
 import {
   addPostSuccess,
@@ -10,6 +11,7 @@ export function* addPost(postData) {
   try {
     const result = yield call(post, POSTS_URL, postData);
     yield put(addPostSuccess(result));
+    yield put(push('/admin'));
   } catch (error) {
     yield put(addPostError(error));
   }

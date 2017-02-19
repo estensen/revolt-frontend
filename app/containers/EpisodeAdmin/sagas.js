@@ -1,4 +1,5 @@
 import { take, call, put } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 import {
   ADD_EPISODE_PENDING,
   LOAD_DIGAS_EPISODES_PENDING,
@@ -20,6 +21,7 @@ export function* addEpisode(episode) {
   try {
     yield call(post, EPISODES_URL, episode);
     yield put(addEpisodeSuccess());
+    yield put(push('/admin'));
   } catch (error) {
     yield put(addEpisodeError());
   }
