@@ -7,6 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import moment from 'moment';
 import styles from './styles.css';
 import {
   selectFrontPagePosts,
@@ -27,6 +28,8 @@ export class FrontPage extends React.Component { // eslint-disable-line react/pr
   render() {
     let posts;
     if (this.props.posts !== false) {
+      // Sort the posts so that the latest posts is first
+      posts = this.props.posts.sort((postA, postB) => -moment(postA.createdAt).diff(postB.createdAt));
       posts = <PostPreviewList posts={this.props.posts} />;
     }
     return (
