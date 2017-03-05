@@ -17,10 +17,12 @@ export function loadShow(slug) {
   };
 }
 
-export function showLoaded(show) {
+export function showLoaded(data) {
   return {
     type: LOAD_SHOW_SUCCESS,
-    show,
+    show: data.show,
+    episodes: data.episodes,
+    posts: data.posts,
   };
 }
 

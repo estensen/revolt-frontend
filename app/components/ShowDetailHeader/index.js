@@ -13,10 +13,10 @@ function ShowDetailHeader(props) {
   return (
     <div className={styles.container}>
       <div className={styles.showInfo}>
-        <img className={styles.image} src={props.show.image} alt={props.show.name} />
+        <img className={styles.image} src={props.show.logoImageUrl} alt={props.show.title} />
         <div className={styles.showText}>
-          <h2 className={styles.name}>{props.show.name}</h2>
-          <p className={styles.lead}>{props.show.content}</p>
+          <h2 className={styles.name}>{props.show.title}</h2>
+          <p className={styles.lead}>{props.show.description}</p>
         </div>
       </div>
     </div>

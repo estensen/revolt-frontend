@@ -36,12 +36,12 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
     this.state = {
       title: '',
       description: '',
-      digasId: null,
-      logoImage: '',
+      logoImageUrl: null,
       lead: '',
       explicitContent: false,
       archived: false,
       language: 'no',
+      digasId: null,
     };
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleLeadChange = this.handleLeadChange.bind(this);

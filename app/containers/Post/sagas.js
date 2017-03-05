@@ -10,7 +10,7 @@ import { getQuery, POSTS_URL } from 'utils/api';
 export function* loadPost(slug) {
   try {
     const result = yield call(getQuery, POSTS_URL, 'slug', slug);
-    yield put(postLoaded(result));
+    yield put(postLoaded(result[0]));
   } catch (error) {
     yield put(postError());
   }
