@@ -64,6 +64,16 @@ class Player extends React.Component {
   };
 
   componentWillMount() {
+    // Load correct URL based on browser support
+    const oggUrl = 'https://direkte.radiorevolt.no/revolt.ogg';
+    const aacUrl = 'https://direkte.radiorevolt.no/revolt.aac';
+    if (soundManager.canPlayURL(oggUrl)) {
+      this.liveUrl = oggUrl;
+    } else {
+      this.liveUrl = aacUrl;
+    }
+
+
     // SoundManager2 setup
     soundManager.setup({
       preferFlash: false,
