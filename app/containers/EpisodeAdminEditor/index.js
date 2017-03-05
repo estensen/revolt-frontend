@@ -18,29 +18,37 @@ import { loadShows } from 'containers/Shows/actions';
 
 import SelectInput from 'components/SelectInput';
 
-export class EpisodeAdminPicker extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class EpisodeAdminEditor extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
-    this.props.loadShow();
+    this.props.loadShows();
   }
 
   render() {
+    let shows;
+    if (this.props.shows !== false && this.props.shows.length > 0) {
+      shows = this.props.shows.map(
+        show => <option value={show.id} key={show.id}>{show.title}</option>
+      );
+      shows.unshift(<option value={''} key={'show-placeholder'}>Velg show</option>);
+    }
+
     return (
       <div className={styles.episodeAdminPicker}>
-        <SelectInput label={'Velg showet som tilhører episoden'} options={this.props.shows} />
+        <SelectInput label={'Velg showet episoden tilhører'} options={shows} />
       </div>
     );
   }
 }
 
-EpisodeAdminPicker.propTypes = {
+EpisodeAdminEditor.propTypes = {
   shows: React.PropTypes.oneOfType([
     React.PropTypes.bool,
     React.PropTypes.array,
   ]),
-  loadShow: React.PropTypes.func.isRequired,
+  loadShows: React.PropTypes.func.isRequired,
 };
 
-EpisodeAdminPicker.defaultProps = {
+EpisodeAdminEditor.defaultProps = {
   loading: false,
   error: false,
   shows: [],
@@ -54,9 +62,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadShow: () => dispatch(loadShows()),
+    loadShows: () => dispatch(loadShows()),
     dispatch,
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EpisodeAdminPicker);
+export default connect(mapStateToProps, mapDispatchToProps)(EpisodeAdminEditor);

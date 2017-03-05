@@ -11,7 +11,7 @@ import {
 
 const initialState = fromJS({});
 
-function episodeAdminPickerReducer(state = initialState, action) {
+function episodeAdminEditorReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
@@ -20,4 +20,4 @@ function episodeAdminPickerReducer(state = initialState, action) {
   }
 }
 
-export default episodeAdminPickerReducer;
+export default episodeAdminEditorReducer;
