@@ -199,19 +199,23 @@ export default function createRoutes(store) {
       },
     }, {
       path: '/admin/episoder/endre',
-      name: 'episodeAdminPicker',
+      name: 'EpisodeAdminEditor',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/EpisodeAdminPicker/reducer'),
-          System.import('containers/EpisodeAdminPicker/sagas'),
-          System.import('containers/EpisodeAdminPicker'),
+          System.import('containers/EpisodeAdminEditor/reducer'),
+          System.import('containers/Shows/reducer'),
+          System.import('containers/EpisodeAdminEditor/sagas'),
+          System.import('containers/Shows/sagas'),
+          System.import('containers/EpisodeAdminEditor'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('episodeAdminPicker', reducer.default);
-          injectSagas(sagas.default);
+        importModules.then(([episodeReducer, showsReducar, episodeSagas, showsSagas, component]) => {
+          injectReducer('episodeAdminEditor', episodeReducer.default);
+          injectReducer('shows', showsReducar.default);
+          injectSagas(episodeSagas.default);
+          injectSagas(showsSagas.default);
           renderRoute(component);
         });
 
