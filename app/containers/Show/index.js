@@ -10,10 +10,14 @@ import { createStructuredSelector } from 'reselect';
 import moment from 'moment';
 import {
   selectShow,
+  selectShowEpisodes,
+  selectShowPosts,
   selectShowLoading,
   selectShowError,
 } from './selectors';
-import { loadShow } from './actions';
+import {
+  loadShow,
+} from './actions';
 import {
   getPodcastPlaylist,
   getOnDemandPlaylist,
@@ -32,20 +36,22 @@ export class Show extends React.Component { // eslint-disable-line react/prefer-
     if (this.props.show === false || this.props.show === null || this.props.loading) {
       return <div></div>;
     }
-
-    const episodes = this.props.show.episodes.map(e => ({
+    console.log('Stop1');
+    const episodes = this.props.episodes.map(e => ({
       ...e,
       date: e.createdAt,
       episode: true,
     }));
 
-    const posts = this.props.show.posts.map(p => ({
+    console.log('Stop2');
+    const posts = this.props.posts.map(p => ({
       ...p,
       createdBy: p.createdBy.fullName,
       date: p.publishAt,
       episode: false,
     }));
 
+    console.log('Stop3');
     const elementList = posts.concat(episodes).sort((a, b) => {
       const dateA = moment(a.date);
       const dateB = moment(b.date);
@@ -54,13 +60,14 @@ export class Show extends React.Component { // eslint-disable-line react/prefer-
       return 0;
     });
 
+    console.log('Stop4');
     const elements = elementList.map(
       (element, index) => {
         if (element.episode) {
           return (
             <Episode
               {...element}
-              showName={this.props.show.name}
+              showName={this.props.show.title}
               key={index}
               playOnDemand={this.props.playOnDemand}
             />
@@ -76,6 +83,7 @@ export class Show extends React.Component { // eslint-disable-line react/prefer-
       }
     );
 
+    console.log('Stop5');
     return (
       <div>
         <ShowDetailHeader show={this.props.show} />
@@ -92,6 +100,14 @@ Show.propTypes = {
     React.PropTypes.bool,
     React.PropTypes.object,
   ]),
+  episodes: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.array,
+  ]),
+  posts: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.array,
+  ]),
   params: React.PropTypes.object,
   loadShow: React.PropTypes.func,
   loading: React.PropTypes.bool,
@@ -102,6 +118,8 @@ Show.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   show: selectShow(),
+  episodes: selectShowEpisodes(),
+  posts: selectShowPosts(),
   loading: selectShowLoading(),
   error: selectShowError(),
 });

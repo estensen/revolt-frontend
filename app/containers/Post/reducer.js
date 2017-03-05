@@ -27,7 +27,7 @@ function postReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('error', false)
-        .set('data', action.post);
+        .set('post', action.post);
     case LOAD_POST_FAILED:
       return state
         .set('loading', true)
