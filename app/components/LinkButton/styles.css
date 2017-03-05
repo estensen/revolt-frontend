@@ -6,12 +6,11 @@
   margin: 5px 0;
   cursor: pointer;
 
-
   box-shadow: 0 0 2px grey;
   transition: box-shadow 0.2s;
 }
 
-.wrapper:hover { /* stylelint-disable */
+.wrapper:hover {
   background: #FDC72D;
   box-shadow: 2px 2px 2px grey;
 }
