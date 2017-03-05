@@ -45,7 +45,7 @@ class Player extends React.Component {
     // The controller handling playlist actions
     this.playlistController = new PlaylistController();
     // The live URL
-    this.liveUrl = 'http://streamer.radiorevolt.no:8000/revolt';
+    this.liveUrl = 'https://direkte.radiorevolt.no/revolt.ogg';
     // Max live offset in seconds
     this.maxLiveOffset = 60 * 60 * 4; // four hours
   }
@@ -64,6 +64,16 @@ class Player extends React.Component {
   };
 
   componentWillMount() {
+    // Load correct URL based on browser support
+    const oggUrl = 'https://direkte.radiorevolt.no/revolt.ogg';
+    const aacUrl = 'https://direkte.radiorevolt.no/revolt.aac';
+    if (soundManager.canPlayURL(oggUrl)) {
+      this.liveUrl = oggUrl;
+    } else {
+      this.liveUrl = aacUrl;
+    }
+
+
     // SoundManager2 setup
     soundManager.setup({
       preferFlash: false,
