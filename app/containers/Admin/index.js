@@ -6,7 +6,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
 import selectAdmin from './selectors';
 import styles from './styles.css';
@@ -20,26 +19,24 @@ export class Admin extends React.Component { // eslint-disable-line react/prefer
     return (
       <div className={styles.admin}>
         <div className={styles.adminRow}>
-          <Link className={styles.titleLink} to={'/admin/post/ny'}>
-            <AdminOptionButton name="Nytt Blogginnlegg" image={svgBlog} />
-          </Link>
-          <Link className={styles.titleLink} to={'/admin/episoder/ny'}>
-            <AdminOptionButton name="Ny Episode" image={svgMic} />
-          </Link>
-          <Link className={styles.titleLink} to={'/admin/programmer/ny'}>
-            <AdminOptionButton name="Nytt Program" image={svgShow} />
-          </Link>
-        </div>
-        <div className={styles.adminRow}>
-          <Link className={styles.titleLink} to={'/admin/post/endre'}>
-            <AdminOptionButton name="Endre Blogginnlegg" image={svgBlog} />
-          </Link>
-          <Link className={styles.titleLink} to={'/admin/episoder/endre'}>
-            <AdminOptionButton name="Endre Episode" image={svgMic} />
-          </Link>
-          <Link className={styles.titleLink} to={'/admin/programmer/endre'}>
-            <AdminOptionButton name="Endre Program" image={svgShow} />
-          </Link>
+          <AdminOptionButton
+            name="Blogginnlegg"
+            image={svgBlog}
+            newObjectPath="/admin/post/ny"
+            editObjectPath="/admin/post/endre"
+          />
+          <AdminOptionButton
+            name="Episoder"
+            image={svgMic}
+            newObjectPath="/admin/episoder/ny"
+            editObjectPath="/admin/episoder/endre"
+          />
+          <AdminOptionButton
+            name="Programmer"
+            image={svgShow}
+            newObjectPath="/admin/programmer/ny"
+            editObjectPath="/admin/programmer/endre"
+          />
         </div>
       </div>
     );
