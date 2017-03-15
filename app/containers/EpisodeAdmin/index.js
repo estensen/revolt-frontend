@@ -32,10 +32,13 @@ import {
 
 import styles from './styles.css';
 
-import TextInput from 'components/TextInput';
-import TextAreaInput from 'components/TextAreaInput';
-import SubmitButton from 'components/SubmitButton';
-import SelectInput from 'components/SelectInput';
+import EpisodeForm from 'components/EpisodeForm';
+
+// FieldChangeHandlerFactory
+const getFieldChangeHandler = (name) => function (event) { // eslint-disable-line func-names
+  event.preventDefault();
+  this.setState({ [name]: event.target.value });
+};
 
 export class EpisodeAdmin extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -47,26 +50,16 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
       soundUrl: null,
       showId: null,
     };
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleLeadChange = this.handleLeadChange.bind(this);
-    this.handleShowChange = this.handleShowChange.bind(this);
-    this.handleOnDemandEpisodeChange = this.handleOnDemandEpisodeChange.bind(this);
-    this.handlePodcastEpisodeChange = this.handlePodcastEpisodeChange.bind(this);
   }
 
   componentWillMount() {
     this.props.loadShows();
   }
 
-  handleTitleChange(event) {
-    this.setState({ title: event.target.value });
-  }
+  handleTitleChange = getFieldChangeHandler('title').bind(this)
+  handleLeadChange = getFieldChangeHandler('lead').bind(this)
 
-  handleLeadChange(event) {
-    this.setState({ lead: event.target.value });
-  }
-
-  handleShowChange(event) {
+  handleShowChange = (event) => {
     const showId = event.target.value || null;
     this.setState({ showId });
     if (showId !== null) {
@@ -79,7 +72,7 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
     }
   }
 
-  handleOnDemandEpisodeChange(event) {
+  handleOnDemandEpisodeChange = (event) => {
     const digasId = event.target.value || null;
     if (digasId !== null) {
       const selectedEpisode = this.props.digasOnDemandEpisodes.find(episode => episode.id == digasId); // eslint-disable-line eqeqeq
@@ -89,7 +82,7 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
     }
   }
 
-  handlePodcastEpisodeChange(event) {
+  handlePodcastEpisodeChange = (event) => {
     const digasId = event.target.value || null;
     if (digasId !== null) {
       const selectedEpisode = this.props.digasPodcastEpisodes.find(episode => episode.id == digasId); // eslint-disable-line eqeqeq
@@ -100,40 +93,43 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
   }
 
   render() {
-    let shows;
-    if (this.props.shows !== false && this.props.shows.length > 0) {
-      shows = this.props.shows.map(
-        show => <option value={show.id} key={show.id}>{show.title}</option>
-      );
-      shows.unshift(<option value={''} key={'show-placeholder'}>Velg program</option>);
-    }
+    const arrayToReactComponents = (array, defaultKey, defaultText) => {
+      let reactComponents;
+      if (array !== false && array.length > 0) {
+        reactComponents = array.map(
+          element => <option value={element.id} key={element.id}>{element.title}</option>
+        );
+        reactComponents.unshift(<option value={''} key={defaultKey}>{defaultText}</option>);
+        return reactComponents;
+      }
+      return false;
+    };
 
-    let digasOnDemandEpisodes;
-    if (this.props.digasOnDemandEpisodes !== false && this.props.digasOnDemandEpisodes.length > 0) {
-      digasOnDemandEpisodes = this.props.digasOnDemandEpisodes.map(
-        episode => <option value={episode.id} key={episode.id}>{episode.title}</option>
-      );
-      digasOnDemandEpisodes.unshift(<option value={''} key={'digasOnDemandEpisode-placeholder'}>Velg episode</option>);
-    }
-
-    let digasPodcastEpisodes;
-    if (this.props.digasPodcastEpisodes !== false && this.props.digasPodcastEpisodes.length > 0) {
-      digasPodcastEpisodes = this.props.digasPodcastEpisodes.map(
-        episode => <option value={episode.id} key={episode.id}>{episode.title}</option>
-      );
-      digasPodcastEpisodes.unshift(<option value={''} key={'digasPodcastEpisode-placeholder'}>Velg episode</option>);
-    }
-
+    const shows = arrayToReactComponents(this.props.shows,
+                                        'show-placeholder',
+                                        'Velg program');
+    const digasOnDemandEpisodes = arrayToReactComponents(this.props.digasOnDemandEpisodes,
+                                                        'digasOnDemandEpisode-placeholder',
+                                                        'Velg episode');
+    const digasPodcastEpisodes = arrayToReactComponents(this.props.digasPodcastEpisodes,
+                                                        'digasOnDemandEpisode-placeholder',
+                                                        'Velg episode');
     return (
       <div className={styles.episodeAdmin}>
         <h1>Opprett ny episode</h1>
-        <TextInput label={'Tittel'} onChange={this.handleTitleChange} value={this.state.title} />
-        <TextAreaInput label={'Kort beskrivelse'} onChange={this.handleLeadChange} value={this.state.lead} />
-        <SelectInput label={'Hvilket program hører episoden til?'} options={shows} onChange={this.handleShowChange} />
-        <SelectInput label={'Hva heter on-demand-episoden i Digas?'} options={digasOnDemandEpisodes} onChange={this.handleOnDemandEpisodeChange} />
-        <SelectInput label={'Hva heter podcast-episoden i Digas?'} options={digasPodcastEpisodes} onChange={this.handlePodcastEpisodeChange} />
+        <EpisodeForm
+          onTitleChange={this.handleTitleChange}
+          onLeadChange={this.handleLeadChange}
+          onShowChange={this.handleShowChange}
+          onOnDemandEpisodeChange={this.handleOnDemandEpisodeChange}
+          onPodcastEpisodeChange={this.handlePodcastEpisodeChange}
 
-        <SubmitButton onClick={() => this.props.onAddEpisode(this.state)}>Opprett episode</SubmitButton>
+          title={this.state.title}
+          lead={this.state.lead}
+          shows={shows}
+          digasOnDemandEpisodes={digasOnDemandEpisodes}
+          digasPodcastEpisodes={digasPodcastEpisodes}
+        />
       </div>
     );
   }
