@@ -93,7 +93,7 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
   }
 
   render() {
-    const arrayToReactComponents = (array, defaultKey, defaultText) => {
+    const arrayToOptionComponents = (array, defaultKey, defaultText) => {
       let reactComponents;
       if (array !== false && array.length > 0) {
         reactComponents = array.map(
@@ -105,13 +105,13 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
       return false;
     };
 
-    const shows = arrayToReactComponents(this.props.shows,
+    const shows = arrayToOptionComponents(this.props.shows,
                                         'show-placeholder',
                                         'Velg program');
-    const digasOnDemandEpisodes = arrayToReactComponents(this.props.digasOnDemandEpisodes,
+    const digasOnDemandEpisodes = arrayToOptionComponents(this.props.digasOnDemandEpisodes,
                                                         'digasOnDemandEpisode-placeholder',
                                                         'Velg episode');
-    const digasPodcastEpisodes = arrayToReactComponents(this.props.digasPodcastEpisodes,
+    const digasPodcastEpisodes = arrayToOptionComponents(this.props.digasPodcastEpisodes,
                                                         'digasOnDemandEpisode-placeholder',
                                                         'Velg episode');
     return (
