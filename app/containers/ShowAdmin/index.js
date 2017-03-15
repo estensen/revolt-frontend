@@ -23,12 +23,13 @@ import {
 } from './actions';
 import styles from './styles.css';
 
-import TextInput from 'components/TextInput';
-import TextAreaInput from 'components/TextAreaInput';
-import CheckboxInput from 'components/CheckboxInput';
-import SubmitButton from 'components/SubmitButton';
-import UploadFileInput from 'components/UploadFileInput';
-import SelectInput from 'components/SelectInput';
+import ShowForm from 'components/ShowForm';
+
+// FieldChangeHandlerFactory
+const getFieldChangeHandler = (name) => function (event) { // eslint-disable-line func-names
+  event.preventDefault();
+  this.setState({ [name]: event.target.value });
+};
 
 export class ShowAdmin extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -43,34 +44,33 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
       language: 'no',
       digasId: null,
     };
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleLeadChange = this.handleLeadChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleDigasIdChange = this.handleDigasIdChange.bind(this);
-    this.handleArchivedChange = this.handleArchivedChange.bind(this);
-    this.handleLanguageChange = this.handleLanguageChange.bind(this);
-    this.handleExplicitContentChange = this.handleExplicitContentChange.bind(this);
-    this.handleAddShow = this.handleAddShow.bind(this);
   }
 
   componentWillMount() {
     this.props.loadDigasShows();
   }
 
-  handleTitleChange(event) {
+  handleTitleChange = getFieldChangeHandler('title').bind(this)
+  handleLeadChange = getFieldChangeHandler('lead').bind(this)
+  handleDescriptionChange = getFieldChangeHandler('description').bind(this)
+  handleLanguageChange = getFieldChangeHandler('language').bind(this)
+
+  handleImageChange = (event) => {
     event.preventDefault();
-    this.setState({ title: event.target.value });
+
+    const reader = new FileReader();
+    const file = event.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file,
+        imagePreviewUrl: reader.result,
+      });
+    };
+    reader.readAsDataURL(file);
   }
 
-  handleLeadChange(event) {
-    event.preventDefault();
-    this.setState({ lead: event.target.value });
-  }
-  handleDescriptionChange(event) {
-    event.preventDefault();
-    this.setState({ description: event.target.value });
-  }
-  handleDigasIdChange(event) {
+  handleDigasIdChange = (event) => {
     const digasId = event.target.value || null;
     this.setState({ digasId });
     if (digasId !== null) {
@@ -79,34 +79,17 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
       this.props.clearDigasPodcastUrl();
     }
   }
-  handleArchivedChange() {
+
+  handleArchivedChange = () => {
     this.setState({ archived: !this.state.archived });
   }
-  handleLanguageChange(event) {
-    this.setState({ language: event.target.value });
-  }
-  handleExplicitContentChange() {
+
+  handleExplicitContentChange = () => {
     this.setState({ explicitContent: !this.state.explicitContent });
   }
 
-  handleImageChange(e) {
-    e.preventDefault();
-
-    const reader = new FileReader();
-    const file = e.target.files[0];
-    // console.log(file);
-
-    reader.onloadend = () => {
-      this.setState({
-        file,
-        imagePreviewUrl: reader.result,
-      });
-    };
-
-    reader.readAsDataURL(file);
-  }
-
-  handleAddShow() {
+  handleAddShow = (event) => {
+    event.preventDefault();
     this.props.onAddShow({
       podcastRssFeedUrl: this.props.digasPodcastUrl,
       ...this.state,
@@ -114,34 +97,35 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
   }
 
   render() {
-    const languages = [
-      <option value={'no'} key={'no'}>Norsk</option>,
-      <option value={'en'} key={'en'}>Engelsk</option>,
-    ];
-
-    let digasShows;
+    let digasShows = false;
     if (this.props.digasShows !== false && this.props.digasShows.length > 0) {
       digasShows = this.props.digasShows.map(
         show => <option value={show.id} key={show.id}>{show.name}</option>
       );
       digasShows.unshift(<option value={''} key={'digasShow-placeholder'}>Velg show</option>);
     }
+
     return (
       <div className={styles.wrapper}>
-        <div className={styles.ShowAdmin}>
-          <h1>Opprett nytt program</h1>
-          <div>
-            <TextInput label={'Tittel'} onChange={this.handleTitleChange} value={this.state.title} />
-            <UploadFileInput label={'Programbilde'} onChange={this.handleImageChange} />
-            <TextAreaInput label={'Kort beskrivelse'} onChange={this.handleLeadChange} value={this.state.lead} />
-            <TextAreaInput label={'Lang beskrivelse'} onChange={this.handleDescriptionChange} value={this.state.description} />
-            <SelectInput label={'Hva heter programmet i Digas?'} onChange={this.handleDigasIdChange} options={digasShows} />
-            <SelectInput label={'Språk'} onChange={this.handleLanguageChange} options={languages} />
-            <CheckboxInput label={'Arkivert?'} onChange={this.handleArchivedChange} value={this.state.archived} />
-            <CheckboxInput label={'Ikke-barnevennlig innhold'} onChange={this.handleExplicitContentChange} value={this.state.explicitContent} />
-            <SubmitButton onClick={this.handleAddShow}>Opprett nytt program</SubmitButton>
-          </div>
-        </div>
+        <h1>Opprett nytt program</h1>
+        <ShowForm
+          onTitleChange={this.handleTitleChange}
+          onImageChange={this.handleImageChange}
+          onLeadChange={this.handleLeadChange}
+          onDescriptionChange={this.handleDescriptionChange}
+          onDigasIdChange={this.handleDigasIdChange}
+          onLanguageChange={this.handleLanguageChange}
+          onArchivedChange={this.handleArchivedChange}
+          onExplicitContentChange={this.handleExplicitContentChange}
+          onAddShow={this.handleAddShow}
+
+          title={this.state.title}
+          lead={this.state.lead}
+          description={this.state.description}
+          digasIdOptions={digasShows}
+          archived={this.state.archived}
+          explicitContent={this.state.explicitContent}
+        />
       </div>
     );
   }
