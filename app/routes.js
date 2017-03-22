@@ -218,6 +218,26 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/sendeplan',
+      name: 'sendeplan',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Sendeplan/reducer'),
+          System.import('containers/Sendeplan/sagas'),
+          System.import('containers/Sendeplan'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('sendeplan', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
