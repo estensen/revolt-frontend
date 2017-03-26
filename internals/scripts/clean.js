@@ -34,30 +34,6 @@ cp('internals/templates/notFoundPage/messages.js', 'app/containers/NotFoundPage/
 cp('internals/templates/homePage/homePage.js', 'app/containers/HomePage/index.js');
 cp('internals/templates/homePage/messages.js', 'app/containers/HomePage/messages.js');
 
-// Handle Translations
-mkdir('-p', 'app/translations');
-cp('internals/templates/translations/en.json',
-  'app/translations/en.json');
-
-// move i18n file
-cp('internals/templates/i18n.js',
-  'app/i18n.js');
-
-// Copy LanguageProvider
-mkdir('-p', 'app/containers/LanguageProvider');
-mkdir('-p', 'app/containers/LanguageProvider/tests');
-cp('internals/templates/languageProvider/actions.js',
-  'app/containers/LanguageProvider/actions.js');
-cp('internals/templates/languageProvider/constants.js',
-  'app/containers/LanguageProvider/constants.js');
-cp('internals/templates/languageProvider/languageProvider.js',
-  'app/containers/LanguageProvider/index.js');
-cp('internals/templates/languageProvider/reducer.js',
-  'app/containers/LanguageProvider/reducer.js');
-cp('internals/templates/languageProvider/selectors.js',
-  'app/containers/LanguageProvider/selectors.js');
-cp('internals/templates/styles.css', 'app/containers/App/styles.css');
-
 // Copy selectors
 mkdir('app/containers/App/tests');
 cp('internals/templates/selectors.js',

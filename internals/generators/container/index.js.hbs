@@ -12,10 +12,6 @@ import Helmet from 'react-helmet';
 {{#if wantActionsAndReducer}}
 import select{{properCase name}} from './selectors';
 {{/if}}
-{{#if wantMessages}}
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-{{/if}}
 {{#if wantCSS}}
 import styles from './styles.css';
 {{/if}}
@@ -35,9 +31,6 @@ export class {{ properCase name }} extends React.Component { // eslint-disable-l
           {{curly true}} name: 'description', content: 'Description of {{properCase name}}' {{curly}},
         ]{{curly}}
       />
-      {{/if}}
-      {{#if wantMessages}}
-        <FormattedMessage {...messages.header} />
       {{/if}}
       </div>
     );
