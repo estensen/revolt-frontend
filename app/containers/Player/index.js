@@ -45,7 +45,7 @@ class Player extends React.Component {
     // The controller handling playlist actions
     this.playlistController = new PlaylistController();
     // The live URL
-    this.liveUrl = 'http://streamer.radiorevolt.no:8000/revolt';
+    this.liveUrl = 'https://direkte.radiorevolt.no/revolt.ogg';
     // Max live offset in seconds
     this.maxLiveOffset = 60 * 60 * 4; // four hours
   }
@@ -64,6 +64,16 @@ class Player extends React.Component {
   };
 
   componentWillMount() {
+    // Load correct URL based on browser support
+    const oggUrl = 'https://direkte.radiorevolt.no/revolt.ogg';
+    const aacUrl = 'https://direkte.radiorevolt.no/revolt.aac';
+    if (soundManager.canPlayURL(oggUrl)) {
+      this.liveUrl = oggUrl;
+    } else {
+      this.liveUrl = aacUrl;
+    }
+
+
     // SoundManager2 setup
     soundManager.setup({
       preferFlash: false,
@@ -306,13 +316,20 @@ class Player extends React.Component {
       playPauseButtonStyle += ` ${styles.paused}`;
     }
 
+    const audioProgressStyle = {
+      width: progressBarWidth,
+    };
+    if (this.state.paused || this.state.live) {
+      audioProgressStyle.border = 'none';
+    }
+
     return (
       <div className={styles.container} title={this.state.displayText}>
         <div className={styles.audioControls}>
           <div className={styles.backButton} onClick={this.playPrevious}>
             <div className={styles.backButtonInner}>
               <div className={styles.rightFacingTriangle}></div>
-              <div className={styles.rightFacingTriangle}></div>
+              <div className={styles.line}></div>
             </div>
           </div>
           <div className={playPauseButtonStyle} onClick={this.togglePlayPause}>
@@ -326,7 +343,7 @@ class Player extends React.Component {
           <div className={styles.forwardButton} onClick={this.playNext}>
             <div className={styles.forwardButtonInner}>
               <div className={styles.rightFacingTriangle}></div>
-              <div className={styles.rightFacingTriangle}></div>
+              <div className={styles.line}></div>
             </div>
           </div>
         </div>
@@ -341,7 +358,7 @@ class Player extends React.Component {
         >
           <div
             className={styles.audioProgress}
-            style={{ width: progressBarWidth }}
+            style={audioProgressStyle}
           ></div>
           <div className={styles.audioProgressOverlay}>
             <div className={styles.audioInfoMarquee}>

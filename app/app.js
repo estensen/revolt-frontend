@@ -17,7 +17,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import useScroll from 'react-router-scroll';
+import { useScroll } from 'react-router-scroll';
 import configureStore from './store';
 import googleAnalytics from 'react-ga';
 
