@@ -4,22 +4,13 @@ import {
   frontPagePostsError,
 } from './actions';
 import { LOAD_FRONT_PAGE_POSTS_PENDING } from './constants';
-import { getGraphQL } from 'utils/api';
+import { get, POSTS_URL } from 'utils/api';
 
 // Individual exports for testing
 export function* loadFrontPageArticles() {
-  const query = `query {
-    frontPagePosts {
-      id,
-      title,
-      slug,
-      image,
-      lead
-    }
-  }`;
   try {
-    const result = yield call(getGraphQL, query);
-    yield put(frontPagePostsLoaded(result.data.frontPagePosts));
+    const result = yield call(get, POSTS_URL);
+    yield put(frontPagePostsLoaded(result));
   } catch (error) {
     yield put(frontPagePostsError());
   }

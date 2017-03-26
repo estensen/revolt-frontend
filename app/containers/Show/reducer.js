@@ -12,7 +12,9 @@ import {
 } from './constants';
 
 const initialState = fromJS({
-  data: false,
+  show: false,
+  episodes: false,
+  posts: false,
   loading: false,
   error: false,
 });
@@ -22,12 +24,17 @@ function showReducer(state = initialState, action) {
     case LOAD_SHOW_PENDING:
       return state
         .set('loading', true)
-        .set('error', false);
+        .set('error', false)
+        .set('show', false)
+        .set('episodes', false)
+        .set('posts', false);
     case LOAD_SHOW_SUCCESS:
       return state
         .set('loading', false)
         .set('error', false)
-        .set('data', action.show);
+        .set('show', action.show)
+        .set('episodes', action.episodes)
+        .set('posts', action.posts);
     case LOAD_SHOW_FAILED:
       return state
         .set('loading', true)

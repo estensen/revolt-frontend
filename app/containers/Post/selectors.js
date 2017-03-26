@@ -16,7 +16,7 @@ const selectPostDomain = () => state => state.get('post');
 
 const selectPost = () => createSelector(
   selectPostDomain(),
-  (postState) => postState.get('data')
+  (postState) => postState.get('post')
 );
 
 const selectPostLoading = () => createSelector(

@@ -42,6 +42,7 @@ export function injectAsyncReducer(store, isValid) {
  * Inject an asynchronously loaded saga
  */
 export function injectAsyncSagas(store, isValid) {
+  const prevSagas = [];
   return function injectSagas(sagas) {
     if (!isValid) checkStore(store);
 
@@ -55,7 +56,12 @@ export function injectAsyncSagas(store, isValid) {
       '(app/utils...) injectAsyncSagas: Received an empty `sagas` array'
     );
 
-    sagas.map(store.runSaga);
+    sagas.forEach((saga) => {
+      if (!prevSagas.includes(saga)) {
+        store.runSaga(saga);
+        prevSagas.push(saga);
+      }
+    });
   };
 }
 

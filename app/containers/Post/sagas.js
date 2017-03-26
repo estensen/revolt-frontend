@@ -4,28 +4,13 @@ import {
   postLoaded,
   postError,
 } from './actions';
-import { getGraphQL } from 'utils/api';
+import { getQuery, POSTS_URL } from 'utils/api';
 
 // Individual exports for testing
 export function* loadPost(slug) {
-  const query = `query {
-    post(slug:"${slug}") {
-      id,
-      title,
-      content,
-      publishAt,
-      createdBy {
-        fullName
-      },
-      show{
-        name,
-        slug
-      }
-    }
-  }`;
   try {
-    const result = yield call(getGraphQL, query);
-    yield put(postLoaded(result.data.post));
+    const result = yield call(getQuery, POSTS_URL, 'slug', slug);
+    yield put(postLoaded(result[0]));
   } catch (error) {
     yield put(postError());
   }

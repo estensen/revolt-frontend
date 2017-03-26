@@ -10,10 +10,14 @@ import { createStructuredSelector } from 'reselect';
 import moment from 'moment';
 import {
   selectShow,
+  selectShowEpisodes,
+  selectShowPosts,
   selectShowLoading,
   selectShowError,
 } from './selectors';
-import { loadShow } from './actions';
+import {
+  loadShow,
+} from './actions';
 import {
   getPodcastPlaylist,
   getOnDemandPlaylist,
@@ -21,6 +25,7 @@ import {
 import styles from './styles.css';
 import Episode from 'components/Episode';
 import PostPreview from 'components/PostPreview';
+import ShowDetailHeader from 'components/ShowDetailHeader';
 
 export class Show extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
@@ -31,16 +36,15 @@ export class Show extends React.Component { // eslint-disable-line react/prefer-
     if (this.props.show === false || this.props.show === null || this.props.loading) {
       return <div></div>;
     }
-
-    const episodes = this.props.show.episodes.map(e => ({
+    const episodes = this.props.episodes.map(e => ({
       ...e,
       date: e.createdAt,
       episode: true,
     }));
 
-    const posts = this.props.show.posts.map(p => ({
+    const posts = this.props.posts.map(p => ({
       ...p,
-      createdBy: p.createdBy.fullName,
+      createdBy: p.createdBy,
       date: p.publishAt,
       episode: false,
     }));
@@ -59,7 +63,7 @@ export class Show extends React.Component { // eslint-disable-line react/prefer-
           return (
             <Episode
               {...element}
-              showName={this.props.show.name}
+              showName={this.props.show.title}
               key={index}
               playOnDemand={this.props.playOnDemand}
             />
@@ -76,14 +80,8 @@ export class Show extends React.Component { // eslint-disable-line react/prefer-
     );
 
     return (
-      <div className={styles.container}>
-        <div className={styles.showInfo}>
-          <img className={styles.image} src={this.props.show.image} alt={this.props.show.name} />
-          <div className={styles.showText}>
-            <h2 className={styles.name}>{this.props.show.name}</h2>
-            <p className={styles.lead}>{this.props.show.content}</p>
-          </div>
-        </div>
+      <div>
+        <ShowDetailHeader show={this.props.show} />
         <div className={styles.content}>
           {elements}
         </div>
@@ -97,6 +95,14 @@ Show.propTypes = {
     React.PropTypes.bool,
     React.PropTypes.object,
   ]),
+  episodes: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.array,
+  ]),
+  posts: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
+    React.PropTypes.array,
+  ]),
   params: React.PropTypes.object,
   loadShow: React.PropTypes.func,
   loading: React.PropTypes.bool,
@@ -107,6 +113,8 @@ Show.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   show: selectShow(),
+  episodes: selectShowEpisodes(),
+  posts: selectShowPosts(),
   loading: selectShowLoading(),
   error: selectShowError(),
 });
@@ -120,7 +128,6 @@ function mapDispatchToProps(dispatch) {
     playOnDemand: (episodeId, offset = 0) => (
       dispatch(getOnDemandPlaylist(episodeId, offset))
     ),
-    dispatch,
   };
 }
 
