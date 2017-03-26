@@ -4,38 +4,25 @@ import {
   showLoaded,
   showError,
 } from './actions';
-import { getGraphQL } from 'utils/api';
+import {
+  getQuery,
+  SHOWS_URL,
+  EPISODES_URL,
+  POSTS_URL,
+} from 'utils/api';
 
 // Individual exports for testing
 export function* loadShow(slug) {
-  const query = `query {
-    show(slug:"${slug}") {
-      id,
-      name,
-      image,
-      content,
-      archived,
-      episodes {
-        id,
-        lead,
-        createdAt,
-      },
-      posts {
-        id,
-        title,
-        slug,
-        image,
-        publishAt,
-        lead,
-        createdBy {
-          fullName
-        }
-      }
-    }
-  }`;
   try {
-    const result = yield call(getGraphQL, query);
-    yield put(showLoaded(result.data.show));
+    let show = yield call(getQuery, SHOWS_URL, 'slug', slug);
+    show = show[0];
+    const episodes = yield call(getQuery, EPISODES_URL, 'showId', show.id);
+    const posts = yield call(getQuery, POSTS_URL, 'showId', show.id);
+    yield put(showLoaded({
+      show,
+      episodes,
+      posts,
+    }));
   } catch (error) {
     yield put(showError());
   }

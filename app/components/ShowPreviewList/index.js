@@ -11,7 +11,7 @@ import styles from './styles.css';
 import arrowImage from './arrow_down.svg';
 
 function ShowPreviewList(props) {
-  const compareShows = (showA, showB) => showA.name.localeCompare(showB.name);
+  const compareShows = (showA, showB) => showA.title.localeCompare(showB.name);
 
   const activeShows = props.shows
   .filter(show => !show.archived)

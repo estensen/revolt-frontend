@@ -16,7 +16,17 @@ const selectShowDomain = () => state => state.get('show');
 
 const selectShow = () => createSelector(
   selectShowDomain(),
-  (showState) => showState.get('data')
+  (showState) => showState.get('show')
+);
+
+const selectShowEpisodes = () => createSelector(
+  selectShowDomain(),
+  (showState) => showState.get('episodes')
+);
+
+const selectShowPosts = () => createSelector(
+  selectShowDomain(),
+  (showState) => showState.get('posts')
 );
 
 const selectShowLoading = () => createSelector(
@@ -32,6 +42,8 @@ const selectShowError = () => createSelector(
 export {
   selectShowDomain,
   selectShow,
+  selectShowEpisodes,
+  selectShowPosts,
   selectShowLoading,
   selectShowError,
 };

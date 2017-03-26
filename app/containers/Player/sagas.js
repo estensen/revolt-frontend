@@ -12,36 +12,27 @@ import {
 
 } from './actions';
 import {
-  getGraphQL,
+  getQuery,
+  EPISODES_URL,
+  SHOWS_URL,
 } from 'utils/api';
 
 // Individual exports for testing
 export function* playPodcast(episodeId, offset) {
-  const query = `query {
-    episode(id:${episodeId}) {
-      id,
-      show {
-        name,
-        episodes {
-          id,
-          title,
-          podcastUrl
-        }
-      }
-    }
-  }`;
-
   try {
-    const graphQlRes = yield call(getGraphQL, query);
-    const episode = graphQlRes.data.episode;
-    const episodes = episode.show.episodes;
+    let episode = yield call(getQuery, EPISODES_URL, 'id', episodeId);
+    episode = episode[0];
+    let show = yield call(getQuery, SHOWS_URL, 'id', episode.showId);
+    show = show[0];
+    const episodes = yield call(getQuery, EPISODES_URL, 'showId', show.id);
+
     const playlist = [];
     let index = 0;
 
     for (let i = episodes.length - 1; i >= 0; i--) {
       playlist.push({
         title: episodes[i].title,
-        show: episode.show.name,
+        show: show.name,
         url: episodes[i].podcastUrl,
       });
       if (episodes[i].id === episode.id) {
@@ -56,28 +47,18 @@ export function* playPodcast(episodeId, offset) {
 }
 
 export function* playOnDemand(episodeId, offset) {
-  const query = `query {
-    episode(id:${episodeId}) {
-      id,
-      show {
-        name,
-        episodes {
-          id,
-          title,
-          onDemandUrl
-        }
-      }
-    }
-  }`;
-
   try {
-    const graphQlRes = yield call(getGraphQL, query);
-    const episode = graphQlRes.data.episode;
-    const playlist = episode.show.episodes.map(e => ({
+    let episode = yield call(getQuery, EPISODES_URL, 'id', episodeId);
+    episode = episode[0];
+    let show = yield call(getQuery, SHOWS_URL, 'id', episode.showId);
+    show = show[0];
+    const episodes = yield call(getQuery, EPISODES_URL, 'showId', show.id);
+
+    const playlist = episodes.map(e => ({
       id: e.id,
       title: e.title,
-      show: episode.show.name,
-      url: e.onDemandUrl,
+      show: show.name,
+      url: e.soundUrl,
     })).reverse();
 
     const index = playlist.indexOf(playlist.find(e => e.id === episode.id));

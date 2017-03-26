@@ -46,16 +46,15 @@ export class Post extends React.Component { // eslint-disable-line react/prefer-
       return <div></div>;
     }
 
-    const time = this.getNormalizedDateString(this.props.post.publishAt);
+    const time = this.getNormalizedDateString(this.props.post.createdAt);
 
     return (
       <div className={styles.post}>
         <h1 className={styles.title}>{this.props.post.title}</h1>
         <div className={styles.meta}>
-          <span className={styles.createdBy}>{this.props.post.createdBy.fullName}, </span>
           <span className={styles.createdAt}>{time}</span>
         </div>
-        <p className={styles.body} dangerouslySetInnerHTML={{ __html: this.props.post.content }}></p>
+        <p className={styles.body}>{this.props.post.content}</p>
       </div>
     );
   }
@@ -67,7 +66,7 @@ Post.propTypes = {
     React.PropTypes.object,
   ]),
   params: React.PropTypes.object,
-  loadPost: React.PropTypes.func,
+  loadPost: React.PropTypes.func.isRequired,
   loading: React.PropTypes.bool,
   error: React.PropTypes.bool,
   isAuthenticated: React.PropTypes.bool,
