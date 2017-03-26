@@ -12,7 +12,7 @@ import {
 } from './constants';
 
 const initialState = fromJS({
-  data: false,
+  post: false,
   loading: false,
   error: false,
 });
@@ -30,8 +30,8 @@ function postReducer(state = initialState, action) {
         .set('post', action.post);
     case LOAD_POST_FAILED:
       return state
-        .set('loading', true)
-        .set('error', false);
+        .set('loading', false)
+        .set('error', true);
     default:
       return state;
   }

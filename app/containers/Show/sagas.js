@@ -13,33 +13,8 @@ import {
 
 // Individual exports for testing
 export function* loadShow(slug) {
-  /* const query = `query {
-    show(slug:"${slug}") {
-      id,
-      name,
-      image,
-      content,
-      archived,
-      episodes {
-        id,
-        lead,
-        createdAt,
-      },
-      posts {
-        id,
-        title,
-        slug,
-        image,
-        publishAt,
-        lead,
-        createdBy {
-          fullName
-        }
-      }
-    }
-  }`;*/
   try {
-    let show = yield call(getQuery, SHOWS_URL, 'title', slug); // TODO: Change from 'title' to 'slug'
+    let show = yield call(getQuery, SHOWS_URL, 'slug', slug);
     show = show[0];
     const episodes = yield call(getQuery, EPISODES_URL, 'showId', show.id);
     const posts = yield call(getQuery, POSTS_URL, 'showId', show.id);

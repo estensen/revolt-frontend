@@ -52,7 +52,6 @@ export class Post extends React.Component { // eslint-disable-line react/prefer-
       <div className={styles.post}>
         <h1 className={styles.title}>{this.props.post.title}</h1>
         <div className={styles.meta}>
-          <span className={styles.createdBy}>{this.props.post.authorId}, </span>
           <span className={styles.createdAt}>{time}</span>
         </div>
         <p className={styles.body}>{this.props.post.content}</p>
