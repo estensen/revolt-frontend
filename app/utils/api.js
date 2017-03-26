@@ -1,5 +1,5 @@
 
-const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/graphql' : '/graphql';
+const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:9000/' : '/api/';
 const PAPPAGORG_API_URL = 'http://pappagorg.radiorevolt.no/v1/';
 const PODKAST_API_URL = 'http://podkast.radiorevolt.no/api/url/';
 
@@ -11,11 +11,10 @@ const handleError = res => {
   throw err;
 };
 
-export const NEW_API_URL = 'http://localhost:9000/';
-export const SHOWS_URL = `${NEW_API_URL}shows/`;
-export const POSTS_URL = `${NEW_API_URL}posts/`;
-export const EPISODES_URL = `${NEW_API_URL}episodes/`;
-export const CATEGORIES_URL = `${NEW_API_URL}categories/`;
+export const SHOWS_URL = `${API_URL}shows/`;
+export const POSTS_URL = `${API_URL}posts/`;
+export const EPISODES_URL = `${API_URL}episodes/`;
+export const CATEGORIES_URL = `${API_URL}categories/`;
 
 export const PAPPAGORG_ONDEMAND_EPISODES_URL = `${PAPPAGORG_API_URL}lyd/ondemand/`;
 export const PAPPAGORG_PODCAST_EPISODES_URL = `${PAPPAGORG_API_URL}lyd/podcast/`;
@@ -31,8 +30,6 @@ export const post = (url, body) => fetch(url, {
   },
   body: JSON.stringify(body),
 }).then(handleError).then(res => res.json());
-
-export const getGraphQL = query => get(`${API_URL}?query=${query}`);
 
 export const getPodcastUrl = showId => fetch(`${PODKAST_API_URL}${showId}`).then(res => res.text());
 
