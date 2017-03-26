@@ -16,7 +16,7 @@ function ShowDetailHeader(props) {
         <img className={styles.image} src={props.show.logoImageUrl} alt={props.show.title} />
         <div className={styles.showText}>
           <h2 className={styles.name}>{props.show.title}</h2>
-          <p className={styles.lead}>{props.show.description}</p>
+          <p className={styles.lead}>{props.show.lead}</p>
         </div>
       </div>
     </div>

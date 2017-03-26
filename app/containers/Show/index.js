@@ -36,22 +36,19 @@ export class Show extends React.Component { // eslint-disable-line react/prefer-
     if (this.props.show === false || this.props.show === null || this.props.loading) {
       return <div></div>;
     }
-    console.log('Stop1');
     const episodes = this.props.episodes.map(e => ({
       ...e,
       date: e.createdAt,
       episode: true,
     }));
 
-    console.log('Stop2');
     const posts = this.props.posts.map(p => ({
       ...p,
-      createdBy: p.createdBy.fullName,
+      createdBy: p.createdBy,
       date: p.publishAt,
       episode: false,
     }));
 
-    console.log('Stop3');
     const elementList = posts.concat(episodes).sort((a, b) => {
       const dateA = moment(a.date);
       const dateB = moment(b.date);
@@ -60,7 +57,6 @@ export class Show extends React.Component { // eslint-disable-line react/prefer-
       return 0;
     });
 
-    console.log('Stop4');
     const elements = elementList.map(
       (element, index) => {
         if (element.episode) {
@@ -83,7 +79,6 @@ export class Show extends React.Component { // eslint-disable-line react/prefer-
       }
     );
 
-    console.log('Stop5');
     return (
       <div>
         <ShowDetailHeader show={this.props.show} />
@@ -133,7 +128,6 @@ function mapDispatchToProps(dispatch) {
     playOnDemand: (episodeId, offset = 0) => (
       dispatch(getOnDemandPlaylist(episodeId, offset))
     ),
-    dispatch,
   };
 }
 
