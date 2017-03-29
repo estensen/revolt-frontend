@@ -9,6 +9,7 @@ import {
   LOAD_SHOW_PENDING,
   LOAD_SHOW_SUCCESS,
   LOAD_SHOW_FAILED,
+  CLEAR_SHOW,
 } from './constants';
 
 const initialState = fromJS({
@@ -39,6 +40,8 @@ function showReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', false);
+    case CLEAR_SHOW:
+      return initialState;
     default:
       return state;
   }

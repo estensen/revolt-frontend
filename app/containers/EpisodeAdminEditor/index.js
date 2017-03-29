@@ -12,9 +12,21 @@ import {
   selectShowsLoading,
   selectShowsError,
 } from 'containers/Shows/selectors';
+
+
+import {
+  selectShowEpisodes,
+  selectShowLoading,
+  selectShowError,
+} from 'containers/Show/selectors';
+
 import styles from './styles.css';
 
 import { loadShows } from 'containers/Shows/actions';
+import {
+  loadShow,
+  clearShow,
+} from 'containers/Show/actions';
 
 import EpisodeForm from 'components/EpisodeForm';
 import SelectInput from 'components/SelectInput';
@@ -42,14 +54,13 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
   }
 
   handleBelongingShowChange = (event) => {
-    const showId = event.target.value || null;
-    this.setState({ showId });
-    if (showId !== null) {
-      // TODO: Load episodes for the selected show
-      // this.props.loadEpisodes(selectedShow.digasId);
+    const showSlug = event.target.value || null;
+    if (showSlug !== null) {
+      // Load episodes for the selected show
+      this.props.loadShow(showSlug);
     } else {
       // TODO: Clear list of episodes if placeholder is selected
-      // this.props.clearEpisodes();
+      this.props.clearShow();
     }
   }
 
@@ -78,7 +89,7 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
       let reactComponents;
       if (array !== false && array.length > 0) {
         reactComponents = array.map(
-          element => <option value={element.id} key={element.id}>{element.title}</option>
+          element => <option value={element.slug} key={element.id}>{element.title}</option>
         );
         reactComponents.unshift(<option value={''} key={defaultKey}>{defaultText}</option>);
         return reactComponents;
@@ -151,6 +162,7 @@ EpisodeAdminEditor.propTypes = {
     React.PropTypes.array,
   ]).isRequired,
   loadShows: React.PropTypes.func.isRequired,
+  loadShow: React.PropTypes.func.isRequired,
 };
 
 EpisodeAdminEditor.defaultProps = {
@@ -164,6 +176,9 @@ EpisodeAdminEditor.defaultProps = {
 
 const mapStateToProps = createStructuredSelector({
   shows: selectShows(),
+  episodes: selectShowEpisodes(),
+  episodeLoading: selectShowLoading(),
+  episodeError: selectShowError(),
   loading: selectShowsLoading(),
   error: selectShowsError(),
 });
@@ -171,6 +186,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     loadShows: () => dispatch(loadShows()),
+    loadShow: (slug) => dispatch(loadShow(slug)),
+    clearShow: () => dispatch(clearShow()),
     dispatch,
   };
 }
