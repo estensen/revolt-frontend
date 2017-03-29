@@ -59,7 +59,7 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
       // Load episodes for the selected show
       this.props.loadShow(showSlug);
     } else {
-      // TODO: Clear list of episodes if placeholder is selected
+      // Clear list of episodes if placeholder is selected
       this.props.clearShow();
     }
   }
@@ -163,6 +163,7 @@ EpisodeAdminEditor.propTypes = {
   ]).isRequired,
   loadShows: React.PropTypes.func.isRequired,
   loadShow: React.PropTypes.func.isRequired,
+  clearShow: React.PropTypes.func.isRequired,
 };
 
 EpisodeAdminEditor.defaultProps = {
