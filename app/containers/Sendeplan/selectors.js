@@ -14,12 +14,22 @@ const selectSendeplanDomain = () => state => state.get('sendeplan');
  * Default selector used by Sendeplan
  */
 
+
 const selectSendeplan = () => createSelector(
   selectSendeplanDomain(),
-  (substate) => substate.toJS()
+  (substate) => substate.get('sendeplan'),
+);
+const selectSendeplanLoading = () => createSelector(
+  selectSendeplanDomain(),
+  (substate) => substate.get('loading'),
+);
+const selectSendeplanError = () => createSelector(
+  selectSendeplanDomain(),
+  (substate) => substate.get('error'),
 );
 
-export default selectSendeplan;
 export {
-  selectSendeplanDomain,
+  selectSendeplan,
+  selectSendeplanLoading,
+  selectSendeplanError,
 };

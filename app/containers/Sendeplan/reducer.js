@@ -4,17 +4,40 @@
  *
  */
 
-import { fromJS } from 'immutable';
+import { fromJS, Map } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  LOAD_SENDEPLAN_PENDING,
+  LOAD_SENDEPLAN_SUCCESS,
+  LOAD_SENDEPLAN_FAILED,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  loading: false,
+  error: false,
+  sendeplan: {},
+});
 
 function sendeplanReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case LOAD_SENDEPLAN_PENDING:
+      return state
+      .set('loading', true)
+      .set('error', false);
+    case LOAD_SENDEPLAN_SUCCESS:
+      console.log('Saving sendeplan for: ' + String(action.weekDay))
+      console.log({...state.get('sendeplan')})
+      return state
+      .set('loading', false)
+      .set('error', false)
+      .set('sendeplan', {
+        ...state.get('sendeplan'),
+        [action.weekDay]: action.sendeplan,
+      }
+      );
+    case LOAD_SENDEPLAN_FAILED:
+      return state
+      .set('loading', false)
+      .set('error', true);
     default:
       return state;
   }

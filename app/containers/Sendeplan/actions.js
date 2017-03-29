@@ -4,12 +4,33 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-} from './constants';
+ import {
+   LOAD_SENDEPLAN_PENDING,
+   LOAD_SENDEPLAN_SUCCESS,
+   LOAD_SENDEPLAN_FAILED,
+ } from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
+ export function loadSendeplan(year, month, day, weekDay) {
+   console.log('Loading sendeplan for: ' + String(weekDay))
+   return {
+     type: LOAD_SENDEPLAN_PENDING,
+     year,
+     month,
+     day,
+     weekDay,
+   };
+ }
+
+ export function sendeplanSuccess(sendeplan, weekDay) {
+   return {
+     type: LOAD_SENDEPLAN_SUCCESS,
+     sendeplan,
+     weekDay,
+   };
+ }
+
+ export function sendeplanError() {
+   return {
+     type: LOAD_SENDEPLAN_FAILED,
+   };
+ }
