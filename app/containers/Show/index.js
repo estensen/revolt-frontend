@@ -44,8 +44,7 @@ export class Show extends React.Component { // eslint-disable-line react/prefer-
 
     const posts = this.props.posts.map(p => ({
       ...p,
-      createdBy: p.createdBy,
-      date: p.publishAt,
+      date: p.createdAt,
       episode: false,
     }));
 

@@ -1,7 +1,15 @@
-.submitButton { /* stylelint-disable */
+.submitButtonEnabled {
     padding:5px 15px;
     background:#0c0;
     border:0 none;
     cursor:pointer;
+    border-radius: 5px;
+}
+
+.submitButtonDisabled {
+    padding:5px 15px;
+    background:#c00;
+    border:0 none;
+    cursor:not-allowed;
     border-radius: 5px;
 }
