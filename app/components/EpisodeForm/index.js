@@ -35,7 +35,7 @@ function EpisodeForm(props) {
         options={props.digasPodcastEpisodes}
       />
 
-      <SubmitButton onClick={() => this.props.onAddEpisode(this.state)}>Opprett episode</SubmitButton>
+      <SubmitButton disabled={props.onAddButtonDisabled} onClick={props.onAddEpisode}>Opprett episode</SubmitButton>
     </div>
   );
 }
@@ -61,6 +61,8 @@ EpisodeForm.propTypes = {
     React.PropTypes.bool,
     React.PropTypes.array,
   ]).isRequired,
+  onAddButtonDisabled: React.PropTypes.bool,
+  onAddEpisode: React.PropTypes.func.isRequired,
 };
 
 export default EpisodeForm;

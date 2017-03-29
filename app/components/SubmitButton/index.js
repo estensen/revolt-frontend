@@ -11,7 +11,10 @@ import styles from './styles.css';
 
 function SubmitButton(props) {
   return (
-    <button className={styles.submitButton} onClick={props.onClick}>
+    <button
+      className={props.disabled ? styles.submitButtonDisabled : styles.submitButtonEnabled}
+      onClick={props.onClick}
+    >
       {props.children}
     </button>
   );
@@ -19,6 +22,7 @@ function SubmitButton(props) {
 
 SubmitButton.propTypes = {
   onClick: React.PropTypes.func.isRequired,
+  disabled: React.PropTypes.bool,
   children: React.PropTypes.string.isRequired,
 };
 
