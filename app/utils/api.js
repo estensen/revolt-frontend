@@ -31,6 +31,14 @@ export const post = (url, body) => fetch(url, {
   body: JSON.stringify(body),
 }).then(handleError).then(res => res.json());
 
+export const update = (url, element) => fetch(`${url}${element.id}`, {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(element),
+}).then(handleError);
+
 export const getPodcastUrl = showId => fetch(`${PODKAST_API_URL}${showId}`).then(res => res.text());
 
 export const getPodcasts = showId => get(`http://pappagorg.radiorevolt.no/v1/lyd/podcast/${showId}`);

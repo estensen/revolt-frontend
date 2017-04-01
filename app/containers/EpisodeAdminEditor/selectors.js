@@ -6,11 +6,17 @@ import { createSelector } from 'reselect';
 const selectEpisodeAdminEditorDomain = () => state => state.get('episodeAdminEditor');
 
 
-const selectEpisodeAdminEditor = () => createSelector(
+const selectUpdateEpisodeLoading = () => createSelector(
   selectEpisodeAdminEditorDomain(),
-  (substate) => substate.toJS()
+  (state) => state.get('loading')
+);
+
+const selectUpdateEpisodeError = () => createSelector(
+  selectEpisodeAdminEditorDomain(),
+  (state) => state.get('error')
 );
 
 export {
-  selectEpisodeAdminEditor,
+  selectUpdateEpisodeLoading,
+  selectUpdateEpisodeError,
 };

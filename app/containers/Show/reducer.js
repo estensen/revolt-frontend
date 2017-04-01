@@ -7,6 +7,7 @@
 import { fromJS } from 'immutable';
 import {
   LOAD_SHOW_PENDING,
+  LOAD_SHOW_BY_ID_PENDING,
   LOAD_SHOW_SUCCESS,
   LOAD_SHOW_FAILED,
   CLEAR_SHOW,
@@ -23,6 +24,13 @@ const initialState = fromJS({
 function showReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_SHOW_PENDING:
+      return state
+        .set('loading', true)
+        .set('error', false)
+        .set('show', false)
+        .set('episodes', false)
+        .set('posts', false);
+    case LOAD_SHOW_BY_ID_PENDING:
       return state
         .set('loading', true)
         .set('error', false)

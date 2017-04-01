@@ -6,6 +6,7 @@
 
 import {
   LOAD_SHOW_PENDING,
+  LOAD_SHOW_BY_ID_PENDING,
   LOAD_SHOW_SUCCESS,
   LOAD_SHOW_FAILED,
   CLEAR_SHOW,
@@ -15,6 +16,13 @@ export function loadShow(slug) {
   return {
     type: LOAD_SHOW_PENDING,
     slug,
+  };
+}
+
+export function loadShowById(id) {
+  return {
+    type: LOAD_SHOW_BY_ID_PENDING,
+    id,
   };
 }
 
