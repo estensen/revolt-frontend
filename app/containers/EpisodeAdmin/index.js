@@ -43,6 +43,16 @@ const getFieldChangeHandler = (name) => function (event) { // eslint-disable-lin
   this.setState({ [name]: event.target.value });
 };
 
+const getDigasEpisodeHandler = (name) => function (event, episodes) { // eslint-disable-line func-names
+  const digasId = event.target.value || null;
+  if (digasId !== null) {
+    const selectedEpisode = episodes.find(episode => episode.id == digasId); // eslint-disable-line eqeqeq
+    this.setState({ [name]: selectedEpisode.url });
+  } else {
+    this.setState({ [name]: null });
+  }
+};
+
 export class EpisodeAdmin extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -52,12 +62,15 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
       selectedShow: null,
       podcastUrl: null,
       soundUrl: null,
+      digasPodcastId: null,
+      digasOndemandId: null,
       showId: null,
     };
   }
 
   componentWillMount() {
     this.props.loadShows();
+    this.props.clearDigasEpisodes();
   }
 
   handleTitleChange = getFieldChangeHandler('title').bind(this)
@@ -82,25 +95,9 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
     }
   }
 
-  handleOnDemandEpisodeChange = (event) => {
-    const digasId = event.target.value || null;
-    if (digasId !== null) {
-      const selectedEpisode = this.props.digasOnDemandEpisodes.find(episode => episode.id == digasId); // eslint-disable-line eqeqeq
-      this.setState({ soundUrl: selectedEpisode.url });
-    } else {
-      this.setState({ soundUrl: null });
-    }
-  }
+  handleOnDemandEpisodeChange = getDigasEpisodeHandler('soundUrl').bind(this);
+  handlePodcastEpisodeChange = getDigasEpisodeHandler('podcastUrl').bind(this);
 
-  handlePodcastEpisodeChange = (event) => {
-    const digasId = event.target.value || null;
-    if (digasId !== null) {
-      const selectedEpisode = this.props.digasPodcastEpisodes.find(episode => episode.id == digasId); // eslint-disable-line eqeqeq
-      this.setState({ podcastUrl: selectedEpisode.url });
-    } else {
-      this.setState({ podcastUrl: null });
-    }
-  }
 
   isValidEpisode = (episode) => {
     if (episode.lead.length === 0) {
@@ -148,8 +145,8 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
           onTitleChange={this.handleTitleChange}
           onLeadChange={this.handleLeadChange}
           onShowChange={this.handleShowChange}
-          onOnDemandEpisodeChange={this.handleOnDemandEpisodeChange}
-          onPodcastEpisodeChange={this.handlePodcastEpisodeChange}
+          onOnDemandEpisodeChange={(event) => this.handleOnDemandEpisodeChange(event, this.props.digasOnDemandEpisodes)}
+          onPodcastEpisodeChange={(event) => this.handlePodcastEpisodeChange(event, this.props.digasPodcastEpisodes)}
 
           title={this.state.title}
           lead={this.state.lead}

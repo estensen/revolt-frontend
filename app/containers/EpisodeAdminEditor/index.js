@@ -13,6 +13,13 @@ import {
   selectShowsError,
 } from 'containers/Shows/selectors';
 
+import {
+  selectDigasOnDemandEpisodes,
+  selectDigasPodcastEpisodes,
+  selectDigasEpisodesLoading,
+  selectDigasEpisodesError,
+} from 'containers/EpisodeAdmin/selectors';
+
 
 import {
   selectShow,
@@ -30,6 +37,10 @@ import {
   loadShowById,
   clearShow,
 } from 'containers/Show/actions';
+import {
+  loadDigasEpisodesPending,
+  clearDigasEpisodes,
+} from 'containers/EpisodeAdmin/actions';
 
 import EpisodeForm from 'components/EpisodeForm';
 import SelectInput from 'components/SelectInput';
@@ -41,6 +52,16 @@ const getFieldChangeHandler = (name) => function (event) { // eslint-disable-lin
   this.setState({ [name]: event.target.value });
 };
 
+const getDigasEpisodeHandler = (name) => function (event, episodes) { // eslint-disable-line func-names
+  const digasId = event.target.value || null;
+  if (digasId !== null) {
+    const selectedEpisode = episodes.find(episode => episode.id == digasId); // eslint-disable-line eqeqeq
+    this.setState({ [name]: selectedEpisode.url });
+  } else {
+    this.setState({ [name]: null });
+  }
+};
+
 export class EpisodeAdminEditor extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -49,6 +70,8 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
       lead: '',
       podcastUrl: null,
       soundUrl: null,
+      digasPodcastId: null,
+      digasOndemandId: null,
       showId: null,
       selectedEpisode: null,
       selectedShow: null,
@@ -57,6 +80,7 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
 
   componentWillMount() {
     this.props.loadShows();
+    this.props.clearShow();
   }
 
   handleBelongingShowChange = (event) => {
@@ -82,7 +106,7 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
         selectedEpisode,
       });
     } else {
-      // Clear selecged episode
+      // Clear selected episode
       this.setState({
         title: '',
         lead: '',
@@ -99,14 +123,23 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
     const showId = event.target.value || null;
     this.setState({ showId });
     if (showId !== null) {
-      // Get the correct show by showId, to extract the digasId
-      // const selectedShow = this.props.shows.find(show => show.id == showId); // eslint-disable-line eqeqeq
-      // this.props.loadDigasEpisodes(selectedShow.digasId);
+      // Get the correct show by showId
+      const selectedShow = this.props.shows.find(show => show.id == showId); // eslint-disable-line eqeqeq
+      this.setState({
+        selectedShow,
+      });
+      this.props.loadDigasEpisodes(selectedShow.digasId);
     } else {
       // Clear list of episodes if "Velg program" is selected
-      // this.props.clearDigasEpisodes();
+      this.setState({
+        selectedShow: null,
+      });
+      this.props.clearDigasEpisodes();
     }
   }
+
+  handleOnDemandEpisodeChange = getDigasEpisodeHandler('soundUrl').bind(this);
+  handlePodcastEpisodeChange = getDigasEpisodeHandler('podcastUrl').bind(this);
 
   isValidEpisode = (episode) => {
     if (episode.lead.length === 0) {
@@ -169,8 +202,8 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
             onTitleChange={this.handleTitleChange}
             onLeadChange={this.handleLeadChange}
             onShowChange={this.handleShowChange}
-            onOnDemandEpisodeChange={() => null}
-            onPodcastEpisodeChange={() => null}
+            onOnDemandEpisodeChange={(event) => this.handleOnDemandEpisodeChange(event, this.props.digasOnDemandEpisodes)}
+            onPodcastEpisodeChange={(event) => this.handlePodcastEpisodeChange(event, this.props.digasPodcastEpisodes)}
 
             title={this.state.title}
             lead={this.state.lead}
@@ -223,6 +256,10 @@ EpisodeAdminEditor.propTypes = {
   loadShows: React.PropTypes.func.isRequired,
   loadShowById: React.PropTypes.func.isRequired,
   clearShow: React.PropTypes.func.isRequired,
+  loadDigasEpisodes: React.PropTypes.func.isRequired,
+  clearDigasEpisodes: React.PropTypes.func.isRequired,
+  digasEpisodesLoading: React.PropTypes.bool.isRequired,
+  digasEpisodesError: React.PropTypes.bool.isRequired,
 };
 
 EpisodeAdminEditor.defaultProps = {
@@ -242,16 +279,20 @@ const mapStateToProps = createStructuredSelector({
   episodeError: selectShowError(),
   loading: selectShowsLoading(),
   error: selectShowsError(),
+  digasOnDemandEpisodes: selectDigasOnDemandEpisodes(),
+  digasPodcastEpisodes: selectDigasPodcastEpisodes(),
+  digasEpisodesLoading: selectDigasEpisodesLoading(),
+  digasEpisodesError: selectDigasEpisodesError(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    loadShows: () => dispatch(loadShows()),
-    loadShowById: (id) => dispatch(loadShowById(id)),
-    clearShow: () => dispatch(clearShow()),
-    onUpdateEpisode: (episode) => dispatch(updateEpisodePending(episode)),
-    dispatch,
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  loadShows: () => dispatch(loadShows()),
+  loadShowById: (id) => dispatch(loadShowById(id)),
+  clearShow: () => dispatch(clearShow()),
+  loadDigasEpisodes: (digasId) => dispatch(loadDigasEpisodesPending(digasId)),
+  clearDigasEpisodes: () => dispatch(clearDigasEpisodes()),
+  onUpdateEpisode: (episode) => dispatch(updateEpisodePending(episode)),
+  dispatch,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(EpisodeAdminEditor);
