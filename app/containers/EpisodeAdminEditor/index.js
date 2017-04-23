@@ -231,10 +231,14 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
           :
           <div></div>
         }
-        <DeleteButton
-          onClick={this.handleDeleteEpisode}
-          confirmText={'Er du sikker på at du vil slette episoden?'}
-        >SLETT</DeleteButton>
+        {this.state.selectedEpisode ?
+          <DeleteButton
+            onClick={this.handleDeleteEpisode}
+            confirmText={'Er du sikker på at du vil slette episoden?'}
+          >SLETT</DeleteButton>
+          :
+          <div></div>
+        }
       </div>
     );
   }
