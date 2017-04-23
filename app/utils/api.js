@@ -39,6 +39,10 @@ export const update = (url, element) => fetch(`${url}${element.id}`, {
   body: JSON.stringify(element),
 }).then(handleError);
 
+export const apiDelete = (url, id) => fetch(`${url}${id}`, {
+  method: 'DELETE',
+}).then(handleError);
+
 export const getPodcastUrl = showId => fetch(`${PODKAST_API_URL}${showId}`).then(res => res.text());
 
 export const getPodcasts = showId => get(`http://pappagorg.radiorevolt.no/v1/lyd/podcast/${showId}`);

@@ -31,7 +31,7 @@ import {
 import styles from './styles.css';
 
 
-import { updateEpisodePending } from 'containers/EpisodeAdminEditor/actions';
+import { updateEpisodePending, deleteEpisodePending } from './actions';
 import { loadShows } from 'containers/Shows/actions';
 import {
   loadShowById,
@@ -45,6 +45,7 @@ import {
 import EpisodeForm from 'components/EpisodeForm';
 import SelectInput from 'components/SelectInput';
 import EpisodePreview from 'components/EpisodePreview';
+import DeleteButton from 'components/DeleteButton';
 
 // FieldChangeHandlerFactory
 const getFieldChangeHandler = (name) => function (event) { // eslint-disable-line func-names
@@ -158,6 +159,10 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
     }
   }
 
+  handleDeleteEpisode = () => {
+    this.props.onDeleteEpisode(this.state.selectedEpisode.id);
+  }
+
   render() {
     const arrayToOptionComponents = (array, defaultKey, defaultText) => {
       let reactComponents;
@@ -226,6 +231,10 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
           :
           <div></div>
         }
+        <DeleteButton
+          onClick={this.handleDeleteEpisode}
+          confirmText={'Er du sikker på at du vil slette episoden?'}
+        >SLETT</DeleteButton>
       </div>
     );
   }
@@ -253,6 +262,7 @@ EpisodeAdminEditor.propTypes = {
     React.PropTypes.array,
   ]).isRequired,
   onUpdateEpisode: React.PropTypes.func.isRequired,
+  onDeleteEpisode: React.PropTypes.func.isRequired,
   loadShows: React.PropTypes.func.isRequired,
   loadShowById: React.PropTypes.func.isRequired,
   clearShow: React.PropTypes.func.isRequired,
@@ -292,6 +302,7 @@ const mapDispatchToProps = (dispatch) => ({
   loadDigasEpisodes: (digasId) => dispatch(loadDigasEpisodesPending(digasId)),
   clearDigasEpisodes: () => dispatch(clearDigasEpisodes()),
   onUpdateEpisode: (episode) => dispatch(updateEpisodePending(episode)),
+  onDeleteEpisode: (episodeId) => dispatch(deleteEpisodePending(episodeId)),
   dispatch,
 });
 
