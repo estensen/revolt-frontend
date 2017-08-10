@@ -1,16 +1,29 @@
 {
-  "name": "react-boilerplate",
-  "version": "3.0.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "name": "radio-revolt-frontend",
+  "version": "1.0.0",
+  "description": "Frontend project for https://radiorevolt.no",
+  "homepage": "https://radiorevolt.no",
+  "keywords": [
+    "radiorevolt",
+    "radio",
+    "revolt",
+    "studentmediene",
+    "samfundet",
+    "trondheim"
+  ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/mxstbr/react-boilerplate.git"
+    "url": "https://github.com/Studentmediene/revolt-frontend"
   },
   "engines": {
-    "npm": ">=3"
+    "npm": ">=4.0.0"
   },
-  "author": "Max Stoiber",
-  "license": "MIT",
+  "author": "Vemund Santi <vemund@santi.no>",
+  "contributors": [
+    "Edvin Johnsrud",
+    "Petter Dybdal",
+    "Thorben Dahl"
+  ],
   "scripts": {
     "analyze:clean": "rimraf stats.json",
     "preanalyze": "npm run analyze:clean",
