@@ -1,0 +1,28 @@
+{
+  "presets": [
+    ["env", {
+        "targets": {
+          "browsers": ["last 2 versions"]
+        },
+        "modules": false
+      }
+    ],
+    "react"
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./app"]
+    }],
+    "transform-class-properties",
+    "transform-object-rest-spread"
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        "transform-react-constant-elements",
+        "transform-react-inline-elements",
+        "transform-react-remove-prop-types"
+      ]
+    }
+  }
+}
