@@ -25,7 +25,7 @@ function Footer() {
             Om oss
           </Link>
         </p>
-        <p>2016 © Radio Revolt</p>
+        <p>2017 © Radio Revolt</p>
       </div>
     </div>
   );
