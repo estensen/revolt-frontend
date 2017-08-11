@@ -1,8 +1,6 @@
 /**
  * Test async injectors
  */
-
-import expect from 'expect';
 import configureStore from 'store.js';
 import { memoryHistory } from 'react-router';
 import { put } from 'redux-saga/effects';
@@ -31,15 +29,13 @@ function* testSaga() {
   yield put({ type: 'TEST', payload: 'yup' });
 }
 
-const sagas = [
-  testSaga,
-];
+const sagas = [testSaga];
 
 describe('asyncInjectors', () => {
   let store;
 
   describe('getAsyncInjectors', () => {
-    before(() => {
+    beforeAll(() => {
       store = configureStore({}, memoryHistory);
     });
 
@@ -71,7 +67,7 @@ describe('asyncInjectors', () => {
   });
 
   describe('helpers', () => {
-    before(() => {
+    beforeAll(() => {
       store = configureStore({}, memoryHistory);
     });
 
