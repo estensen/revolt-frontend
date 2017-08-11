@@ -32,6 +32,9 @@ module.exports = {
     'no-console': 'warn',
   },
   settings: {
-    'import/ignore': ['.css$', 'node_modules/*'],
+    'import/resolver': {
+      'babel-module': {},
+    },
+    'import/ignore': ['.css$', '.png$'],
   },
 };
