@@ -105,10 +105,10 @@ module.exports = options => ({
   ]),
   resolve: {
     modules: ['app', 'node_modules'],
-    extensions: ['.js', '.jsx', '.react.js'],
+    extensions: ['.js', '.jsx', '.json'],
     mainFields: ['module', 'main'],
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
-  stats: false, // Don't show stats in the console
+  performance: options.performance,
 });

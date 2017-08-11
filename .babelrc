@@ -27,6 +27,9 @@
         "transform-react-inline-elements",
         "transform-react-remove-prop-types"
       ]
+    },
+    "development": {
+      "presets": ["react-hmre"]
     }
-  }
+  },
 }

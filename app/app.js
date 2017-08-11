@@ -5,12 +5,6 @@
  * code.
  */
 import 'babel-polyfill';
-
-/* eslint-disable import/no-unresolved */
-// Load the manifest.json file and the .htaccess file
-import 'file?name=[name].[ext]!./.htaccess';
-/* eslint-enable import/no-unresolved */
-
 // Import all the third party stuff
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -58,8 +52,7 @@ const logPageView = () => {
   googleAnalytics.pageview(window.location.pathname);
 };
 
-
-const render = (translatedMessages) => {
+const render = translatedMessages => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={translatedMessages}>
@@ -67,18 +60,15 @@ const render = (translatedMessages) => {
           history={history}
           routes={rootRoute}
           onUpdate={logPageView}
-          render={
-            // Scroll to top when going to a new page, imitating default browser
-            // behaviour
-            applyRouterMiddleware(useScroll())
-          }
+          render={// Scroll to top when going to a new page, imitating default browser
+          // behaviour
+          applyRouterMiddleware(useScroll())}
         />
       </LanguageProvider>
     </Provider>,
-    document.getElementById('app')
+    document.getElementById('app'),
   );
 };
-
 
 // Hot reloadable translation json files
 if (module.hot) {
