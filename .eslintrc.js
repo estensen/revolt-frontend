@@ -35,6 +35,6 @@ module.exports = {
     'import/resolver': {
       'babel-module': {},
     },
-    'import/ignore': ['.css$', '.png$'],
+    'import/ignore': ['.css$', '.png$', 'node_modules/*'],
   },
 };
