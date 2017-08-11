@@ -2,7 +2,7 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    mocha: true,
+    jest: true,
     es6: true,
   },
   parser: 'babel-eslint',
@@ -12,7 +12,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:import/errors',
   ],
-  plugins: ['react', 'prettier', 'jsx-a11y'],
+  plugins: ['react', 'prettier', 'jsx-a11y', 'jest'],
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',

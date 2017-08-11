@@ -31,15 +31,13 @@ function* testSaga() {
   yield put({ type: 'TEST', payload: 'yup' });
 }
 
-const sagas = [
-  testSaga,
-];
+const sagas = [testSaga];
 
 describe('asyncInjectors', () => {
   let store;
 
   describe('getAsyncInjectors', () => {
-    before(() => {
+    beforeAll(() => {
       store = configureStore({}, memoryHistory);
     });
 
@@ -71,7 +69,7 @@ describe('asyncInjectors', () => {
   });
 
   describe('helpers', () => {
-    before(() => {
+    beforeAll(() => {
       store = configureStore({}, memoryHistory);
     });
 
