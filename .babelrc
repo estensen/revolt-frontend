@@ -4,7 +4,7 @@
         "targets": {
           "browsers": ["last 2 versions"]
         },
-        "modules": false
+        "modules": false,
       }
     ],
     "react"
@@ -12,6 +12,10 @@
   "plugins": [
     ["module-resolver", {
       "root": ["./app"]
+    }],
+    ["transform-runtime", {
+      "polyfill": true,
+      "regenerator": true
     }],
     "transform-class-properties",
     "transform-object-rest-spread"
@@ -22,6 +26,14 @@
         "transform-react-constant-elements",
         "transform-react-inline-elements",
         "transform-react-remove-prop-types"
+      ]
+    },
+    "test": {
+      "presets": [
+        ["env", {
+            "modules": "commonjs"
+          }
+        ]
       ]
     }
   }
