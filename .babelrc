@@ -2,9 +2,9 @@
   "presets": [
     ["env", {
         "targets": {
-          "browsers": ["last 2 versions"]
-        },
-        "modules": false,
+          "browsers": ["last 2 versions"],
+          "node": "current"
+        }
       }
     ],
     "react"
@@ -26,14 +26,6 @@
         "transform-react-constant-elements",
         "transform-react-inline-elements",
         "transform-react-remove-prop-types"
-      ]
-    },
-    "test": {
-      "presets": [
-        ["env", {
-            "modules": "commonjs"
-          }
-        ]
       ]
     }
   }

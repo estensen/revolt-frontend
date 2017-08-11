@@ -32,11 +32,6 @@ module.exports = {
     'no-console': 'warn',
   },
   settings: {
-    'import/resolver': {
-      webpack: {
-        config: './internals/webpack/webpack.test.babel.js',
-      },
-    },
     'import/ignore': ['.css$', 'node_modules/*'],
   },
 };
