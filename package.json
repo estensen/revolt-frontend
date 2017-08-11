@@ -28,7 +28,7 @@
   "scripts": {
     "postinstall": "npm run build:dll",
     "prebuild": "npm run build:clean && npm run test",
-    "build": "cross-env NODE_ENV=production webpack --display-error-details --config internals/webpack/webpack.prod.babel.js --color -p",
+    "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p",
     "build:clean": "rimraf ./build",
     "build:dll": "node ./internals/scripts/dependencies.js",
     "start": "cross-env NODE_ENV=development node server",
@@ -160,7 +160,7 @@
     "expect": "1.20.2",
     "expect-jsx": "2.6.0",
     "exports-loader": "0.6.3",
-    "extract-text-webpack-plugin": "2.0.0-beta.4",
+    "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.3",
     "html-webpack-plugin": "2.30.1",
