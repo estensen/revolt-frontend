@@ -45,9 +45,7 @@ function showReducer(state = initialState, action) {
         .set('episodes', action.episodes)
         .set('posts', action.posts);
     case LOAD_SHOW_FAILED:
-      return state
-        .set('loading', true)
-        .set('error', false);
+      return state.set('loading', true).set('error', false);
     case CLEAR_SHOW:
       return initialState;
     default:

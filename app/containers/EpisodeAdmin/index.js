@@ -23,12 +23,8 @@ import {
   selectDigasEpisodesError,
 } from './selectors';
 
-import {
-  loadShows,
-} from 'containers/Shows/actions';
-import {
-  getOnDemandPlaylist,
-} from 'containers/Player/actions';
+import { loadShows } from 'containers/Shows/actions';
+import { getOnDemandPlaylist } from 'containers/Player/actions';
 import {
   addEpisodePending,
   loadDigasEpisodesPending,
@@ -38,22 +34,27 @@ import {
 import styles from './styles.css';
 
 // FieldChangeHandlerFactory
-const getFieldChangeHandler = (name) => function (event) { // eslint-disable-line func-names
-  event.preventDefault();
-  this.setState({ [name]: event.target.value });
-};
+const getFieldChangeHandler = name =>
+  function(event) {
+    // eslint-disable-line func-names
+    event.preventDefault();
+    this.setState({ [name]: event.target.value });
+  };
 
-const getDigasEpisodeHandler = (name) => function (event, episodes) { // eslint-disable-line func-names
-  const digasId = event.target.value || null;
-  if (digasId !== null) {
-    const selectedEpisode = episodes.find(episode => episode.id == digasId); // eslint-disable-line eqeqeq
-    this.setState({ [name]: selectedEpisode.url });
-  } else {
-    this.setState({ [name]: null });
-  }
-};
+const getDigasEpisodeHandler = name =>
+  function(event, episodes) {
+    // eslint-disable-line func-names
+    const digasId = event.target.value || null;
+    if (digasId !== null) {
+      const selectedEpisode = episodes.find(episode => episode.id == digasId); // eslint-disable-line eqeqeq
+      this.setState({ [name]: selectedEpisode.url });
+    } else {
+      this.setState({ [name]: null });
+    }
+  };
 
-export class EpisodeAdmin extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class EpisodeAdmin extends React.Component {
+  // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
@@ -73,10 +74,10 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
     this.props.clearDigasEpisodes();
   }
 
-  handleTitleChange = getFieldChangeHandler('title').bind(this)
-  handleLeadChange = getFieldChangeHandler('lead').bind(this)
+  handleTitleChange = getFieldChangeHandler('title').bind(this);
+  handleLeadChange = getFieldChangeHandler('lead').bind(this);
 
-  handleShowChange = (event) => {
+  handleShowChange = event => {
     const showId = event.target.value || null;
     this.setState({ showId });
     if (showId !== null) {
@@ -93,13 +94,12 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
       });
       this.props.clearDigasEpisodes();
     }
-  }
+  };
 
   handleOnDemandEpisodeChange = getDigasEpisodeHandler('soundUrl').bind(this);
   handlePodcastEpisodeChange = getDigasEpisodeHandler('podcastUrl').bind(this);
 
-
-  isValidEpisode = (episode) => {
+  isValidEpisode = episode => {
     if (episode.lead.length === 0) {
       return false;
     } else if (!episode.selectedShow) {
@@ -108,36 +108,48 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
       return false;
     }
     return true;
-  }
+  };
 
-  handleAddEpisode = (episode) => {
+  handleAddEpisode = episode => {
     if (this.isValidEpisode(episode)) {
       this.props.onAddEpisode(episode);
     }
-  }
+  };
 
   render() {
     const arrayToOptionComponents = (array, defaultKey, defaultText) => {
       let reactComponents;
       if (array !== false && array.length > 0) {
-        reactComponents = array.map(
-          element => <option value={element.id} key={element.id}>{element.title}</option>
+        reactComponents = array.map(element =>
+          <option value={element.id} key={element.id}>
+            {element.title}
+          </option>,
         );
-        reactComponents.unshift(<option value={''} key={defaultKey}>{defaultText}</option>);
+        reactComponents.unshift(
+          <option value={''} key={defaultKey}>
+            {defaultText}
+          </option>,
+        );
         return reactComponents;
       }
       return false;
     };
 
-    const shows = arrayToOptionComponents(this.props.shows,
-                                        'show-placeholder',
-                                        'Velg program');
-    const digasOnDemandEpisodes = arrayToOptionComponents(this.props.digasOnDemandEpisodes,
-                                                        'digasOnDemandEpisode-placeholder',
-                                                        'Velg episode');
-    const digasPodcastEpisodes = arrayToOptionComponents(this.props.digasPodcastEpisodes,
-                                                        'digasOnDemandEpisode-placeholder',
-                                                        'Velg episode');
+    const shows = arrayToOptionComponents(
+      this.props.shows,
+      'show-placeholder',
+      'Velg program',
+    );
+    const digasOnDemandEpisodes = arrayToOptionComponents(
+      this.props.digasOnDemandEpisodes,
+      'digasOnDemandEpisode-placeholder',
+      'Velg episode',
+    );
+    const digasPodcastEpisodes = arrayToOptionComponents(
+      this.props.digasPodcastEpisodes,
+      'digasOnDemandEpisode-placeholder',
+      'Velg episode',
+    );
     return (
       <div className={styles.episodeAdmin}>
         <h1>Opprett ny episode</h1>
@@ -145,9 +157,16 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
           onTitleChange={this.handleTitleChange}
           onLeadChange={this.handleLeadChange}
           onShowChange={this.handleShowChange}
-          onOnDemandEpisodeChange={(event) => this.handleOnDemandEpisodeChange(event, this.props.digasOnDemandEpisodes)}
-          onPodcastEpisodeChange={(event) => this.handlePodcastEpisodeChange(event, this.props.digasPodcastEpisodes)}
-
+          onOnDemandEpisodeChange={event =>
+            this.handleOnDemandEpisodeChange(
+              event,
+              this.props.digasOnDemandEpisodes,
+            )}
+          onPodcastEpisodeChange={event =>
+            this.handlePodcastEpisodeChange(
+              event,
+              this.props.digasPodcastEpisodes,
+            )}
           title={this.state.title}
           lead={this.state.lead}
           shows={shows}
@@ -158,7 +177,9 @@ export class EpisodeAdmin extends React.Component { // eslint-disable-line react
         />
         <div className={styles.previewSection}>
           <EpisodePreview
-            showName={this.state.selectedShow ? this.state.selectedShow.title : null}
+            showName={
+              this.state.selectedShow ? this.state.selectedShow.title : null
+            }
             lead={this.state.lead}
           />
         </div>
@@ -201,7 +222,6 @@ EpisodeAdmin.defaultProps = {
   digasEpisodesError: false,
 };
 
-
 const mapStateToProps = createStructuredSelector({
   shows: selectShows(),
   showsLoading: selectShowsLoading(),
@@ -214,13 +234,12 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onAddEpisode: (episode) => dispatch(addEpisodePending(episode)),
+    onAddEpisode: episode => dispatch(addEpisodePending(episode)),
     loadShows: () => dispatch(loadShows()),
-    loadDigasEpisodes: (digasId) => dispatch(loadDigasEpisodesPending(digasId)),
+    loadDigasEpisodes: digasId => dispatch(loadDigasEpisodesPending(digasId)),
     clearDigasEpisodes: () => dispatch(clearDigasEpisodes()),
-    playOnDemand: (episodeId, offset = 0) => (
-      dispatch(getOnDemandPlaylist(episodeId, offset))
-    ),
+    playOnDemand: (episodeId, offset = 0) =>
+      dispatch(getOnDemandPlaylist(episodeId, offset)),
   };
 }
 

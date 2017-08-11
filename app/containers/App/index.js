@@ -36,27 +36,32 @@ const navbarLinks = [
   },
 ];
 
-class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
+class App extends React.Component {
   static propTypes = {
     children: React.PropTypes.node,
     changeRoute: React.PropTypes.func,
   };
 
   render() {
-    const navbarItems = navbarLinks.map(
-      (link, index) =>
-        <li key={`item-${index}`} className={styles.navbarItem}>
-          <Link className={styles.navbarLink} style={{ textDecoration: 'none', color: 'inherit' }} to={link.path}>
-            {link.title}
-          </Link>
-        </li>
+    const navbarItems = navbarLinks.map((link, index) =>
+      <li key={`item-${index}`} className={styles.navbarItem}>
+        <Link
+          className={styles.navbarLink}
+          style={{ textDecoration: 'none', color: 'inherit' }}
+          to={link.path}
+        >
+          {link.title}
+        </Link>
+      </li>,
     );
 
     return (
       <div className={styles.container}>
         <header className={styles.header}>
-          <div className={styles.liveButton} onClick={() => this.props.playLive()}>
+          <div
+            className={styles.liveButton}
+            onClick={() => this.props.playLive()}
+          >
             <HeaderLiveButton />
           </div>
           <Link className={styles.logoLink} to="/">

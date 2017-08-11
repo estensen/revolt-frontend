@@ -5,19 +5,12 @@
  * code.
  */
 import 'babel-polyfill';
-
-/* eslint-disable import/no-unresolved */
-// Load the manifest.json file and the .htaccess file
-import 'file?name=[name].[ext]!./.htaccess';
-/* eslint-enable import/no-unresolved */
-
 // Import all the third party stuff
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
+import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { useScroll } from 'react-router-scroll';
 import configureStore from './store';
 import googleAnalytics from 'react-ga';
 
@@ -54,21 +47,11 @@ const logPageView = () => {
   googleAnalytics.pageview(window.location.pathname);
 };
 
-
 ReactDOM.render(
   <Provider store={store}>
-    <Router
-      history={history}
-      routes={rootRoute}
-      onUpdate={logPageView}
-      render={
-        // Scroll to top when going to a new page, imitating default browser
-        // behaviour
-        applyRouterMiddleware(useScroll())
-      }
-    />
+    <Router history={history} routes={rootRoute} onUpdate={logPageView} />
   </Provider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 );
 
 // Install ServiceWorker and AppCache in the end since

@@ -20,7 +20,6 @@ import {
   selectDigasEpisodesError,
 } from 'containers/EpisodeAdmin/selectors';
 
-
 import {
   selectShow,
   selectShowEpisodes,
@@ -30,13 +29,9 @@ import {
 
 import styles from './styles.css';
 
-
 import { updateEpisodePending, deleteEpisodePending } from './actions';
 import { loadShows } from 'containers/Shows/actions';
-import {
-  loadShowById,
-  clearShow,
-} from 'containers/Show/actions';
+import { loadShowById, clearShow } from 'containers/Show/actions';
 import {
   loadDigasEpisodesPending,
   clearDigasEpisodes,
@@ -48,22 +43,27 @@ import EpisodePreview from 'components/EpisodePreview';
 import DeleteButton from 'components/DeleteButton';
 
 // FieldChangeHandlerFactory
-const getFieldChangeHandler = (name) => function (event) { // eslint-disable-line func-names
-  event.preventDefault();
-  this.setState({ [name]: event.target.value });
-};
+const getFieldChangeHandler = name =>
+  function(event) {
+    // eslint-disable-line func-names
+    event.preventDefault();
+    this.setState({ [name]: event.target.value });
+  };
 
-const getDigasEpisodeHandler = (name) => function (event, episodes) { // eslint-disable-line func-names
-  const digasId = event.target.value || null;
-  if (digasId !== null) {
-    const selectedEpisode = episodes.find(episode => episode.id == digasId); // eslint-disable-line eqeqeq
-    this.setState({ [name]: selectedEpisode.url });
-  } else {
-    this.setState({ [name]: null });
-  }
-};
+const getDigasEpisodeHandler = name =>
+  function(event, episodes) {
+    // eslint-disable-line func-names
+    const digasId = event.target.value || null;
+    if (digasId !== null) {
+      const selectedEpisode = episodes.find(episode => episode.id == digasId); // eslint-disable-line eqeqeq
+      this.setState({ [name]: selectedEpisode.url });
+    } else {
+      this.setState({ [name]: null });
+    }
+  };
 
-export class EpisodeAdminEditor extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class EpisodeAdminEditor extends React.Component {
+  // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
@@ -84,7 +84,7 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
     this.props.clearShow();
   }
 
-  handleBelongingShowChange = (event) => {
+  handleBelongingShowChange = event => {
     const showId = event.target.value || null;
     if (showId !== null) {
       // Load episodes for the selected show
@@ -93,13 +93,15 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
       // Clear list of episodes if placeholder is selected
       this.props.clearShow();
     }
-  }
+  };
 
-  handleSelectedEpisode = (event) => {
+  handleSelectedEpisode = event => {
     const episodeId = event.target.value || null;
     if (episodeId !== null) {
       // Load selected episode
-      const selectedEpisode = this.props.episodes.find(episode => episode.id == episodeId); // eslint-disable-line eqeqeq
+      const selectedEpisode = this.props.episodes.find(
+        episode => episode.id == episodeId,
+      ); // eslint-disable-line eqeqeq
       this.setState({
         title: selectedEpisode.title,
         lead: selectedEpisode.lead,
@@ -115,12 +117,12 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
         selectedEpisode: null,
       });
     }
-  }
+  };
 
-  handleTitleChange = getFieldChangeHandler('title').bind(this)
-  handleLeadChange = getFieldChangeHandler('lead').bind(this)
+  handleTitleChange = getFieldChangeHandler('title').bind(this);
+  handleLeadChange = getFieldChangeHandler('lead').bind(this);
 
-  handleShowChange = (event) => {
+  handleShowChange = event => {
     const showId = event.target.value || null;
     this.setState({ showId });
     if (showId !== null) {
@@ -137,12 +139,12 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
       });
       this.props.clearDigasEpisodes();
     }
-  }
+  };
 
   handleOnDemandEpisodeChange = getDigasEpisodeHandler('soundUrl').bind(this);
   handlePodcastEpisodeChange = getDigasEpisodeHandler('podcastUrl').bind(this);
 
-  isValidEpisode = (episode) => {
+  isValidEpisode = episode => {
     if (episode.lead.length === 0) {
       return false;
     } else if (!episode.selectedShow) {
@@ -151,43 +153,57 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
       return false;
     }
     return true;
-  }
+  };
 
-  handleUpdateEpisode = (episode) => {
+  handleUpdateEpisode = episode => {
     if (this.isValidEpisode(episode)) {
       this.props.onUpdateEpisode(episode);
     }
-  }
+  };
 
   handleDeleteEpisode = () => {
     this.props.onDeleteEpisode(this.state.selectedEpisode.id);
-  }
+  };
 
   render() {
     const arrayToOptionComponents = (array, defaultKey, defaultText) => {
       let reactComponents;
       if (array !== false && array.length > 0) {
-        reactComponents = array.map(
-          element => <option value={element.id} key={element.id}>{element.title}</option>
+        reactComponents = array.map(element =>
+          <option value={element.id} key={element.id}>
+            {element.title}
+          </option>,
         );
-        reactComponents.unshift(<option value={''} key={defaultKey}>{defaultText}</option>);
+        reactComponents.unshift(
+          <option value={''} key={defaultKey}>
+            {defaultText}
+          </option>,
+        );
         return reactComponents;
       }
       return false;
     };
 
-    const shows = arrayToOptionComponents(this.props.shows,
-                                        'show-placeholder',
-                                        'Velg program');
-    const episodes = arrayToOptionComponents(this.props.episodes,
-                                        'episode-placeholder',
-                                        'Velg episode');
-    const digasOnDemandEpisodes = arrayToOptionComponents(this.props.digasOnDemandEpisodes,
-                                                        'digasOnDemandEpisode-placeholder',
-                                                        'Velg episode');
-    const digasPodcastEpisodes = arrayToOptionComponents(this.props.digasPodcastEpisodes,
-                                                        'digasOnDemandEpisode-placeholder',
-                                                        'Velg episode');
+    const shows = arrayToOptionComponents(
+      this.props.shows,
+      'show-placeholder',
+      'Velg program',
+    );
+    const episodes = arrayToOptionComponents(
+      this.props.episodes,
+      'episode-placeholder',
+      'Velg episode',
+    );
+    const digasOnDemandEpisodes = arrayToOptionComponents(
+      this.props.digasOnDemandEpisodes,
+      'digasOnDemandEpisode-placeholder',
+      'Velg episode',
+    );
+    const digasPodcastEpisodes = arrayToOptionComponents(
+      this.props.digasPodcastEpisodes,
+      'digasOnDemandEpisode-placeholder',
+      'Velg episode',
+    );
 
     return (
       <div className={styles.episodeAdminPicker}>
@@ -202,43 +218,46 @@ export class EpisodeAdminEditor extends React.Component { // eslint-disable-line
           onChange={this.handleSelectedEpisode}
           options={episodes}
         />
-        {this.state.selectedEpisode ?
-          <EpisodeForm
-            onTitleChange={this.handleTitleChange}
-            onLeadChange={this.handleLeadChange}
-            onShowChange={this.handleShowChange}
-            onOnDemandEpisodeChange={(event) => this.handleOnDemandEpisodeChange(event, this.props.digasOnDemandEpisodes)}
-            onPodcastEpisodeChange={(event) => this.handlePodcastEpisodeChange(event, this.props.digasPodcastEpisodes)}
-
-            title={this.state.title}
-            lead={this.state.lead}
-            shows={shows}
-            digasOnDemandEpisodes={digasOnDemandEpisodes}
-            digasPodcastEpisodes={digasPodcastEpisodes}
-            onAddButtonDisabled={!this.isValidEpisode(this.state)}
-            onAddEpisode={() => this.handleUpdateEpisode(this.state)}
-          />
-          :
-          <div></div>
-        }
-        {this.state.selectedEpisode ?
-          <div className={styles.previewSection}>
-            <EpisodePreview
-              showName={this.props.show ? this.props.show.title : null}
+        {this.state.selectedEpisode
+          ? <EpisodeForm
+              onTitleChange={this.handleTitleChange}
+              onLeadChange={this.handleLeadChange}
+              onShowChange={this.handleShowChange}
+              onOnDemandEpisodeChange={event =>
+                this.handleOnDemandEpisodeChange(
+                  event,
+                  this.props.digasOnDemandEpisodes,
+                )}
+              onPodcastEpisodeChange={event =>
+                this.handlePodcastEpisodeChange(
+                  event,
+                  this.props.digasPodcastEpisodes,
+                )}
+              title={this.state.title}
               lead={this.state.lead}
+              shows={shows}
+              digasOnDemandEpisodes={digasOnDemandEpisodes}
+              digasPodcastEpisodes={digasPodcastEpisodes}
+              onAddButtonDisabled={!this.isValidEpisode(this.state)}
+              onAddEpisode={() => this.handleUpdateEpisode(this.state)}
             />
-          </div>
-          :
-          <div></div>
-        }
-        {this.state.selectedEpisode ?
-          <DeleteButton
-            onClick={this.handleDeleteEpisode}
-            confirmText={'Er du sikker på at du vil slette episoden?'}
-          >SLETT</DeleteButton>
-          :
-          <div></div>
-        }
+          : <div />}
+        {this.state.selectedEpisode
+          ? <div className={styles.previewSection}>
+              <EpisodePreview
+                showName={this.props.show ? this.props.show.title : null}
+                lead={this.state.lead}
+              />
+            </div>
+          : <div />}
+        {this.state.selectedEpisode
+          ? <DeleteButton
+              onClick={this.handleDeleteEpisode}
+              confirmText={'Er du sikker på at du vil slette episoden?'}
+            >
+              SLETT
+            </DeleteButton>
+          : <div />}
       </div>
     );
   }
@@ -299,14 +318,14 @@ const mapStateToProps = createStructuredSelector({
   digasEpisodesError: selectDigasEpisodesError(),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   loadShows: () => dispatch(loadShows()),
-  loadShowById: (id) => dispatch(loadShowById(id)),
+  loadShowById: id => dispatch(loadShowById(id)),
   clearShow: () => dispatch(clearShow()),
-  loadDigasEpisodes: (digasId) => dispatch(loadDigasEpisodesPending(digasId)),
+  loadDigasEpisodes: digasId => dispatch(loadDigasEpisodesPending(digasId)),
   clearDigasEpisodes: () => dispatch(clearDigasEpisodes()),
-  onUpdateEpisode: (episode) => dispatch(updateEpisodePending(episode)),
-  onDeleteEpisode: (episodeId) => dispatch(deleteEpisodePending(episodeId)),
+  onUpdateEpisode: episode => dispatch(updateEpisodePending(episode)),
+  onDeleteEpisode: episodeId => dispatch(deleteEpisodePending(episodeId)),
   dispatch,
 });
 
