@@ -26,6 +26,7 @@ module.exports = require('./webpack.base.babel')({
         loader: require.resolve('css-loader'),
         options: {
           modules: true,
+          localIdentName: '[hash:base64:6]',
           importLoaders: 1,
         },
       },
