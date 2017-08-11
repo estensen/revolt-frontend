@@ -4,27 +4,22 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const modules = [
-  'app',
-  'node_modules',
-];
+const modules = ['app', 'node_modules'];
 
 module.exports = {
   devtool: 'inline-source-map',
   isparta: {
     babel: {
-      presets: ['es2015', 'react', 'stage-0'],
+      presets: ['env', 'react'],
     },
   },
   module: {
     // Some libraries don't like being run through babel.
     // If they gripe, put them here.
-    noParse: [
-      /node_modules(\\|\/)sinon/,
-      /node_modules(\\|\/)acorn/,
-    ],
+    noParse: [/node_modules(\\|\/)sinon/, /node_modules(\\|\/)acorn/],
     preLoaders: [
-      { test: /\.js$/,
+      {
+        test: /\.js$/,
         loader: 'isparta',
         include: path.resolve('app/'),
       },
@@ -36,21 +31,23 @@ module.exports = {
       // sinon.js--aliased for enzyme--expects/requires global vars.
       // imports-loader allows for global vars to be injected into the module.
       // See https://github.com/webpack/webpack/issues/304
-      { test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
+      {
+        test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
         loader: 'imports?define=>false,require=>false',
       },
-      { test: /\.js$/,
+      {
+        test: /\.js$/,
         loader: 'babel',
         exclude: [/node_modules/],
       },
-      { test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
+      {
+        test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
         loader: 'null-loader',
       },
     ],
   },
 
   plugins: [
-
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; UglifyJS will automatically
     // drop any unreachable code.
@@ -58,7 +55,8 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
-    })],
+    }),
+  ],
 
   // Some node_modules pull in Node-specific dependencies.
   // Since we're running in a browser we have to stub them out. See:
