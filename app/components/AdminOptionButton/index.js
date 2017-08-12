@@ -1,9 +1,3 @@
-/**
-*
-* AdminOptionButton
-*
-*/
-
 import React from 'react';
 import LinkButton from 'components/LinkButton';
 

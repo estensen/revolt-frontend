@@ -1,12 +1,6 @@
-/**
-*
-* PostPreviewList
-*
-*/
-
 import React from 'react';
-import PostPreview from 'components/PostPreview';
 
+import PostPreview from 'components/PostPreview';
 import styles from './styles.css';
 
 const PostPreviewList = props => {

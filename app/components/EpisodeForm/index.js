@@ -1,17 +1,10 @@
-/**
-*
-* EpisodeForm
-*
-*/
-
 import React from 'react';
-
-import styles from './styles.css';
 
 import TextInput from 'components/TextInput';
 import TextAreaInput from 'components/TextAreaInput';
 import SubmitButton from 'components/SubmitButton';
 import SelectInput from 'components/SelectInput';
+import styles from './styles.css';
 
 const EpisodeForm = props => {
   return (
