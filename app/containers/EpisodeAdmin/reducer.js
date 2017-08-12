@@ -27,36 +27,30 @@ const initialState = fromJS({
 function episodeAdminReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_EPISODE_PENDING:
-      return state
-      .set('addEpisodeLoading', true)
-      .set('addEpisodeError', false);
+      return state.set('addEpisodeLoading', true).set('addEpisodeError', false);
     case ADD_EPISODE_SUCCESS:
       return state
-      .set('addEpisodeLoading', false)
-      .set('addEpisodeError', false);
+        .set('addEpisodeLoading', false)
+        .set('addEpisodeError', false);
     case ADD_EPISODE_FAILED:
-      return state
-      .set('addEpisodeLoading', false)
-      .set('addEpisodeError', true);
+      return state.set('addEpisodeLoading', false).set('addEpisodeError', true);
     case LOAD_DIGAS_EPISODES_PENDING:
       return state
-      .set('digasLoading', true)
-      .set('digasError', false)
-      .set('digasOnDemandEpisodes', false)
-      .set('digasPodcastEpisodes', false);
+        .set('digasLoading', true)
+        .set('digasError', false)
+        .set('digasOnDemandEpisodes', false)
+        .set('digasPodcastEpisodes', false);
     case LOAD_DIGAS_EPISODES_SUCCESS:
       return state
-      .set('digasLoading', false)
-      .set('digasOnDemandEpisodes', action.digasEpisodes.onDemandEpisodes)
-      .set('digasPodcastEpisodes', action.digasEpisodes.podcastEpisodes);
+        .set('digasLoading', false)
+        .set('digasOnDemandEpisodes', action.digasEpisodes.onDemandEpisodes)
+        .set('digasPodcastEpisodes', action.digasEpisodes.podcastEpisodes);
     case LOAD_DIGAS_EPISODES_FAILED:
-      return state
-      .set('digasLoading', false)
-      .set('digasError', true);
+      return state.set('digasLoading', false).set('digasError', true);
     case CLEAR_DIGAS_EPISODES:
       return state
-      .set('digasOnDemandEpisodes', false)
-      .set('digasPodcastEpisodes', false);
+        .set('digasOnDemandEpisodes', false)
+        .set('digasPodcastEpisodes', false);
     default:
       return state;
   }

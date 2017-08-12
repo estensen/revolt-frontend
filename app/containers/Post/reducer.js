@@ -20,18 +20,14 @@ const initialState = fromJS({
 function postReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_POST_PENDING:
-      return state
-        .set('loading', true)
-        .set('error', false);
+      return state.set('loading', true).set('error', false);
     case LOAD_POST_SUCCESS:
       return state
         .set('loading', false)
         .set('error', false)
         .set('post', action.post);
     case LOAD_POST_FAILED:
-      return state
-        .set('loading', false)
-        .set('error', true);
+      return state.set('loading', false).set('error', true);
     default:
       return state;
   }

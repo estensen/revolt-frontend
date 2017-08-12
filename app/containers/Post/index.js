@@ -8,15 +8,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import moment from 'moment';
-import {
-  selectPost,
-  selectPostLoading,
-  selectPostError,
-} from './selectors';
+import { selectPost, selectPostLoading, selectPostError } from './selectors';
 import { loadPost } from './actions';
 import styles from './styles.css';
 
-export class Post extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class Post extends React.Component {
+  // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount() {
     this.props.loadPost(this.props.params.slug);
@@ -43,18 +40,24 @@ export class Post extends React.Component { // eslint-disable-line react/prefer-
 
   render() {
     if (this.props.loading || this.props.post === false) {
-      return <div></div>;
+      return <div />;
     }
 
     const time = this.getNormalizedDateString(this.props.post.createdAt);
 
     return (
       <div className={styles.post}>
-        <h1 className={styles.title}>{this.props.post.title}</h1>
+        <h1 className={styles.title}>
+          {this.props.post.title}
+        </h1>
         <div className={styles.meta}>
-          <span className={styles.createdAt}>{time}</span>
+          <span className={styles.createdAt}>
+            {time}
+          </span>
         </div>
-        <p className={styles.body}>{this.props.post.content}</p>
+        <p className={styles.body}>
+          {this.props.post.content}
+        </p>
       </div>
     );
   }
@@ -80,7 +83,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadPost: (slug) => dispatch(loadPost(slug)),
+    loadPost: slug => dispatch(loadPost(slug)),
     dispatch,
   };
 }

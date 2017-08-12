@@ -1,8 +1,5 @@
 import { take, call, put } from 'redux-saga/effects';
-import {
-  showsLoaded,
-  showsLoadedError,
-} from 'containers/Shows/actions';
+import { showsLoaded, showsLoadedError } from 'containers/Shows/actions';
 import { LOAD_SHOWS_PENDING } from './constants';
 import { get, SHOWS_URL } from 'utils/api';
 
@@ -23,6 +20,4 @@ export function* loadShowsWatcher() {
 }
 
 // All sagas to be loaded
-export default [
-  loadShowsWatcher,
-];
+export default [loadShowsWatcher];

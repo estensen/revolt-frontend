@@ -29,30 +29,20 @@ const initialState = fromJS({
 function ShowAdminReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_SHOW_PENDING:
-      return state
-        .set('addShowLoading', true)
-        .set('addShowError', false);
+      return state.set('addShowLoading', true).set('addShowError', false);
     case ADD_SHOW_SUCCESS:
-      return state
-        .set('addShowLoading', false)
-        .set('addShowError', false);
+      return state.set('addShowLoading', false).set('addShowError', false);
     case ADD_SHOW_FAILED:
-      return state
-        .set('addShowLoading', false)
-        .set('addShowError', true);
+      return state.set('addShowLoading', false).set('addShowError', true);
     case LOAD_DIGAS_SHOWS_PENDING:
-      return state
-        .set('digasLoading', true)
-        .set('digasError', false);
+      return state.set('digasLoading', true).set('digasError', false);
     case LOAD_DIGAS_SHOWS_SUCCESS:
       return state
         .set('digasLoading', false)
         .set('digasError', false)
         .set('digasShows', action.shows);
     case LOAD_DIGAS_SHOWS_FAILED:
-      return state
-        .set('digasLoading', false)
-        .set('digasError', true);
+      return state.set('digasLoading', false).set('digasError', true);
     case LOAD_DIGAS_PODCASTURL_PENDING:
       return state
         .set('digasPodcastUrlLoading', true)
@@ -68,8 +58,7 @@ function ShowAdminReducer(state = initialState, action) {
         .set('digasPodcastUrlLoading', false)
         .set('digasPodcastUrlError', true);
     case CLEAR_DIGAS_PODCASTURL:
-      return state
-      .set('digasPodcastUrl', null);
+      return state.set('digasPodcastUrl', null);
     default:
       return state;
   }

@@ -1,5 +1,4 @@
 export default class PlaylistController {
-
   constructor(playlist = [], position = 0) {
     this.playlist = playlist;
     this.position = position;
@@ -28,7 +27,7 @@ export default class PlaylistController {
       return null;
     }
 
-    this.position ++;
+    this.position++;
 
     return this.playlist[this.position];
   }
@@ -42,7 +41,7 @@ export default class PlaylistController {
       return null;
     }
 
-    this.position --;
+    this.position--;
 
     return this.playlist[this.position];
   }

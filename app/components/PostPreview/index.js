@@ -13,14 +13,20 @@ function PostPreview(props) {
   return (
     <div className={styles.postPreview}>
       <Link className={styles.imageLink} to={`/post/${props.slug}`}>
-        <img className={styles.image} src={props.coverPhotoUrl} alt={props.title} />
+        <img
+          className={styles.image}
+          src={props.coverPhotoUrl}
+          alt={props.title}
+        />
       </Link>
       <Link className={styles.titleLink} to={`/post/${props.slug}`}>
         <h2 className={styles.title}>
           {props.title}
         </h2>
       </Link>
-      <p className={styles.lead}>{props.lead}</p>
+      <p className={styles.lead}>
+        {props.lead}
+      </p>
     </div>
   );
 }

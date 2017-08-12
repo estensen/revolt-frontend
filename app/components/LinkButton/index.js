@@ -12,7 +12,9 @@ import styles from './styles.css';
 function LinkButton(props) {
   return (
     <Link className={styles.wrapper} to={props.to}>
-      <button className={styles.button}>{props.text}</button>
+      <button className={styles.button}>
+        {props.text}
+      </button>
     </Link>
   );
 }

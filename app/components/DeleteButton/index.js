@@ -17,8 +17,7 @@ function DeleteButton(props) {
         if (response) {
           props.onClick();
         }
-      }
-      } // eslint-disable-line no-alert
+      }} // eslint-disable-line no-alert
     >
       {props.children}
     </button>

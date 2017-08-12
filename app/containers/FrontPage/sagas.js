@@ -1,8 +1,5 @@
 import { take, call, put } from 'redux-saga/effects';
-import {
-  frontPagePostsLoaded,
-  frontPagePostsError,
-} from './actions';
+import { frontPagePostsLoaded, frontPagePostsError } from './actions';
 import { LOAD_FRONT_PAGE_POSTS_PENDING } from './constants';
 import { get, POSTS_URL } from 'utils/api';
 
@@ -23,6 +20,4 @@ export function* loadFrontPageArticlesWatcher() {
 }
 
 // All sagas to be loaded
-export default [
-  loadFrontPageArticlesWatcher,
-];
+export default [loadFrontPageArticlesWatcher];

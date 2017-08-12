@@ -11,11 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { fromJS, is } from 'immutable';
 
 import PlaylistController from './utils/PlaylistController';
-import {
-  playLive,
-  getPodcastPlaylist,
-  getOnDemandPlaylist,
-} from './actions';
+import { playLive, getPodcastPlaylist, getOnDemandPlaylist } from './actions';
 import {
   selectPlaylist,
   selectIndex,
@@ -73,7 +69,6 @@ class Player extends React.Component {
       this.liveUrl = aacUrl;
     }
 
-
     // SoundManager2 setup
     soundManager.setup({
       preferFlash: false,
@@ -83,10 +78,10 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
-    const seekReleaseListener = this.seekReleaseListener = this.seek;
+    const seekReleaseListener = (this.seekReleaseListener = this.seek);
     window.addEventListener('mouseup', seekReleaseListener);
     document.addEventListener('touchend', seekReleaseListener);
-    const resizeListener = this.resizeListener = this.fetchAudioProgressBoundingRect;
+    const resizeListener = (this.resizeListener = this.fetchAudioProgressBoundingRect);
     window.addEventListener('resize', resizeListener);
     resizeListener();
   }
@@ -101,7 +96,10 @@ class Player extends React.Component {
     if (nextProps.live) {
       this.playLive();
     } else if (nextProps.playlist) {
-      this.playlistController = new PlaylistController(nextProps.playlist, nextProps.index);
+      this.playlistController = new PlaylistController(
+        nextProps.playlist,
+        nextProps.index,
+      );
       if (nextProps.playlist.length > 0) {
         this.playShow(this.playlistController.getCurrent());
       }
@@ -121,13 +119,13 @@ class Player extends React.Component {
     if (this.soundObject && this.soundObject.readyState) {
       this.soundObject.resume();
     }
-  }
+  };
 
   pause = () => {
     if (this.soundObject && this.soundObject.readyState) {
       this.soundObject.pause();
     }
-  }
+  };
 
   togglePlayPause = () => {
     if (this.soundObject && this.soundObject.readyState) {
@@ -135,7 +133,7 @@ class Player extends React.Component {
     } else {
       this.props.playLive(0);
     }
-  }
+  };
 
   playNext = () => {
     if (!this.props.live) {
@@ -143,7 +141,7 @@ class Player extends React.Component {
         this.playShow(this.playlistController.getNext());
       }
     }
-  }
+  };
 
   playPrevious = () => {
     if (!this.props.live) {
@@ -156,9 +154,9 @@ class Player extends React.Component {
         }
       }
     }
-  }
+  };
 
-  seek = (event) => {
+  seek = event => {
     // This function is activated when the user lets go of the mouse
     // If the user is not currently seeking, don't do anything
     if (!this.seekInProgress) return;
@@ -168,7 +166,7 @@ class Player extends React.Component {
     this.soundObject.setPosition(this.state.displayPosition);
     // Cancel the seeking
     this.seekInProgress = false;
-  }
+  };
 
   playShow = (show, pos = 0) => {
     if (show === null) {
@@ -181,7 +179,7 @@ class Player extends React.Component {
     });
 
     this.play(show.url, pos);
-  }
+  };
 
   playLive = () => {
     this.setState({
@@ -190,7 +188,7 @@ class Player extends React.Component {
     });
 
     this.play(this.liveUrl);
-  }
+  };
 
   play = (url, pos = 0) => {
     if (!this.soundObject) {
@@ -257,9 +255,9 @@ class Player extends React.Component {
       url,
       position: pos * 1000,
     });
-  }
+  };
 
-  updateDisplayPosition = (event) => {
+  updateDisplayPosition = event => {
     /* This only updates the displayed position of the player,
      * and not the actual position of the sound object.
      */
@@ -282,17 +280,17 @@ class Player extends React.Component {
     this.setState({
       displayPosition: progressPercentage * this.soundObject.durationEstimate,
     });
-  }
+  };
 
   fetchAudioProgressBoundingRect = () => {
     this.audioProgressBoundingRect = this.audioProgressContainer.getBoundingClientRect();
-  }
+  };
 
-  convertSecondsToDisplayTime = (number) => {
+  convertSecondsToDisplayTime = number => {
     const secs = (number % 60).toFixed();
     const mins = Math.floor(number / 60);
     return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  }
+  };
 
   render() {
     const position = this.state.displayPosition;
@@ -302,11 +300,12 @@ class Player extends React.Component {
     const displayDuration = this.convertSecondsToDisplayTime(duration / 1000);
 
     let timeRatio = `${displayPosition} / ${displayDuration}`;
-    let progressBarWidth = `${(position / duration) * 100}%`;
+    let progressBarWidth = `${position / duration * 100}%`;
 
     if (this.props.live) {
       timeRatio = null;
-      progressBarWidth = `${(1 - (this.props.offset / this.maxLiveOffset)) * 100}%`;
+      progressBarWidth = `${(1 - this.props.offset / this.maxLiveOffset) *
+        100}%`;
     } else if (!this.soundObject) {
       timeRatio = null;
     }
@@ -326,48 +325,59 @@ class Player extends React.Component {
     return (
       <div className={styles.container} title={this.state.displayText}>
         <div className={styles.audioControls}>
-          <div className={styles.backButton} onClick={this.playPrevious}>
+          <button
+            className={styles.backButton}
+            onClick={this.playPrevious}
+            onKeyPress={this.playPrevious}
+          >
             <div className={styles.backButtonInner}>
-              <div className={styles.rightFacingTriangle}></div>
-              <div className={styles.line}></div>
+              <div className={styles.rightFacingTriangle} />
+              <div className={styles.line} />
             </div>
-          </div>
-          <div className={playPauseButtonStyle} onClick={this.togglePlayPause}>
+          </button>
+          <button
+            className={playPauseButtonStyle}
+            onClick={this.togglePlayPause}
+            onKeyPress={this.togglePlayPause}
+          >
             <div className={styles.playPauseButtonInner}>
-              <div className={styles.left}></div>
-              <div className={styles.right}></div>
-              <div className={styles.triangle1}></div>
-              <div className={styles.triangle2}></div>
+              <div className={styles.left} />
+              <div className={styles.right} />
+              <div className={styles.triangle1} />
+              <div className={styles.triangle2} />
             </div>
-          </div>
-          <div className={styles.forwardButton} onClick={this.playNext}>
+          </button>
+          <button
+            className={styles.forwardButton}
+            onClick={this.playNext}
+            onKeyPress={this.playNext}
+          >
             <div className={styles.forwardButtonInner}>
-              <div className={styles.rightFacingTriangle}></div>
-              <div className={styles.line}></div>
+              <div className={styles.rightFacingTriangle} />
+              <div className={styles.line} />
             </div>
-          </div>
+          </button>
         </div>
 
         <div
           className={styles.audioProgressContainer}
-          ref={(ref) => { this.audioProgressContainer = ref; }}
+          ref={ref => {
+            this.audioProgressContainer = ref;
+          }}
           onMouseDown={this.updateDisplayPosition}
           onMouseMove={this.updateDisplayPosition}
           onTouchStart={this.updateDisplayPosition}
           onTouchMove={this.updateDisplayPosition}
         >
-          <div
-            className={styles.audioProgress}
-            style={audioProgressStyle}
-          ></div>
+          <div className={styles.audioProgress} style={audioProgressStyle} />
           <div className={styles.audioProgressOverlay}>
             <div className={styles.audioInfoMarquee}>
               <div className={styles.audioInfo} draggable="false">
-                { this.state.displayText }
+                {this.state.displayText}
               </div>
             </div>
             <div className={styles.audioTimeProgress} draggable="false">
-              { timeRatio }
+              {timeRatio}
             </div>
           </div>
         </div>
@@ -400,12 +410,10 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     playLive: (offset = 0) => dispatch(playLive(offset)),
-    playPodcast: (episodeId, offset = 0) => (
-      dispatch(getPodcastPlaylist(episodeId, offset))
-    ),
-    playOnDemand: (episodeId, offset = 0) => (
-      dispatch(getOnDemandPlaylist(episodeId, offset))
-    ),
+    playPodcast: (episodeId, offset = 0) =>
+      dispatch(getPodcastPlaylist(episodeId, offset)),
+    playOnDemand: (episodeId, offset = 0) =>
+      dispatch(getOnDemandPlaylist(episodeId, offset)),
   };
 }
 

@@ -32,7 +32,8 @@ export function* addShow(show) {
 }
 
 export function* addShowWatcher() {
-  while (true) { // eslint-disable-line no-constant-condition
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
     const { show } = yield take(ADD_SHOW_PENDING);
     yield call(addShow, show);
   }
@@ -63,7 +64,8 @@ export function* getDigasPodcastUrl(showId) {
 }
 
 export function* getDigasPodcastUrlWatcher() {
-  while (true) { // eslint-disable-line no-constant-condition
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
     const { showId } = yield take(LOAD_DIGAS_PODCASTURL_PENDING);
     yield call(getDigasPodcastUrl, showId);
   }

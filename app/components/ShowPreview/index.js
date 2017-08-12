@@ -13,14 +13,20 @@ function ShowPreview(props) {
   return (
     <div className={styles.container}>
       <Link className={styles.imageLink} to={`/programmer/${props.slug}`}>
-        <img className={styles.image} src={props.logoImageUrl} alt={props.title} />
+        <img
+          className={styles.image}
+          src={props.logoImageUrl}
+          alt={props.title}
+        />
       </Link>
       <Link className={styles.nameLink} to={`/programmer/${props.slug}`}>
         <h2 className={styles.name}>
           {props.title}
         </h2>
       </Link>
-      <div className={styles.lead}>{props.lead}</div>
+      <div className={styles.lead}>
+        {props.lead}
+      </div>
     </div>
   );
 }

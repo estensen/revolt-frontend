@@ -14,13 +14,12 @@ import {
   selectFrontPagePostsLoading,
   selectFrontPagePostsError,
 } from './selectors';
-import {
-  loadFrontPagePosts,
-} from './actions';
+import { loadFrontPagePosts } from './actions';
 
 import PostPreviewList from 'components/PostPreviewList';
 
-export class FrontPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class FrontPage extends React.Component {
+  // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
     this.props.loadPosts();
   }
@@ -29,7 +28,9 @@ export class FrontPage extends React.Component { // eslint-disable-line react/pr
     let posts;
     if (this.props.posts !== false) {
       // Sort the posts so that the latest posts is first
-      posts = this.props.posts.sort((postA, postB) => moment(postB.createdAt).diff(postA.createdAt));
+      posts = this.props.posts.sort((postA, postB) =>
+        moment(postB.createdAt).diff(postA.createdAt),
+      );
       posts = <PostPreviewList posts={this.props.posts} />;
     }
     return (

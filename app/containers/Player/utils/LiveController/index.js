@@ -1,5 +1,4 @@
 export default class LiveController {
-
   constructor(config) {
     this.liveURL = config.url;
     this.offset = 0;
@@ -37,17 +36,21 @@ export default class LiveController {
 
   back() {
     const now = new Date();
-    const current = new Date(now.getTime() - (this.offset * 1000));
+    const current = new Date(now.getTime() - this.offset * 1000);
     let then = new Date(
       current.getFullYear(),
       current.getMonth(),
       current.getDate(),
       current.getHours(),
-      0, 0
+      0,
+      0,
     );
 
-    if (current.getTime() - then.getTime() < 4 * 1000 && this.offset < this.maxOffset) {
-      then = new Date(then.getTime() - (1000 * 60 * 60));
+    if (
+      current.getTime() - then.getTime() < 4 * 1000 &&
+      this.offset < this.maxOffset
+    ) {
+      then = new Date(then.getTime() - 1000 * 60 * 60);
     }
 
     const diff = (now.getTime() - then.getTime()) / 1000;
@@ -60,13 +63,16 @@ export default class LiveController {
 
   forward() {
     const now = new Date();
-    const future = new Date(now.getTime() - ((this.offset * 1000) + (60 * 60 * 1000)));
+    const future = new Date(
+      now.getTime() - (this.offset * 1000 + 60 * 60 * 1000),
+    );
     const nextHour = new Date(
       future.getFullYear(),
       future.getMonth(),
       future.getDate(),
       future.getHours(),
-      0, 0
+      0,
+      0,
     );
 
     let diff = (now.getTime() - nextHour.getTime()) / 1000;

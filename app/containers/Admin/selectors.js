@@ -9,17 +9,12 @@ const selectAdminDomain = () => state => state.get('admin');
  * Other specific selectors
  */
 
-
 /**
  * Default selector used by Admin
  */
 
-const selectAdmin = () => createSelector(
-  selectAdminDomain(),
-  (substate) => substate.toJS()
-);
+const selectAdmin = () =>
+  createSelector(selectAdminDomain(), substate => substate.toJS());
 
 export default selectAdmin;
-export {
-  selectAdminDomain,
-};
+export { selectAdminDomain };

@@ -9,25 +9,20 @@ const selectFrontPageDomain = () => state => state.get('frontPage');
  * Other specific selectors
  */
 
-
 /**
  * Default selector used by FrontPage
  */
 
-const selectFrontPagePosts = () => createSelector(
-  selectFrontPageDomain(),
-  (frontPage) => frontPage.get('posts')
-);
+const selectFrontPagePosts = () =>
+  createSelector(selectFrontPageDomain(), frontPage => frontPage.get('posts'));
 
-const selectFrontPagePostsLoading = () => createSelector(
-  selectFrontPageDomain(),
-  (frontPage) => frontPage.get('loading')
-);
+const selectFrontPagePostsLoading = () =>
+  createSelector(selectFrontPageDomain(), frontPage =>
+    frontPage.get('loading'),
+  );
 
-const selectFrontPagePostsError = () => createSelector(
-  selectFrontPageDomain(),
-  (frontPage) => frontPage.get('error')
-);
+const selectFrontPagePostsError = () =>
+  createSelector(selectFrontPageDomain(), frontPage => frontPage.get('error'));
 
 export {
   selectFrontPageDomain,

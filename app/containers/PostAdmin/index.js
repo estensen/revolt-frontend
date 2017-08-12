@@ -29,7 +29,8 @@ import SubmitButton from 'components/SubmitButton';
 import UploadFileInput from 'components/UploadFileInput';
 import SelectInput from 'components/SelectInput';
 
-export class PostAdmin extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class PostAdmin extends React.Component {
+  // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
@@ -101,31 +102,72 @@ export class PostAdmin extends React.Component { // eslint-disable-line react/pr
   render() {
     let shows;
     if (this.props.shows !== false && this.props.shows.length > 0) {
-      shows = this.props.shows.map(
-        show => <option value={show.id} key={show.id}>{show.title}</option>
+      shows = this.props.shows.map(show =>
+        <option value={show.id} key={show.id}>
+          {show.title}
+        </option>,
       );
-      shows.unshift(<option value={''} key={'show-placeholder'}>Velg show</option>);
+      shows.unshift(
+        <option value={''} key={'show-placeholder'}>
+          Velg show
+        </option>,
+      );
     }
 
     let categories;
     if (this.props.categories !== false && this.props.categories.length > 0) {
-      categories = this.props.categories.map(
-        category => <option value={category.id} key={category.id}>{category.title}</option>
+      categories = this.props.categories.map(category =>
+        <option value={category.id} key={category.id}>
+          {category.title}
+        </option>,
       );
-      categories.unshift(<option value={''} key={'category-placeholder'}>Velg kategori</option>);
+      categories.unshift(
+        <option value={''} key={'category-placeholder'}>
+          Velg kategori
+        </option>,
+      );
     }
     return (
       <div className={styles.postAdmin}>
         <h1>Opprett ny bloggpost</h1>
         <div>
-          <TextInput label={'Tittel'} onChange={this.handleTitleChange} value={this.state.title} />
-          <UploadFileInput label={'Forsidebilde'} onChange={this.handleCoverPhotoChange} />
-          <TextAreaInput label={'Kort beskrivelse'} onChange={this.handleLeadChange} value={this.state.lead} />
-          <TextAreaInput label={'Innhold'} onChange={this.handleContentChange} value={this.state.content} />
-          <SelectInput label={'Tilhørende show'} onChange={this.handleShowChange} options={shows} />
-          <SelectInput label={'Kategori'} onChange={this.handleCategoryChange} options={categories} />
-          <CheckboxInput label={'Fest til toppen av forsiden?'} onChange={this.handlePinnedChange} value={this.state.pinned} />
-          <SubmitButton onClick={() => this.props.onAddPost(this.state)}>Opprett ny bloggpost</SubmitButton>
+          <TextInput
+            label={'Tittel'}
+            onChange={this.handleTitleChange}
+            value={this.state.title}
+          />
+          <UploadFileInput
+            label={'Forsidebilde'}
+            onChange={this.handleCoverPhotoChange}
+          />
+          <TextAreaInput
+            label={'Kort beskrivelse'}
+            onChange={this.handleLeadChange}
+            value={this.state.lead}
+          />
+          <TextAreaInput
+            label={'Innhold'}
+            onChange={this.handleContentChange}
+            value={this.state.content}
+          />
+          <SelectInput
+            label={'Tilhørende show'}
+            onChange={this.handleShowChange}
+            options={shows}
+          />
+          <SelectInput
+            label={'Kategori'}
+            onChange={this.handleCategoryChange}
+            options={categories}
+          />
+          <CheckboxInput
+            label={'Fest til toppen av forsiden?'}
+            onChange={this.handlePinnedChange}
+            value={this.state.pinned}
+          />
+          <SubmitButton onClick={() => this.props.onAddPost(this.state)}>
+            Opprett ny bloggpost
+          </SubmitButton>
         </div>
       </div>
     );
@@ -145,7 +187,6 @@ PostAdmin.propTypes = {
   loadShows: React.PropTypes.func,
   loadCategories: React.PropTypes.func,
 };
-
 
 PostAdmin.defaultProps = {
   showsLoading: false,
@@ -167,7 +208,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onAddPost: (post) => dispatch(addPostPending(post)),
+    onAddPost: post => dispatch(addPostPending(post)),
     loadShows: () => dispatch(loadShows()),
     loadCategories: () => dispatch(loadCategories()),
   };

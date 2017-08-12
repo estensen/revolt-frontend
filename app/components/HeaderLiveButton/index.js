@@ -6,11 +6,9 @@ function HeaderLiveButton() {
   return (
     <div className={styles.container}>
       <div className={styles.playButton}>
-        <div className={styles.playButtonInner}></div>
+        <div className={styles.playButtonInner} />
       </div>
-      <div className={styles.meta}>
-        Lytt direkte!
-      </div>
+      <div className={styles.meta}>Lytt direkte!</div>
     </div>
   );
 }

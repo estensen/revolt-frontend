@@ -26,12 +26,15 @@ import styles from './styles.css';
 import ShowForm from 'components/ShowForm';
 
 // FieldChangeHandlerFactory
-const getFieldChangeHandler = (name) => function (event) { // eslint-disable-line func-names
-  event.preventDefault();
-  this.setState({ [name]: event.target.value });
-};
+const getFieldChangeHandler = name =>
+  function(event) {
+    // eslint-disable-line func-names
+    event.preventDefault();
+    this.setState({ [name]: event.target.value });
+  };
 
-export class ShowAdmin extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class ShowAdmin extends React.Component {
+  // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
@@ -50,12 +53,12 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
     this.props.loadDigasShows();
   }
 
-  handleTitleChange = getFieldChangeHandler('title').bind(this)
-  handleLeadChange = getFieldChangeHandler('lead').bind(this)
-  handleDescriptionChange = getFieldChangeHandler('description').bind(this)
-  handleLanguageChange = getFieldChangeHandler('language').bind(this)
+  handleTitleChange = getFieldChangeHandler('title').bind(this);
+  handleLeadChange = getFieldChangeHandler('lead').bind(this);
+  handleDescriptionChange = getFieldChangeHandler('description').bind(this);
+  handleLanguageChange = getFieldChangeHandler('language').bind(this);
 
-  handleImageChange = (event) => {
+  handleImageChange = event => {
     event.preventDefault();
 
     const reader = new FileReader();
@@ -68,9 +71,9 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
       });
     };
     reader.readAsDataURL(file);
-  }
+  };
 
-  handleDigasIdChange = (event) => {
+  handleDigasIdChange = event => {
     const digasId = event.target.value || null;
     this.setState({ digasId });
     if (digasId !== null) {
@@ -78,31 +81,37 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
     } else {
       this.props.clearDigasPodcastUrl();
     }
-  }
+  };
 
   handleArchivedChange = () => {
     this.setState({ archived: !this.state.archived });
-  }
+  };
 
   handleExplicitContentChange = () => {
     this.setState({ explicitContent: !this.state.explicitContent });
-  }
+  };
 
-  handleAddShow = (event) => {
+  handleAddShow = event => {
     event.preventDefault();
     this.props.onAddShow({
       podcastRssFeedUrl: this.props.digasPodcastUrl,
       ...this.state,
     });
-  }
+  };
 
   render() {
     let digasShows = false;
     if (this.props.digasShows !== false && this.props.digasShows.length > 0) {
-      digasShows = this.props.digasShows.map(
-        show => <option value={show.id} key={show.id}>{show.name}</option>
+      digasShows = this.props.digasShows.map(show =>
+        <option value={show.id} key={show.id}>
+          {show.name}
+        </option>,
       );
-      digasShows.unshift(<option value={''} key={'digasShow-placeholder'}>Velg show</option>);
+      digasShows.unshift(
+        <option value={''} key={'digasShow-placeholder'}>
+          Velg show
+        </option>,
+      );
     }
 
     return (
@@ -118,7 +127,6 @@ export class ShowAdmin extends React.Component { // eslint-disable-line react/pr
           onArchivedChange={this.handleArchivedChange}
           onExplicitContentChange={this.handleExplicitContentChange}
           onAddShow={this.handleAddShow}
-
           title={this.state.title}
           lead={this.state.lead}
           description={this.state.description}
@@ -164,8 +172,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onAddShow: (show) => dispatch(addShowPending(show)),
-    dispatchDigasIdChange: (showId) => dispatch(loadDigasPodcastUrlPending(showId)),
+    onAddShow: show => dispatch(addShowPending(show)),
+    dispatchDigasIdChange: showId =>
+      dispatch(loadDigasPodcastUrlPending(showId)),
     clearDigasPodcastUrl: () => dispatch(clearDigasPodcastUrl()),
     loadDigasShows: () => dispatch(loadDigasShowsPending()),
   };

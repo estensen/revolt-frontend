@@ -6,7 +6,6 @@
 
 import React from 'react';
 
-
 import styles from './styles.css';
 
 import TextInput from 'components/TextInput';
@@ -18,21 +17,55 @@ import SelectInput from 'components/SelectInput';
 
 function ShowForm(props) {
   const languagesOptions = [
-    <option value={'no'} key={'no'}>Norsk</option>,
-    <option value={'en'} key={'en'}>Engelsk</option>,
+    <option value={'no'} key={'no'}>
+      Norsk
+    </option>,
+    <option value={'en'} key={'en'}>
+      Engelsk
+    </option>,
   ];
 
   return (
     <div className={styles.showForm}>
-      <TextInput label={'Tittel'} onChange={props.onTitleChange} value={props.title} />
+      <TextInput
+        label={'Tittel'}
+        onChange={props.onTitleChange}
+        value={props.title}
+      />
       <UploadFileInput label={'Programbilde'} onChange={props.onImageChange} />
-      <TextAreaInput label={'Kort beskrivelse'} onChange={props.onLeadChange} value={props.lead} />
-      <TextAreaInput label={'Lang beskrivelse'} onChange={props.onDescriptionChange} value={props.description} />
-      <SelectInput label={'Hva heter programmet i Digas?'} onChange={props.onDigasIdChange} options={props.digasIdOptions} />
-      <SelectInput label={'Språk'} onChange={props.onLanguageChange} options={languagesOptions} />
-      <CheckboxInput label={'Arkivert?'} onChange={props.onArchivedChange} value={props.archived} />
-      <CheckboxInput label={'Ikke-barnevennlig innhold'} onChange={props.onExplicitContentChange} value={props.explicitContent} />
-      <SubmitButton onClick={props.onAddShow}>Opprett nytt program</SubmitButton>
+      <TextAreaInput
+        label={'Kort beskrivelse'}
+        onChange={props.onLeadChange}
+        value={props.lead}
+      />
+      <TextAreaInput
+        label={'Lang beskrivelse'}
+        onChange={props.onDescriptionChange}
+        value={props.description}
+      />
+      <SelectInput
+        label={'Hva heter programmet i Digas?'}
+        onChange={props.onDigasIdChange}
+        options={props.digasIdOptions}
+      />
+      <SelectInput
+        label={'Språk'}
+        onChange={props.onLanguageChange}
+        options={languagesOptions}
+      />
+      <CheckboxInput
+        label={'Arkivert?'}
+        onChange={props.onArchivedChange}
+        value={props.archived}
+      />
+      <CheckboxInput
+        label={'Ikke-barnevennlig innhold'}
+        onChange={props.onExplicitContentChange}
+        value={props.explicitContent}
+      />
+      <SubmitButton onClick={props.onAddShow}>
+        Opprett nytt program
+      </SubmitButton>
     </div>
   );
 }
