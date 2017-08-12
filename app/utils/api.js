@@ -1,5 +1,4 @@
-const API_URL =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:9000/' : '/api/';
+const API_URL = '/api/';
 const PAPPAGORG_API_URL = 'http://pappagorg.radiorevolt.no/v1/';
 const PODKAST_API_URL = 'http://podkast.radiorevolt.no/api/url/';
 
