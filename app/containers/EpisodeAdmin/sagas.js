@@ -1,9 +1,6 @@
 import { take, call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
-import {
-  ADD_EPISODE_PENDING,
-  LOAD_DIGAS_EPISODES_PENDING,
-} from './constants';
+import { ADD_EPISODE_PENDING, LOAD_DIGAS_EPISODES_PENDING } from './constants';
 import {
   addEpisodeSuccess,
   addEpisodeError,
@@ -27,9 +24,9 @@ export function* addEpisode(episode) {
   }
 }
 
-
 export function* addEpisodeWatcher() {
-  while (true) { // eslint-disable-line no-constant-condition
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
     const { episode } = yield take(ADD_EPISODE_PENDING);
     yield call(addEpisode, episode);
   }
@@ -39,24 +36,24 @@ export function* loadDigasEpisodes(digasId) {
   try {
     const onDemandEpisodes = yield call(getDigasOnDemandEpisodes, digasId);
     const podcastEpisodes = yield call(getDigasPodcastEpisodes, digasId);
-    yield put(loadDigasEpisodesSuccess({
-      onDemandEpisodes,
-      podcastEpisodes,
-    }));
+    yield put(
+      loadDigasEpisodesSuccess({
+        onDemandEpisodes,
+        podcastEpisodes,
+      }),
+    );
   } catch (error) {
     yield put(loadDigasEpisodesError());
   }
 }
 
 export function* loadDigasEpisodesWatcher() {
-  while (true) { // eslint-disable-line no-constant-condition
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
     const { digasId } = yield take(LOAD_DIGAS_EPISODES_PENDING);
     yield call(loadDigasEpisodes, digasId);
   }
 }
 
 // All sagas to be loaded
-export default [
-  addEpisodeWatcher,
-  loadDigasEpisodesWatcher,
-];
+export default [addEpisodeWatcher, loadDigasEpisodesWatcher];

@@ -14,7 +14,8 @@ import svgMic from './microphone.svg';
 import svgShow from './show.svg';
 import AdminOptionButton from 'components/AdminOptionButton';
 
-export class Admin extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class Admin extends React.Component {
+  // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div className={styles.admin}>

@@ -9,29 +9,17 @@ const selectPostDomain = () => state => state.get('post');
  * Other specific selectors
  */
 
-
 /**
  * Default selector used by Post
  */
 
-const selectPost = () => createSelector(
-  selectPostDomain(),
-  (postState) => postState.get('post')
-);
+const selectPost = () =>
+  createSelector(selectPostDomain(), postState => postState.get('post'));
 
-const selectPostLoading = () => createSelector(
-  selectPostDomain(),
-  (postState) => postState.get('loading')
-);
+const selectPostLoading = () =>
+  createSelector(selectPostDomain(), postState => postState.get('loading'));
 
-const selectPostError = () => createSelector(
-  selectPostDomain(),
-  (postState) => postState.get('error')
-);
+const selectPostError = () =>
+  createSelector(selectPostDomain(), postState => postState.get('error'));
 
-export {
-  selectPostDomain,
-  selectPost,
-  selectPostLoading,
-  selectPostError,
-};
+export { selectPostDomain, selectPost, selectPostLoading, selectPostError };

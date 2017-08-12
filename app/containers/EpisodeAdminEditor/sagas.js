@@ -24,8 +24,8 @@ export function* updateEpisode(episode) {
 }
 
 export function* updateEpisodeWatcher() {
+  // eslint-disable-next-line no-constant-condition
   while (true) {
-    // eslint-disable-line no-constant-condition
     const { episode } = yield take(UPDATE_EPISODE_PENDING);
     yield call(updateEpisode, episode);
   }
@@ -42,8 +42,8 @@ export function* deleteEpisode(episodeId) {
 }
 
 export function* deleteEpisodeWatcher() {
+  // eslint-disable-next-line no-constant-condition
   while (true) {
-    // eslint-disable-line no-constant-condition
     const { episodeId } = yield take(DELETE_EPISODE_PENDING);
     yield call(deleteEpisode, episodeId);
   }

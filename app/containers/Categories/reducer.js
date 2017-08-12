@@ -20,18 +20,14 @@ const initialState = fromJS({
 function categoriesReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_CATEGORIES_PENDING:
-      return state
-      .set('loading', true)
-      .set('error', false);
+      return state.set('loading', true).set('error', false);
     case LOAD_CATEGORIES_SUCCESS:
       return state
-      .set('categories', action.categories)
-      .set('loading', false)
-      .set('error', false);
-    case LOAD_CATEGORIES_FAILED:
-      return state
+        .set('categories', action.categories)
         .set('loading', false)
-        .set('error', true);
+        .set('error', false);
+    case LOAD_CATEGORIES_FAILED:
+      return state.set('loading', false).set('error', true);
     default:
       return state;
   }

@@ -1,8 +1,5 @@
 import { take, call, put } from 'redux-saga/effects';
-import {
-  categoriesLoaded,
-  categoriesLoadedError,
-} from './actions';
+import { categoriesLoaded, categoriesLoadedError } from './actions';
 import { LOAD_CATEGORIES_PENDING } from './constants';
 import { get, CATEGORIES_URL } from 'utils/api';
 
@@ -23,6 +20,4 @@ export function* loadCategoriesWatcher() {
 }
 
 // All sagas to be loaded
-export default [
-  loadCategoriesWatcher,
-];
+export default [loadCategoriesWatcher];

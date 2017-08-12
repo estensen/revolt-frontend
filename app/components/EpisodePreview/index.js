@@ -10,7 +10,7 @@ import moment from 'moment';
 import styles from './styles.css';
 
 function getNormalizedDateString(dateString) {
-  const paddedString = (i) => (i < 10 ? `0${i}` : `${i}`);
+  const paddedString = i => (i < 10 ? `0${i}` : `${i}`);
 
   const date = moment(dateString);
   const year = date.year();
@@ -24,11 +24,15 @@ function EpisodePreview(props) {
   return (
     <div className={styles.episodePreview}>
       <div className={styles.playButton}>
-        <div className={styles.playButtonInner}></div>
+        <div className={styles.playButtonInner} />
       </div>
       <div className={styles.meta}>
-        <div className={styles.title}>{props.showName} {getNormalizedDateString(props.publishAt)}</div>
-        <div className={styles.lead}>{props.lead}</div>
+        <div className={styles.title}>
+          {props.showName} {getNormalizedDateString(props.publishAt)}
+        </div>
+        <div className={styles.lead}>
+          {props.lead}
+        </div>
       </div>
     </div>
   );

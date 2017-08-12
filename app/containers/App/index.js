@@ -58,12 +58,13 @@ class App extends React.Component {
     return (
       <div className={styles.container}>
         <header className={styles.header}>
-          <div
+          <button
             className={styles.liveButton}
-            onClick={() => this.props.playLive()}
+            onClick={this.props.playLive}
+            onKeyPress={this.props.playLive}
           >
             <HeaderLiveButton />
-          </div>
+          </button>
           <Link className={styles.logoLink} to="/">
             <img src={pngLogo} alt="Logo" className={styles.logo} />
           </Link>

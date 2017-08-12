@@ -1,9 +1,6 @@
 import { take, call, put } from 'redux-saga/effects';
 import { LOAD_POST_PENDING } from './constants';
-import {
-  postLoaded,
-  postError,
-} from './actions';
+import { postLoaded, postError } from './actions';
 import { getQuery, POSTS_URL } from 'utils/api';
 
 // Individual exports for testing
@@ -17,13 +14,12 @@ export function* loadPost(slug) {
 }
 
 export function* loadPostWatcher() {
-  while (true) { // eslint-disable-line no-constant-condition
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
     const { slug } = yield take(LOAD_POST_PENDING);
     yield call(loadPost, slug);
   }
 }
 
 // All sagas to be loaded
-export default [
-  loadPostWatcher,
-];
+export default [loadPostWatcher];

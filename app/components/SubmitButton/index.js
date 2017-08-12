@@ -6,13 +6,16 @@
 
 import React from 'react';
 
-
 import styles from './styles.css';
 
 function SubmitButton(props) {
   return (
     <button
-      className={props.disabled ? styles.submitButtonDisabled : styles.submitButtonEnabled}
+      className={
+        props.disabled
+          ? styles.submitButtonDisabled
+          : styles.submitButtonEnabled
+      }
       onClick={props.onClick}
     >
       {props.children}

@@ -11,8 +11,15 @@ import styles from './styles.css';
 function TextInput(props) {
   return (
     <div className={styles.textFieldWrapper}>
-      <span className={styles.label}>{props.label}</span>
-      <input type="text" className={styles.textField} onChange={props.onChange} value={props.value} />
+      <span className={styles.label}>
+        {props.label}
+      </span>
+      <input
+        type="text"
+        className={styles.textField}
+        onChange={props.onChange}
+        value={props.value}
+      />
     </div>
   );
 }

@@ -30,11 +30,12 @@ module.exports = {
     ],
     'linebreak-style': ['error', 'unix'],
     'no-console': 'warn',
+    'jsx-a11y/no-onchange': 'off',
   },
   settings: {
     'import/resolver': {
       'babel-module': {},
     },
-    'import/ignore': ['.css$', '.png$', 'node_modules/*'],
+    'import/ignore': ['.css$', '.png$', '.svg$', 'node_modules/*'],
   },
 };

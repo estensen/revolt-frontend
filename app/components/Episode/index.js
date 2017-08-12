@@ -10,7 +10,7 @@ import moment from 'moment';
 import styles from './styles.css';
 
 function getNormalizedDateString(dateString) {
-  const paddedString = (i) => (i < 10 ? `0${i}` : `${i}`);
+  const paddedString = i => (i < 10 ? `0${i}` : `${i}`);
 
   const date = moment(dateString);
   const year = date.year();
@@ -25,16 +25,29 @@ function Episode(props) {
     return null;
   }
 
+  const playOnDemand = e => {
+    e.preventDefault();
+    props.playOnDemand(props.id);
+  };
+
   return (
-    <div className={styles.episode} onClick={() => props.playOnDemand(props.id)}>
+    <button
+      className={styles.episode}
+      onClick={playOnDemand}
+      onKeyPress={playOnDemand}
+    >
       <div className={styles.playButton}>
-        <div className={styles.playButtonInner}></div>
+        <div className={styles.playButtonInner} />
       </div>
       <div className={styles.meta}>
-        <div className={styles.title}>{props.showName} {getNormalizedDateString(props.createdAt)}</div>
-        <div className={styles.lead}>{props.lead}</div>
+        <div className={styles.title}>
+          {props.showName} {getNormalizedDateString(props.createdAt)}
+        </div>
+        <div className={styles.lead}>
+          {props.lead}
+        </div>
       </div>
-    </div>
+    </button>
   );
 }
 

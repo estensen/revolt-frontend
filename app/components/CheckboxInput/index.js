@@ -6,13 +6,21 @@
 
 import React from 'react';
 
-
 import styles from './styles.css';
 
 function CheckboxInput(props) {
   return (
     <div className={styles.checkboxWrapper}>
-      <label htmlFor={props.label} className={styles.checkboxLabel}><input type="checkbox" id={props.label} onChange={props.onChange} checked={props.value} className={styles.checkboxInput} />{props.label}</label>
+      <label htmlFor={props.label} className={styles.checkboxLabel}>
+        <input
+          type="checkbox"
+          id={props.label}
+          onChange={props.onChange}
+          checked={props.value}
+          className={styles.checkboxInput}
+        />
+        {props.label}
+      </label>
     </div>
   );
 }

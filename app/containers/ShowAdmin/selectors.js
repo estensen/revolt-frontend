@@ -5,35 +5,35 @@ import { createSelector } from 'reselect';
  */
 const selectShowAdminDomain = () => state => state.get('ShowAdmin');
 
-const selectDigasShows = () => createSelector(
-  selectShowAdminDomain(),
-  (showState) => showState.get('digasShows')
-);
+const selectDigasShows = () =>
+  createSelector(selectShowAdminDomain(), showState =>
+    showState.get('digasShows'),
+  );
 
-const selectDigasShowsLoading = () => createSelector(
-  selectShowAdminDomain(),
-  (showState) => showState.get('digasLoading')
-);
+const selectDigasShowsLoading = () =>
+  createSelector(selectShowAdminDomain(), showState =>
+    showState.get('digasLoading'),
+  );
 
-const selectDigasShowsError = () => createSelector(
-  selectShowAdminDomain(),
-  (showState) => showState.get('digasError')
-);
+const selectDigasShowsError = () =>
+  createSelector(selectShowAdminDomain(), showState =>
+    showState.get('digasError'),
+  );
 
-const selectDigasPodcastUrl = () => createSelector(
-  selectShowAdminDomain(),
-  (state) => state.get('digasPodcastUrl')
-);
+const selectDigasPodcastUrl = () =>
+  createSelector(selectShowAdminDomain(), state =>
+    state.get('digasPodcastUrl'),
+  );
 
-const selectDigasPodcastUrlLoading = () => createSelector(
-  selectShowAdminDomain(),
-  (state) => state.get('digasPodcastUrlLoading')
-);
+const selectDigasPodcastUrlLoading = () =>
+  createSelector(selectShowAdminDomain(), state =>
+    state.get('digasPodcastUrlLoading'),
+  );
 
-const selectDigasPodcastUrlError = () => createSelector(
-  selectShowAdminDomain(),
-  (state) => state.get('digasPodcastUrlError')
-);
+const selectDigasPodcastUrlError = () =>
+  createSelector(selectShowAdminDomain(), state =>
+    state.get('digasPodcastUrlError'),
+  );
 
 export {
   selectShowAdminDomain,

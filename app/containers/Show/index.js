@@ -15,9 +15,7 @@ import {
   selectShowLoading,
   selectShowError,
 } from './selectors';
-import {
-  loadShow,
-} from './actions';
+import { loadShow } from './actions';
 import {
   getPodcastPlaylist,
   getOnDemandPlaylist,
@@ -27,14 +25,19 @@ import Episode from 'components/Episode';
 import PostPreview from 'components/PostPreview';
 import ShowDetailHeader from 'components/ShowDetailHeader';
 
-export class Show extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class Show extends React.Component {
+  // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
     this.props.loadShow(this.props.params.slug);
   }
 
   render() {
-    if (this.props.show === false || this.props.show === null || this.props.loading) {
-      return <div></div>;
+    if (
+      this.props.show === false ||
+      this.props.show === null ||
+      this.props.loading
+    ) {
+      return <div />;
     }
     const episodes = this.props.episodes.map(e => ({
       ...e,
@@ -56,27 +59,23 @@ export class Show extends React.Component { // eslint-disable-line react/prefer-
       return 0;
     });
 
-    const elements = elementList.map(
-      (element, index) => {
-        if (element.episode) {
-          return (
-            <Episode
-              {...element}
-              showName={this.props.show.title}
-              key={index}
-              playOnDemand={this.props.playOnDemand}
-            />
-          );
-        }
+    const elements = elementList.map((element, index) => {
+      if (element.episode) {
         return (
-          <div className={styles.post} key={index}>
-            <PostPreview
-              {...element}
-            />
-          </div>
+          <Episode
+            {...element}
+            showName={this.props.show.title}
+            key={index}
+            playOnDemand={this.props.playOnDemand}
+          />
         );
       }
-    );
+      return (
+        <div className={styles.post} key={index}>
+          <PostPreview {...element} />
+        </div>
+      );
+    });
 
     return (
       <div>
@@ -120,13 +119,11 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadShow: (slug) => dispatch(loadShow(slug)),
-    playPodcast: (episodeId, offset = 0) => (
-      dispatch(getPodcastPlaylist(episodeId, offset))
-    ),
-    playOnDemand: (episodeId, offset = 0) => (
-      dispatch(getOnDemandPlaylist(episodeId, offset))
-    ),
+    loadShow: slug => dispatch(loadShow(slug)),
+    playPodcast: (episodeId, offset = 0) =>
+      dispatch(getPodcastPlaylist(episodeId, offset)),
+    playOnDemand: (episodeId, offset = 0) =>
+      dispatch(getOnDemandPlaylist(episodeId, offset)),
   };
 }
 

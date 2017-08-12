@@ -9,13 +9,8 @@ import {
   podcastPlaylistError,
   onDemandPlaylistLoaded,
   onDemandPlaylistError,
-
 } from './actions';
-import {
-  getQuery,
-  EPISODES_URL,
-  SHOWS_URL,
-} from 'utils/api';
+import { getQuery, EPISODES_URL, SHOWS_URL } from 'utils/api';
 
 // Individual exports for testing
 export function* playPodcast(episodeId, offset) {
@@ -54,12 +49,14 @@ export function* playOnDemand(episodeId, offset) {
     show = show[0];
     const episodes = yield call(getQuery, EPISODES_URL, 'showId', show.id);
 
-    const playlist = episodes.map(e => ({
-      id: e.id,
-      title: e.title,
-      show: show.name,
-      url: e.soundUrl,
-    })).reverse();
+    const playlist = episodes
+      .map(e => ({
+        id: e.id,
+        title: e.title,
+        show: show.name,
+        url: e.soundUrl,
+      }))
+      .reverse();
 
     const index = playlist.indexOf(playlist.find(e => e.id === episode.id));
 
@@ -70,21 +67,20 @@ export function* playOnDemand(episodeId, offset) {
 }
 
 export function* playPodcastWatcher() {
-  while (true) { // eslint-disable-line no-constant-condition
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
     const { episodeId, offset } = yield take(GET_PODCAST_PLAYLIST_PENDING);
     yield call(playPodcast, episodeId, offset);
   }
 }
 
 export function* playOnDemandWatcher() {
-  while (true) { // eslint-disable-line no-constant-condition
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
     const { episodeId, offset } = yield take(GET_ON_DEMAND_PLAYLIST_PENDING);
     yield call(playOnDemand, episodeId, offset);
   }
 }
 
 // All sagas to be loaded
-export default [
-  playPodcastWatcher,
-  playOnDemandWatcher,
-];
+export default [playPodcastWatcher, playOnDemandWatcher];

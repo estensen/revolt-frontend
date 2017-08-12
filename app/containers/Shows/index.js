@@ -7,17 +7,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import {
-  selectShows,
-  selectShowsLoading,
-  selectShowsError,
-} from './selectors';
+import { selectShows, selectShowsLoading, selectShowsError } from './selectors';
 import styles from './styles.css';
 import { loadShows } from './actions';
 
 import ShowPreviewList from 'components/ShowPreviewList';
 
-export class Shows extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class Shows extends React.Component {
+  // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
     this.props.loadShow();
     this.state = {
@@ -28,20 +25,22 @@ export class Shows extends React.Component { // eslint-disable-line react/prefer
 
   toggleArchivedShows(event) {
     event.preventDefault();
-    this.setState((prevState) => (
-      { hideArchivedShows: !prevState.hideArchivedShows }
-    ));
+    this.setState(prevState => ({
+      hideArchivedShows: !prevState.hideArchivedShows,
+    }));
   }
 
   render() {
     let showPreviewList = null;
 
     if (this.props.shows !== false) {
-      showPreviewList = (<ShowPreviewList
-        shows={this.props.shows}
-        hideArchivedShows={this.state.hideArchivedShows}
-        toggleArchivedShows={this.toggleArchivedShows}
-      />);
+      showPreviewList = (
+        <ShowPreviewList
+          shows={this.props.shows}
+          hideArchivedShows={this.state.hideArchivedShows}
+          toggleArchivedShows={this.toggleArchivedShows}
+        />
+      );
     }
 
     return (

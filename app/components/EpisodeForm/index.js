@@ -6,7 +6,6 @@
 
 import React from 'react';
 
-
 import styles from './styles.css';
 
 import TextInput from 'components/TextInput';
@@ -17,8 +16,16 @@ import SelectInput from 'components/SelectInput';
 function EpisodeForm(props) {
   return (
     <div className={styles.episodeForm}>
-      <TextInput label={'Tittel'} onChange={props.onTitleChange} value={props.title} />
-      <TextAreaInput label={'Kort beskrivelse'} onChange={props.onLeadChange} value={props.lead} />
+      <TextInput
+        label={'Tittel'}
+        onChange={props.onTitleChange}
+        value={props.title}
+      />
+      <TextAreaInput
+        label={'Kort beskrivelse'}
+        onChange={props.onLeadChange}
+        value={props.lead}
+      />
       <SelectInput
         label={'Hvilket program hører episoden til?'}
         onChange={props.onShowChange}
@@ -35,7 +42,12 @@ function EpisodeForm(props) {
         options={props.digasPodcastEpisodes}
       />
 
-      <SubmitButton disabled={props.onAddButtonDisabled} onClick={props.onAddEpisode}>Opprett episode</SubmitButton>
+      <SubmitButton
+        disabled={props.onAddButtonDisabled}
+        onClick={props.onAddEpisode}
+      >
+        Opprett episode
+      </SubmitButton>
     </div>
   );
 }

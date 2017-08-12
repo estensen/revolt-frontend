@@ -43,16 +43,16 @@ export function* loadShowById(id) {
 }
 
 export function* loadShowWatcher() {
+  // eslint-disable-next-line no-constant-condition
   while (true) {
-    // eslint-disable-line no-constant-condition
     const { slug } = yield take(LOAD_SHOW_PENDING);
     yield call(loadShow, slug);
   }
 }
 
 export function* loadShowByIdWatcher() {
+  // eslint-disable-next-line no-constant-condition
   while (true) {
-    // eslint-disable-line no-constant-condition
     const { id } = yield take(LOAD_SHOW_BY_ID_PENDING);
     yield call(loadShowById, id);
   }

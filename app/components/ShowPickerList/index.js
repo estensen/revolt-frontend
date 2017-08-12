@@ -6,28 +6,28 @@
 
 import React from 'react';
 
-
 import styles from './styles.css';
 
 function ShowPickerList(props) {
   const compareShows = (showA, showB) => showA.name.localeCompare(showB.name);
 
   const activeShows = props.shows
-  .filter(show => !show.archived)
-  .sort(compareShows)
-  .map((show, index) =>
-    <div key={`show-${index}`} >
-      {show.name}
-    </div>
-  );
+    .filter(show => !show.archived)
+    .sort(compareShows)
+    .map((show, index) =>
+      <div key={`show-${index}`}>
+        {show.name}
+      </div>,
+    );
 
   const archivedShows = props.shows
-  .filter(show => show.archived)
-  .sort(compareShows)
-  .map((show, index) =>
-    <div key={`show-${index}`} >
-      {show.name}
-    </div>);
+    .filter(show => show.archived)
+    .sort(compareShows)
+    .map((show, index) =>
+      <div key={`show-${index}`}>
+        {show.name}
+      </div>,
+    );
 
   return (
     <div className={styles.showPickerList}>
