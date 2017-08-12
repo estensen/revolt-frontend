@@ -13,7 +13,7 @@ import TextAreaInput from 'components/TextAreaInput';
 import SubmitButton from 'components/SubmitButton';
 import SelectInput from 'components/SelectInput';
 
-function EpisodeForm(props) {
+const EpisodeForm = props => {
   return (
     <div className={styles.episodeForm}>
       <TextInput
@@ -50,7 +50,7 @@ function EpisodeForm(props) {
       </SubmitButton>
     </div>
   );
-}
+};
 
 EpisodeForm.propTypes = {
   onTitleChange: React.PropTypes.func.isRequired,

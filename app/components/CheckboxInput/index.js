@@ -8,7 +8,7 @@ import React from 'react';
 
 import styles from './styles.css';
 
-function CheckboxInput(props) {
+const CheckboxInput = props => {
   return (
     <div className={styles.checkboxWrapper}>
       <label htmlFor={props.label} className={styles.checkboxLabel}>
@@ -23,7 +23,7 @@ function CheckboxInput(props) {
       </label>
     </div>
   );
-}
+};
 
 CheckboxInput.propTypes = {
   onChange: React.PropTypes.func.isRequired,

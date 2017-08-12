@@ -10,7 +10,7 @@ import Show from 'components/ShowPreview';
 import styles from './styles.css';
 import arrowImage from './arrow_down.svg';
 
-function ShowPreviewList(props) {
+const ShowPreviewList = props => {
   const compareShows = (showA, showB) => showA.title.localeCompare(showB.name);
 
   const activeShows = props.shows
@@ -52,7 +52,7 @@ function ShowPreviewList(props) {
       </div>
     </div>
   );
-}
+};
 
 ShowPreviewList.propTypes = {
   shows: React.PropTypes.array.isRequired,

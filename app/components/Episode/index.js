@@ -9,7 +9,7 @@ import moment from 'moment';
 
 import styles from './styles.css';
 
-function getNormalizedDateString(dateString) {
+const getNormalizedDateString = dateString => {
   const paddedString = i => (i < 10 ? `0${i}` : `${i}`);
 
   const date = moment(dateString);
@@ -18,9 +18,9 @@ function getNormalizedDateString(dateString) {
   const day = date.date();
 
   return `${paddedString(day)}.${paddedString(month)}.${year}`;
-}
+};
 
-function Episode(props) {
+const Episode = props => {
   if (props.digasBroadcastId === 0) {
     return null;
   }
@@ -49,7 +49,7 @@ function Episode(props) {
       </div>
     </button>
   );
-}
+};
 
 Episode.propTypes = {
   digasBroadcastId: React.PropTypes.number,

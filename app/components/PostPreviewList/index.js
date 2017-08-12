@@ -9,7 +9,7 @@ import PostPreview from 'components/PostPreview';
 
 import styles from './styles.css';
 
-function PostPreviewList(props) {
+const PostPreviewList = props => {
   const posts = props.posts.map((post, index) =>
     <div className={styles.post} key={`post-${index}`}>
       <PostPreview {...post} />
@@ -21,7 +21,7 @@ function PostPreviewList(props) {
       {posts}
     </div>
   );
-}
+};
 
 PostPreviewList.propTypes = {
   posts: React.PropTypes.array.isRequired,

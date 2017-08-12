@@ -9,7 +9,7 @@ import LinkButton from 'components/LinkButton';
 
 import styles from './styles.css';
 
-function AdminOptionButton(props) {
+const AdminOptionButton = props => {
   return (
     <div className={styles.adminOptionButton}>
       <h2 className={styles.title}>
@@ -20,7 +20,7 @@ function AdminOptionButton(props) {
       <LinkButton to={props.editObjectPath} text="Endre" />
     </div>
   );
-}
+};
 
 AdminOptionButton.propTypes = {
   image: React.PropTypes.string,

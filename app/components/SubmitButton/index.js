@@ -8,20 +8,15 @@ import React from 'react';
 
 import styles from './styles.css';
 
-function SubmitButton(props) {
-  return (
-    <button
-      className={
-        props.disabled
-          ? styles.submitButtonDisabled
-          : styles.submitButtonEnabled
-      }
-      onClick={props.onClick}
-    >
-      {props.children}
-    </button>
-  );
-}
+const SubmitButton = props =>
+  <button
+    className={
+      props.disabled ? styles.submitButtonDisabled : styles.submitButtonEnabled
+    }
+    onClick={props.onClick}
+  >
+    {props.children}
+  </button>;
 
 SubmitButton.propTypes = {
   onClick: React.PropTypes.func.isRequired,

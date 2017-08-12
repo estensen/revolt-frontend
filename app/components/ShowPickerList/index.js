@@ -8,7 +8,7 @@ import React from 'react';
 
 import styles from './styles.css';
 
-function ShowPickerList(props) {
+const ShowPickerList = props => {
   const compareShows = (showA, showB) => showA.name.localeCompare(showB.name);
 
   const activeShows = props.shows
@@ -41,7 +41,7 @@ function ShowPickerList(props) {
       </div>
     </div>
   );
-}
+};
 
 ShowPickerList.propTypes = {
   shows: React.PropTypes.oneOfType([

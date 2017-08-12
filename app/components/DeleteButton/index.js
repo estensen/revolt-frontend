@@ -8,12 +8,13 @@ import React from 'react';
 
 import styles from './styles.css';
 
-function DeleteButton(props) {
+const DeleteButton = props => {
   return (
     <button
       className={styles.deleteButton}
       onClick={() => {
-        const response = window.confirm(props.confirmText); // eslint-disable-line no-alert
+        const response = window.confirm(props.confirmText);
+        // eslint-disable-line no-alert
         if (response) {
           props.onClick();
         }
@@ -22,7 +23,7 @@ function DeleteButton(props) {
       {props.children}
     </button>
   );
-}
+};
 
 DeleteButton.propTypes = {
   onClick: React.PropTypes.func.isRequired,
