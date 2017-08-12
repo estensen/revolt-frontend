@@ -4,11 +4,11 @@
 // about the code splitting business
 import { getAsyncInjectors } from 'utils/asyncInjectors';
 
-const errorLoading = (err) => {
+const errorLoading = err => {
   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
 };
 
-const loadModule = (cb) => (componentModule) => {
+const loadModule = cb => componentModule => {
   cb(null, componentModule.default);
 };
 
@@ -37,7 +37,8 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
       path: '/om',
       name: 'about',
       getComponent(location, cb) {
@@ -45,7 +46,8 @@ export default function createRoutes(store) {
           .then(loadModule(cb))
           .catch(errorLoading);
       },
-    }, {
+    },
+    {
       path: '/programmer',
       name: 'shows',
       getComponent(nextState, cb) {
@@ -65,7 +67,8 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
       path: '/post/:slug',
       name: 'post',
       getComponent(nextState, cb) {
@@ -85,7 +88,8 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
       path: '/programmer/:slug',
       name: 'show',
       getComponent(nextState, cb) {
@@ -105,7 +109,8 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
       path: '/admin',
       name: 'admin',
       getComponent(nextState, cb) {
@@ -125,7 +130,8 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
       path: '/admin/programmer/ny',
       name: 'ShowAdmin',
       getComponent(nextState, cb) {
@@ -137,15 +143,18 @@ export default function createRoutes(store) {
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([ShowAdminReducer, ShowAdminSagas, ShowAdminComponent]) => {
-          injectReducer('ShowAdmin', ShowAdminReducer.default);
-          injectSagas(ShowAdminSagas.default);
-          renderRoute(ShowAdminComponent);
-        });
+        importModules.then(
+          ([ShowAdminReducer, ShowAdminSagas, ShowAdminComponent]) => {
+            injectReducer('ShowAdmin', ShowAdminReducer.default);
+            injectSagas(ShowAdminSagas.default);
+            renderRoute(ShowAdminComponent);
+          },
+        );
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
       path: '/admin/episoder/ny',
       name: 'EpisodeAdmin',
       getComponent(nextState, cb) {
@@ -159,17 +168,22 @@ export default function createRoutes(store) {
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([episodeReducer, showReducer, episodeSagas, showSagas, component]) => {
-          injectReducer('episodeAdmin', episodeReducer.default);
-          injectReducer('shows', showReducer.default);
-          injectSagas(episodeSagas.default);
-          injectSagas(showSagas.default);
-          renderRoute(component);
-        });
+        importModules.then(
+          (
+            [episodeReducer, showReducer, episodeSagas, showSagas, component],
+          ) => {
+            injectReducer('episodeAdmin', episodeReducer.default);
+            injectReducer('shows', showReducer.default);
+            injectSagas(episodeSagas.default);
+            injectSagas(showSagas.default);
+            renderRoute(component);
+          },
+        );
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
       path: '/admin/post/ny',
       name: 'PostAdmin',
       getComponent(nextState, cb) {
@@ -185,43 +199,79 @@ export default function createRoutes(store) {
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([PostAdminReducer, PostAdminSagas, PostAdminComponent, ShowsReducer, ShowsSagas, CategoriesReducer, CategoriesSagas]) => {
-          injectReducer('postAdmin', PostAdminReducer.default);
-          injectSagas(PostAdminSagas.default);
-          injectReducer('shows', ShowsReducer.default);
-          injectSagas(ShowsSagas.default);
-          injectReducer('categories', CategoriesReducer.default);
-          injectSagas(CategoriesSagas.default);
-          renderRoute(PostAdminComponent);
-        });
+        importModules.then(
+          (
+            [
+              PostAdminReducer,
+              PostAdminSagas,
+              PostAdminComponent,
+              ShowsReducer,
+              ShowsSagas,
+              CategoriesReducer,
+              CategoriesSagas,
+            ],
+          ) => {
+            injectReducer('postAdmin', PostAdminReducer.default);
+            injectSagas(PostAdminSagas.default);
+            injectReducer('shows', ShowsReducer.default);
+            injectSagas(ShowsSagas.default);
+            injectReducer('categories', CategoriesReducer.default);
+            injectSagas(CategoriesSagas.default);
+            renderRoute(PostAdminComponent);
+          },
+        );
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
       path: '/admin/episoder/endre',
       name: 'EpisodeAdminEditor',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/EpisodeAdminEditor/reducer'),
+          System.import('containers/EpisodeAdmin/reducer'),
           System.import('containers/Shows/reducer'),
+          System.import('containers/Show/reducer'),
           System.import('containers/EpisodeAdminEditor/sagas'),
+          System.import('containers/EpisodeAdmin/sagas'),
           System.import('containers/Shows/sagas'),
+          System.import('containers/Show/sagas'),
           System.import('containers/EpisodeAdminEditor'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([episodeReducer, showsReducar, episodeSagas, showsSagas, component]) => {
-          injectReducer('episodeAdminEditor', episodeReducer.default);
-          injectReducer('shows', showsReducar.default);
-          injectSagas(episodeSagas.default);
-          injectSagas(showsSagas.default);
-          renderRoute(component);
-        });
+        importModules.then(
+          (
+            [
+              episodeReducer,
+              episodeAdminReducer,
+              showsReducer,
+              showReducer,
+              episodeSagas,
+              episodeAdminSagas,
+              showsSagas,
+              showSagas,
+              component,
+            ],
+          ) => {
+            injectReducer('episodeAdminEditor', episodeReducer.default);
+            injectReducer('episodeAdmin', episodeAdminReducer.default);
+            injectReducer('shows', showsReducer.default);
+            injectReducer('show', showReducer.default);
+            injectSagas(episodeSagas.default);
+            injectSagas(episodeAdminSagas.default);
+            injectSagas(showsSagas.default);
+            injectSagas(showSagas.default);
+            renderRoute(component);
+          },
+        );
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

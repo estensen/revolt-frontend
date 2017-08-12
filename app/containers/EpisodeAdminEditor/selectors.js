@@ -3,14 +3,15 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the episodeAdminPicker state domain
  */
-const selectEpisodeAdminEditorDomain = () => state => state.get('episodeAdminEditor');
+const selectEpisodeAdminEditorDomain = () => state =>
+  state.get('episodeAdminEditor');
 
+const selectUpdateEpisodeLoading = () =>
+  createSelector(selectEpisodeAdminEditorDomain(), state =>
+    state.get('loading'),
+  );
 
-const selectEpisodeAdminEditor = () => createSelector(
-  selectEpisodeAdminEditorDomain(),
-  (substate) => substate.toJS()
-);
+const selectUpdateEpisodeError = () =>
+  createSelector(selectEpisodeAdminEditorDomain(), state => state.get('error'));
 
-export {
-  selectEpisodeAdminEditor,
-};
+export { selectUpdateEpisodeLoading, selectUpdateEpisodeError };
