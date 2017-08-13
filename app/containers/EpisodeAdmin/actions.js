@@ -1,8 +1,3 @@
-/*
- *
- * EpisodeAdmin actions
- *
- */
 import {
   ADD_EPISODE_PENDING,
   ADD_EPISODE_SUCCESS,
