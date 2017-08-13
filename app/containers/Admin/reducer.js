@@ -3,7 +3,7 @@ import { DEFAULT_ACTION } from './constants';
 
 const initialState = fromJS({});
 
-function adminReducer(state = initialState, action) {
+const adminReducer = (state = initialState, action) =>
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
