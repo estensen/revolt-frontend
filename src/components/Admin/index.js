@@ -8,35 +8,29 @@ import svgMic from './microphone.svg';
 import svgShow from './show.svg';
 import AdminOptionButton from 'components/common/button/AdminOptionButton';
 
-export class Admin extends React.Component {
-  // eslint-disable-line react/prefer-stateless-function
-  render() {
-    return (
-      <div className={styles.admin}>
-        <div className={styles.adminRow}>
-          <AdminOptionButton
-            name="Blogginnlegg"
-            image={svgBlog}
-            newObjectPath="/admin/post/ny"
-            editObjectPath="/admin/post/endre"
-          />
-          <AdminOptionButton
-            name="Episoder"
-            image={svgMic}
-            newObjectPath="/admin/episoder/ny"
-            editObjectPath="/admin/episoder/endre"
-          />
-          <AdminOptionButton
-            name="Programmer"
-            image={svgShow}
-            newObjectPath="/admin/programmer/ny"
-            editObjectPath="/admin/programmer/endre"
-          />
-        </div>
-      </div>
-    );
-  }
-}
+const Admin = () =>
+  <div className={styles.admin}>
+    <div className={styles.adminRow}>
+      <AdminOptionButton
+        name="Blogginnlegg"
+        image={svgBlog}
+        newObjectPath="/admin/post/ny"
+        editObjectPath="/admin/post/endre"
+      />
+      <AdminOptionButton
+        name="Episoder"
+        image={svgMic}
+        newObjectPath="/admin/episoder/ny"
+        editObjectPath="/admin/episoder/endre"
+      />
+      <AdminOptionButton
+        name="Programmer"
+        image={svgShow}
+        newObjectPath="/admin/programmer/ny"
+        editObjectPath="/admin/programmer/endre"
+      />
+    </div>
+  </div>;
 
 const mapStateToProps = selectAdmin();
 
