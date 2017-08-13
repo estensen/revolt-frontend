@@ -36,9 +36,9 @@
     "start:prod": "cross-env NODE_ENV=production node server",
     "precommit": "lint-staged && npm run test",
     "lint": "npm run lint:js && npm run lint:css",
-    "lint:js": "eslint app/",
-    "lint:css": "stylelint ./app/**/*.css",
-    "test": "jest app/"
+    "lint:js": "eslint src/",
+    "lint:css": "stylelint ./src/**/*.css",
+    "test": "jest src/"
   },
   "lint-staged": {
     "*.js": [
@@ -68,7 +68,7 @@
   "jest": {
     "automock": false,
     "collectCoverageFrom": [
-      "app/**/*.{js,jsx}"
+      "src/**/*.{js,jsx}"
     ],
     "coveragePathIgnorePatterns": [
       "[/\\\\]build[/\\\\].+\\.(js|jsx)$",
@@ -79,7 +79,7 @@
       "<rootDir>/internals/testing/polyfills.js"
     ],
     "testMatch": [
-      "<rootDir>/app/**/?(*.)(spec|test).js?(x)"
+      "<rootDir>/src/**/?(*.)(spec|test).js?(x)"
     ],
     "transform": {
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
