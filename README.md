@@ -1,6 +1,8 @@
 # kapina-frontend
 Frontend for radiorevolt.no
 
+[![Build Status](https://travis-ci.org/Studentmediene/kapina-frontend.svg?branch=master)](https://travis-ci.org/Studentmediene/kapina-frontend)
+
 ## Setup
 
 This project requires [Node](https://nodejs.org/en/download/ "Node download") v8.1.0+ and npm v5.3.0. npm comes bundled with Node.
