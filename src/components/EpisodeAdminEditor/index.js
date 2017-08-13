@@ -11,36 +11,36 @@ import {
   selectShows,
   selectShowsLoading,
   selectShowsError,
-} from 'containers/Shows/selectors';
+} from 'components/Shows/selectors';
 
 import {
   selectDigasOnDemandEpisodes,
   selectDigasPodcastEpisodes,
   selectDigasEpisodesLoading,
   selectDigasEpisodesError,
-} from 'containers/EpisodeAdmin/selectors';
+} from 'components/EpisodeAdmin/selectors';
 
 import {
   selectShow,
   selectShowEpisodes,
   selectShowLoading,
   selectShowError,
-} from 'containers/Show/selectors';
+} from 'components/Show/selectors';
 
 import styles from './styles.css';
 
 import { updateEpisodePending, deleteEpisodePending } from './actions';
-import { loadShows } from 'containers/Shows/actions';
-import { loadShowById, clearShow } from 'containers/Show/actions';
+import { loadShows } from 'components/Shows/actions';
+import { loadShowById, clearShow } from 'components/Show/actions';
 import {
   loadDigasEpisodesPending,
   clearDigasEpisodes,
-} from 'containers/EpisodeAdmin/actions';
+} from 'components/EpisodeAdmin/actions';
 
 import EpisodeForm from 'components/EpisodeForm';
-import SelectInput from 'components/SelectInput';
+import SelectInput from 'components/common/input/SelectInput';
 import EpisodePreview from 'components/EpisodePreview';
-import DeleteButton from 'components/DeleteButton';
+import DeleteButton from 'components/common/button/DeleteButton';
 
 // FieldChangeHandlerFactory
 const getFieldChangeHandler = name =>

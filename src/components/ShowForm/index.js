@@ -2,12 +2,12 @@ import React from 'react';
 
 import styles from './styles.css';
 
-import TextInput from 'components/TextInput';
-import TextAreaInput from 'components/TextAreaInput';
-import CheckboxInput from 'components/CheckboxInput';
-import SubmitButton from 'components/SubmitButton';
-import UploadFileInput from 'components/UploadFileInput';
-import SelectInput from 'components/SelectInput';
+import TextInput from 'components/common/input/TextInput';
+import TextAreaInput from 'components/common/input/TextAreaInput';
+import CheckboxInput from 'components/common/input/CheckboxInput';
+import SubmitButton from 'components/common/button/SubmitButton';
+import UploadFileInput from 'components/common/input/UploadFileInput';
+import SelectInput from 'components/common/input/SelectInput';
 
 const ShowForm = props => {
   const languagesOptions = [

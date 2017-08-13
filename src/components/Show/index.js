@@ -19,7 +19,7 @@ import { loadShow } from './actions';
 import {
   getPodcastPlaylist,
   getOnDemandPlaylist,
-} from 'containers/Player/actions';
+} from 'components/Player/actions';
 import styles from './styles.css';
 import Episode from 'components/Episode';
 import PostPreview from 'components/PostPreview';

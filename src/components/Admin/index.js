@@ -12,7 +12,7 @@ import styles from './styles.css';
 import svgBlog from './blog.svg';
 import svgMic from './microphone.svg';
 import svgShow from './show.svg';
-import AdminOptionButton from 'components/AdminOptionButton';
+import AdminOptionButton from 'components/common/button/AdminOptionButton';
 
 export class Admin extends React.Component {
   // eslint-disable-line react/prefer-stateless-function

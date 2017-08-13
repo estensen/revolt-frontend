@@ -22,8 +22,8 @@ import styles from './styles.css';
 import Footer from 'components/Footer';
 import HeaderLiveButton from 'components/HeaderLiveButton';
 
-import Player from 'containers/Player';
-import { playLive } from 'containers/Player/actions';
+import Player from 'components/Player';
+import { playLive } from 'components/Player/actions';
 
 const navbarLinks = [
   {

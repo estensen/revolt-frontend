@@ -22,9 +22,9 @@ export default function createRoutes(store) {
       name: 'frontPage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/FrontPage/reducer'),
-          System.import('containers/FrontPage/sagas'),
-          System.import('containers/FrontPage'),
+          System.import('components/FrontPage/reducer'),
+          System.import('components/FrontPage/sagas'),
+          System.import('components/FrontPage'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -42,7 +42,7 @@ export default function createRoutes(store) {
       path: '/om',
       name: 'about',
       getComponent(location, cb) {
-        System.import('containers/About')
+        System.import('components/About')
           .then(loadModule(cb))
           .catch(errorLoading);
       },
@@ -52,9 +52,9 @@ export default function createRoutes(store) {
       name: 'shows',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Shows/reducer'),
-          System.import('containers/Shows/sagas'),
-          System.import('containers/Shows'),
+          System.import('components/Shows/reducer'),
+          System.import('components/Shows/sagas'),
+          System.import('components/Shows'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -73,9 +73,9 @@ export default function createRoutes(store) {
       name: 'post',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Post/reducer'),
-          System.import('containers/Post/sagas'),
-          System.import('containers/Post'),
+          System.import('components/Post/reducer'),
+          System.import('components/Post/sagas'),
+          System.import('components/Post'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -94,9 +94,9 @@ export default function createRoutes(store) {
       name: 'show',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Show/reducer'),
-          System.import('containers/Show/sagas'),
-          System.import('containers/Show'),
+          System.import('components/Show/reducer'),
+          System.import('components/Show/sagas'),
+          System.import('components/Show'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -115,9 +115,9 @@ export default function createRoutes(store) {
       name: 'admin',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Admin/reducer'),
-          System.import('containers/Admin/sagas'),
-          System.import('containers/Admin'),
+          System.import('components/Admin/reducer'),
+          System.import('components/Admin/sagas'),
+          System.import('components/Admin'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -136,9 +136,9 @@ export default function createRoutes(store) {
       name: 'ShowAdmin',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/ShowAdmin/reducer'),
-          System.import('containers/ShowAdmin/sagas'),
-          System.import('containers/ShowAdmin'),
+          System.import('components/ShowAdmin/reducer'),
+          System.import('components/ShowAdmin/sagas'),
+          System.import('components/ShowAdmin'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -159,11 +159,11 @@ export default function createRoutes(store) {
       name: 'EpisodeAdmin',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/EpisodeAdmin/reducer'),
-          System.import('containers/Shows/reducer'),
-          System.import('containers/EpisodeAdmin/sagas'),
-          System.import('containers/Shows/sagas'),
-          System.import('containers/EpisodeAdmin'),
+          System.import('components/EpisodeAdmin/reducer'),
+          System.import('components/Shows/reducer'),
+          System.import('components/EpisodeAdmin/sagas'),
+          System.import('components/Shows/sagas'),
+          System.import('components/EpisodeAdmin'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -188,13 +188,13 @@ export default function createRoutes(store) {
       name: 'PostAdmin',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/PostAdmin/reducer'),
-          System.import('containers/PostAdmin/sagas'),
-          System.import('containers/PostAdmin'),
-          System.import('containers/Shows/reducer'),
-          System.import('containers/Shows/sagas'),
-          System.import('containers/Categories/reducer'),
-          System.import('containers/Categories/sagas'),
+          System.import('components/PostAdmin/reducer'),
+          System.import('components/PostAdmin/sagas'),
+          System.import('components/PostAdmin'),
+          System.import('components/Shows/reducer'),
+          System.import('components/Shows/sagas'),
+          System.import('components/Categories/reducer'),
+          System.import('components/Categories/sagas'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -229,15 +229,15 @@ export default function createRoutes(store) {
       name: 'EpisodeAdminEditor',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/EpisodeAdminEditor/reducer'),
-          System.import('containers/EpisodeAdmin/reducer'),
-          System.import('containers/Shows/reducer'),
-          System.import('containers/Show/reducer'),
-          System.import('containers/EpisodeAdminEditor/sagas'),
-          System.import('containers/EpisodeAdmin/sagas'),
-          System.import('containers/Shows/sagas'),
-          System.import('containers/Show/sagas'),
-          System.import('containers/EpisodeAdminEditor'),
+          System.import('components/EpisodeAdminEditor/reducer'),
+          System.import('components/EpisodeAdmin/reducer'),
+          System.import('components/Shows/reducer'),
+          System.import('components/Show/reducer'),
+          System.import('components/EpisodeAdminEditor/sagas'),
+          System.import('components/EpisodeAdmin/sagas'),
+          System.import('components/Shows/sagas'),
+          System.import('components/Show/sagas'),
+          System.import('components/EpisodeAdminEditor'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -275,7 +275,7 @@ export default function createRoutes(store) {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
-        System.import('containers/NotFoundPage')
+        System.import('components/NotFoundPage')
           .then(loadModule(cb))
           .catch(errorLoading);
       },

@@ -1,5 +1,5 @@
 import { take, call, put } from 'redux-saga/effects';
-import { showsLoaded, showsLoadedError } from 'containers/Shows/actions';
+import { showsLoaded, showsLoadedError } from 'components/Shows/actions';
 import { LOAD_SHOWS_PENDING } from './constants';
 import { get, SHOWS_URL } from 'utils/api';
 

@@ -11,23 +11,23 @@ import {
   selectShows,
   selectShowsLoading,
   selectShowsError,
-} from 'containers/Shows/selectors';
+} from 'components/Shows/selectors';
 import {
   selectCategories,
   selectCategoriesLoading,
   selectCategoriesError,
-} from 'containers/Categories/selectors';
-import { loadShows } from 'containers/Shows/actions';
-import { loadCategories } from 'containers/Categories/actions';
+} from 'components/Categories/selectors';
+import { loadShows } from 'components/Shows/actions';
+import { loadCategories } from 'components/Categories/actions';
 import { addPostPending } from './actions';
 import styles from './styles.css';
 
-import TextInput from 'components/TextInput';
-import TextAreaInput from 'components/TextAreaInput';
-import CheckboxInput from 'components/CheckboxInput';
-import SubmitButton from 'components/SubmitButton';
-import UploadFileInput from 'components/UploadFileInput';
-import SelectInput from 'components/SelectInput';
+import TextInput from 'components/common/input/TextInput';
+import TextAreaInput from 'components/common/input/TextAreaInput';
+import CheckboxInput from 'components/common/input/CheckboxInput';
+import SubmitButton from 'components/common/button/SubmitButton';
+import UploadFileInput from 'components/common/input/UploadFileInput';
+import SelectInput from 'components/common/input/SelectInput';
 
 export class PostAdmin extends React.Component {
   // eslint-disable-line react/prefer-stateless-function

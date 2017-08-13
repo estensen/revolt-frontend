@@ -1,5 +1,5 @@
 import React from 'react';
-import LinkButton from 'components/LinkButton';
+import LinkButton from 'components/common/button/LinkButton';
 
 import styles from './styles.css';
 

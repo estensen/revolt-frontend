@@ -1,9 +1,9 @@
 import React from 'react';
 
-import TextInput from 'components/TextInput';
-import TextAreaInput from 'components/TextAreaInput';
-import SubmitButton from 'components/SubmitButton';
-import SelectInput from 'components/SelectInput';
+import TextInput from 'components/common/input/TextInput';
+import TextAreaInput from 'components/common/input/TextAreaInput';
+import SubmitButton from 'components/common/button/SubmitButton';
+import SelectInput from 'components/common/input/SelectInput';
 import styles from './styles.css';
 
 const EpisodeForm = props => {

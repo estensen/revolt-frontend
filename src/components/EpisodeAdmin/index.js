@@ -15,7 +15,7 @@ import {
   selectShows,
   selectShowsLoading,
   selectShowsError,
-} from 'containers/Shows/selectors';
+} from 'components/Shows/selectors';
 import {
   selectDigasOnDemandEpisodes,
   selectDigasPodcastEpisodes,
@@ -23,8 +23,8 @@ import {
   selectDigasEpisodesError,
 } from './selectors';
 
-import { loadShows } from 'containers/Shows/actions';
-import { getOnDemandPlaylist } from 'containers/Player/actions';
+import { loadShows } from 'components/Shows/actions';
+import { getOnDemandPlaylist } from 'components/Player/actions';
 import {
   addEpisodePending,
   loadDigasEpisodesPending,

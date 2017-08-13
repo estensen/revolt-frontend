@@ -6,7 +6,7 @@
 import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import playerReducer from 'containers/Player/reducer';
+import playerReducer from 'components/Player/reducer';
 
 /*
  * routeReducer
