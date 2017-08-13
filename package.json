@@ -1,5 +1,5 @@
 {
-  "name": "revolt-frontend",
+  "name": "kapina-frontend",
   "version": "1.0.0",
   "description": "Frontend project for https://radiorevolt.no",
   "homepage": "https://radiorevolt.no",
@@ -7,6 +7,7 @@
     "radiorevolt",
     "radio",
     "revolt",
+    "kapina",
     "studentmediene",
     "samfundet",
     "trondheim"
@@ -16,7 +17,7 @@
     "url": "https://github.com/Studentmediene/revolt-frontend"
   },
   "engines": {
-    "npm": ">=3.0.0"
+    "node": ">=8.1.0"
   },
   "author": "Vemund Santi <vemund@santi.no>",
   "contributors": [
