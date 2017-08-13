@@ -1,15 +1,9 @@
-/**
-*
-* Footer
-*
-*/
-
 import React from 'react';
 import { Link } from 'react-router';
 
 import styles from './styles.css';
 
-function Footer() {
+const Footer = () => {
   return (
     <div className={styles.footer}>
       <div className={styles.content}>
@@ -39,6 +33,6 @@ function Footer() {
       </div>
     </div>
   );
-}
+};
 
 export default Footer;

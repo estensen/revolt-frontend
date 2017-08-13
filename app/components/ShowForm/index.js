@@ -1,9 +1,3 @@
-/**
-*
-* ShowForm
-*
-*/
-
 import React from 'react';
 
 import styles from './styles.css';
@@ -15,7 +9,7 @@ import SubmitButton from 'components/SubmitButton';
 import UploadFileInput from 'components/UploadFileInput';
 import SelectInput from 'components/SelectInput';
 
-function ShowForm(props) {
+const ShowForm = props => {
   const languagesOptions = [
     <option value={'no'} key={'no'}>
       Norsk
@@ -68,7 +62,7 @@ function ShowForm(props) {
       </SubmitButton>
     </div>
   );
-}
+};
 
 ShowForm.propTypes = {
   onTitleChange: React.PropTypes.func.isRequired,

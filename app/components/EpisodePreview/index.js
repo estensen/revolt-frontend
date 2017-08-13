@@ -1,15 +1,9 @@
-/**
-*
-* EpisodePreview
-*
-*/
-
 import React from 'react';
 import moment from 'moment';
 
 import styles from './styles.css';
 
-function getNormalizedDateString(dateString) {
+const getNormalizedDateString = dateString => {
   const paddedString = i => (i < 10 ? `0${i}` : `${i}`);
 
   const date = moment(dateString);
@@ -18,7 +12,7 @@ function getNormalizedDateString(dateString) {
   const day = date.date();
 
   return `${paddedString(day)}.${paddedString(month)}.${year}`;
-}
+};
 
 function EpisodePreview(props) {
   return (

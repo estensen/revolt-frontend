@@ -1,14 +1,8 @@
-/**
-*
-* SelectInput
-*
-*/
-
 import React from 'react';
 
 import styles from './styles.css';
 
-function SelectInput(props) {
+const SelectInput = props => {
   if (props.options) {
     return (
       <div className={styles.selectInput}>
@@ -22,7 +16,7 @@ function SelectInput(props) {
     );
   }
   return <div />;
-}
+};
 
 SelectInput.propTypes = {
   label: React.PropTypes.string,
