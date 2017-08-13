@@ -1,9 +1,3 @@
-/*
- *
- * Categories actions
- *
- */
-
 import {
   LOAD_CATEGORIES_PENDING,
   LOAD_CATEGORIES_SUCCESS,
