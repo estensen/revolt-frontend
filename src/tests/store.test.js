@@ -1,6 +1,3 @@
-/**
- * Test store addons
- */
 import configureStore from '../store'; // eslint-disable-line
 import { browserHistory } from 'react-router';
 

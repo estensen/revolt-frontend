@@ -1,6 +1,3 @@
-/**
- * Test async injectors
- */
 import configureStore from 'store.js';
 import { memoryHistory } from 'react-router';
 import { put } from 'redux-saga/effects';
