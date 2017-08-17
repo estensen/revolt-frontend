@@ -6,6 +6,6 @@ const Categories = () => <div />;
 
 const mapStateToProps = selectCategories();
 
-const mapDispatchToProps = dispatch => dispatch;
+const mapDispatchToProps = dispatch => ({ dispatch });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Categories);
