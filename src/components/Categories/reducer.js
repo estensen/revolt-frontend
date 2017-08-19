@@ -1,9 +1,3 @@
-/*
- *
- * Categories reducer
- *
- */
-
 import { fromJS } from 'immutable';
 import {
   LOAD_CATEGORIES_PENDING,
@@ -17,7 +11,7 @@ const initialState = fromJS({
   categories: false,
 });
 
-function categoriesReducer(state = initialState, action) {
+const categoriesReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_CATEGORIES_PENDING:
       return state.set('loading', true).set('error', false);
@@ -31,6 +25,6 @@ function categoriesReducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
 
 export default categoriesReducer;
