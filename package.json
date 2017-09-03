@@ -75,9 +75,6 @@
       "<rootDir>/internals/",
       "<rootDir>/server/"
     ],
-    "setupFiles": [
-      "<rootDir>/internals/testing/polyfills.js"
-    ],
     "testMatch": [
       "<rootDir>/src/**/?(*.)(spec|test).js?(x)"
     ],
