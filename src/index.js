@@ -10,6 +10,9 @@ import App from 'components/App';
 import configureStore from 'store';
 import createRoutes from 'routes';
 
+import { initializeErrorReporting } from 'utils/errorReporting';
+initializeErrorReporting();
+
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css';
 
