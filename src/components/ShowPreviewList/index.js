@@ -19,9 +19,7 @@ const ShowPreviewList = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.activeShows}>
-        {activeShows}
-      </div>
+      <div className={styles.activeShows}>{activeShows}</div>
       <button
         className={styles.archivedShowsButton}
         onClick={props.toggleArchivedShows}

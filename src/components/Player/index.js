@@ -360,6 +360,7 @@ class Player extends React.Component {
         </div>
 
         <div
+          role="toolbar"
           className={styles.audioProgressContainer}
           ref={ref => {
             this.audioProgressContainer = ref;

@@ -33,11 +33,7 @@ export class FrontPage extends React.Component {
       );
       posts = <PostPreviewList posts={this.props.posts} />;
     }
-    return (
-      <div className={styles.frontPage}>
-        {posts}
-      </div>
-    );
+    return <div className={styles.frontPage}>{posts}</div>;
   }
 }
 

@@ -37,9 +37,7 @@ const Episode = props => {
         <div className={styles.title}>
           {props.showName} {getNormalizedDateString(props.createdAt)}
         </div>
-        <div className={styles.lead}>
-          {props.lead}
-        </div>
+        <div className={styles.lead}>{props.lead}</div>
       </div>
     </button>
   );

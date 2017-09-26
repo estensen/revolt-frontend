@@ -80,9 +80,7 @@ export class Show extends React.Component {
     return (
       <div>
         <ShowDetailHeader show={this.props.show} />
-        <div className={styles.content}>
-          {elements}
-        </div>
+        <div className={styles.content}>{elements}</div>
       </div>
     );
   }

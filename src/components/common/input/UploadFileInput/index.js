@@ -2,13 +2,12 @@ import React from 'react';
 
 import styles from './styles.css';
 
-const UploadFileInput = props =>
+const UploadFileInput = props => (
   <div className={styles.uploadFileInput}>
-    <span className={styles.label}>
-      {props.label}
-    </span>
+    <span className={styles.label}>{props.label}</span>
     <input className="fileInput" type="file" onChange={props.onChange} />
-  </div>;
+  </div>
+);
 
 UploadFileInput.propTypes = {
   onChange: React.PropTypes.func,

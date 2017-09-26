@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
+import { BrowserRouter, browserHistory } from 'react-router-dom';
 import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from './store';
 import googleAnalytics from 'react-ga';
@@ -27,6 +27,7 @@ const history = syncHistoryWithStore(browserHistory, store, {
 
 // Set up the router, wrapping all Routes in the App component
 import App from 'components/App';
+
 import createRoutes from './routes';
 const rootRoute = {
   component: App,
@@ -42,7 +43,9 @@ const logPageView = () => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history} routes={rootRoute} onUpdate={logPageView} />
+    <BrowserRouter history={history} routes={rootRoute} onUpdate={logPageView}>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('app'),
 );

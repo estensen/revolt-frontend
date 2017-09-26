@@ -102,11 +102,11 @@ export class ShowAdmin extends React.Component {
   render() {
     let digasShows = false;
     if (this.props.digasShows !== false && this.props.digasShows.length > 0) {
-      digasShows = this.props.digasShows.map(show =>
+      digasShows = this.props.digasShows.map(show => (
         <option value={show.id} key={show.id}>
           {show.name}
-        </option>,
-      );
+        </option>
+      ));
       digasShows.unshift(
         <option value={''} key={'digasShow-placeholder'}>
           Velg show

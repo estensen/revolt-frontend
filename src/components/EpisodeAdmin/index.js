@@ -120,11 +120,11 @@ export class EpisodeAdmin extends React.Component {
     const arrayToOptionComponents = (array, defaultKey, defaultText) => {
       let reactComponents;
       if (array !== false && array.length > 0) {
-        reactComponents = array.map(element =>
+        reactComponents = array.map(element => (
           <option value={element.id} key={element.id}>
             {element.title}
-          </option>,
-        );
+          </option>
+        ));
         reactComponents.unshift(
           <option value={''} key={defaultKey}>
             {defaultText}

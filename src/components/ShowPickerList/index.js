@@ -8,31 +8,19 @@ const ShowPickerList = props => {
   const activeShows = props.shows
     .filter(show => !show.archived)
     .sort(compareShows)
-    .map((show, index) =>
-      <div key={`show-${index}`}>
-        {show.name}
-      </div>,
-    );
+    .map((show, index) => <div key={`show-${index}`}>{show.name}</div>);
 
   const archivedShows = props.shows
     .filter(show => show.archived)
     .sort(compareShows)
-    .map((show, index) =>
-      <div key={`show-${index}`}>
-        {show.name}
-      </div>,
-    );
+    .map((show, index) => <div key={`show-${index}`}>{show.name}</div>);
 
   return (
     <div className={styles.showPickerList}>
       <h2>Aktive programmer</h2>
-      <div className={styles.activeShows}>
-        {activeShows}
-      </div>
+      <div className={styles.activeShows}>{activeShows}</div>
       <h1>Arkiverte programmer</h1>
-      <div className={styles.archivedShows}>
-        {archivedShows}
-      </div>
+      <div className={styles.archivedShows}>{archivedShows}</div>
     </div>
   );
 };

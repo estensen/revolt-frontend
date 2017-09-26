@@ -47,17 +47,11 @@ export class Post extends React.Component {
 
     return (
       <div className={styles.post}>
-        <h1 className={styles.title}>
-          {this.props.post.title}
-        </h1>
+        <h1 className={styles.title}>{this.props.post.title}</h1>
         <div className={styles.meta}>
-          <span className={styles.createdAt}>
-            {time}
-          </span>
+          <span className={styles.createdAt}>{time}</span>
         </div>
-        <p className={styles.body}>
-          {this.props.post.content}
-        </p>
+        <p className={styles.body}>{this.props.post.content}</p>
       </div>
     );
   }

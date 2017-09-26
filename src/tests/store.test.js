@@ -1,5 +1,5 @@
 import configureStore from '../store'; // eslint-disable-line
-import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router-dom';
 
 describe('configureStore', () => {
   let store;

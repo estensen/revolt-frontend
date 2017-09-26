@@ -8,7 +8,7 @@ import svgMic from './microphone.svg';
 import svgShow from './show.svg';
 import AdminOptionButton from 'components/common/button/AdminOptionButton';
 
-const Admin = () =>
+const Admin = () => (
   <div className={styles.admin}>
     <div className={styles.adminRow}>
       <AdminOptionButton
@@ -30,7 +30,8 @@ const Admin = () =>
         editObjectPath="/admin/programmer/endre"
       />
     </div>
-  </div>;
+  </div>
+);
 
 const mapStateToProps = selectAdmin();
 

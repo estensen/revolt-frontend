@@ -34,6 +34,9 @@ module.exports = {
     'jsx-a11y/no-onchange': 'off',
   },
   settings: {
+    react: {
+      version: '15.4.2',
+    },
     'import/resolver': {
       'babel-module': {},
     },

@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './styles.css';
 
-const SubmitButton = props =>
+const SubmitButton = props => (
   <button
     className={
       props.disabled ? styles.submitButtonDisabled : styles.submitButtonEnabled
@@ -10,7 +10,8 @@ const SubmitButton = props =>
     onClick={props.onClick}
   >
     {props.children}
-  </button>;
+  </button>
+);
 
 SubmitButton.propTypes = {
   onClick: React.PropTypes.func.isRequired,
