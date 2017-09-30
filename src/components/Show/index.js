@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import moment from 'moment';
 import {
@@ -28,7 +29,7 @@ import ShowDetailHeader from 'components/ShowDetailHeader';
 export class Show extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
-    this.props.loadShow(this.props.params.slug);
+    this.props.loadShow(this.props.match.params.slug);
   }
 
   render() {
@@ -99,7 +100,7 @@ Show.propTypes = {
     React.PropTypes.bool,
     React.PropTypes.array,
   ]),
-  params: React.PropTypes.object,
+  match: React.PropTypes.object,
   loadShow: React.PropTypes.func,
   loading: React.PropTypes.bool,
   error: React.PropTypes.bool,
@@ -125,4 +126,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Show);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Show));

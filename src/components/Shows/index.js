@@ -7,6 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 import { selectShows, selectShowsLoading, selectShowsError } from './selectors';
 import styles from './styles.css';
 import { loadShows } from './actions';
@@ -76,4 +77,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Shows);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Shows));

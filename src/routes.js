@@ -31,6 +31,7 @@ export default function createRoutes(store) {
     {
       path: '/om',
       name: 'about',
+      exact: true,
       component: asyncComponent(() =>
         System.import('components/About').catch(errorLoading),
       ),
@@ -39,6 +40,7 @@ export default function createRoutes(store) {
     {
       path: '/programmer',
       name: 'shows',
+      exact: true,
       component: asyncComponent(() =>
         Promise.all([
           System.import('components/Shows/reducer'),
@@ -90,6 +92,7 @@ export default function createRoutes(store) {
     {
       path: '/admin',
       name: 'admin',
+      exact: true,
       component: asyncComponent(() =>
         Promise.all([
           System.import('components/Admin/reducer'),

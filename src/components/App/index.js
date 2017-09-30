@@ -35,8 +35,6 @@ const navbarLinks = [
 
 class App extends React.Component {
   static propTypes = {
-    children: React.PropTypes.node.isRequired,
-    changeRoute: React.PropTypes.func.isRequired,
     playLive: React.PropTypes.func.isRequired,
     routes: React.PropTypes.array.isRequired,
   };

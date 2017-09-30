@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import selectAdmin from './selectors';
 import styles from './styles.css';
@@ -41,4 +42,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Admin);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Admin));
