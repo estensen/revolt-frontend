@@ -11,7 +11,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Link } from 'react-router-dom';
+import { Link, Switch, withRouter } from 'react-router-dom';
 
 import pngLogo from './RR_logo.png';
 import styles from './styles.css';
@@ -35,13 +35,13 @@ const navbarLinks = [
 
 class App extends React.Component {
   static propTypes = {
-    children: React.PropTypes.node,
-    changeRoute: React.PropTypes.func,
-    playLive: React.PropTypes.func,
+    children: React.PropTypes.node.isRequired,
+    changeRoute: React.PropTypes.func.isRequired,
+    playLive: React.PropTypes.func.isRequired,
+    routes: React.PropTypes.array.isRequired,
   };
 
   render() {
-    const routes = [];
     const navbarItems = navbarLinks.map((link, index) => (
       <li key={`item-${index}`} className={styles.navbarItem}>
         <Link
@@ -71,7 +71,9 @@ class App extends React.Component {
             <ul className={styles.navbar}>{navbarItems}</ul>
           </div>
         </header>
-        <div className={styles.content}>{routes}</div>
+        <div className={styles.content}>
+          <Switch>{this.props.routes}</Switch>
+        </div>
         <Footer />
         <Player />
       </div>
@@ -87,4 +89,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

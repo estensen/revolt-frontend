@@ -1,51 +1,45 @@
-// Import all the third party stuff
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
 import { Provider } from 'react-redux';
-import { BrowserRouter, browserHistory } from 'react-router-dom';
-import { syncHistoryWithStore } from 'react-router-redux';
-import configureStore from './store';
-import googleAnalytics from 'react-ga';
+import { Route } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
+
+import App from 'components/App';
+import configureStore from 'store';
+import createRoutes from 'routes';
 
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css';
 
 // Create redux store with history
-// this uses the singleton browserHistory provided by react-router
-// Optionally, this could be changed to leverage a created history
-// e.g. `const browserHistory = useRouterHistory(createBrowserHistory)();`
+// this uses the singleton browserHistory provided by react-router-redux
 const initialState = {};
-const store = configureStore(initialState, browserHistory);
-
-// Sync history and store, as the react-router-redux reducer
-// is under the non-default key ("routing"), selectLocationState
-// must be provided for resolving how to retrieve the "route" in the state
-import { selectLocationState } from 'components/App/selectors';
-const history = syncHistoryWithStore(browserHistory, store, {
-  selectLocationState: selectLocationState(),
-});
-
-// Set up the router, wrapping all Routes in the App component
-import App from 'components/App';
-
-import createRoutes from './routes';
-const rootRoute = {
-  component: App,
-  childRoutes: createRoutes(store),
-};
+const history = createHistory();
+const store = configureStore(initialState, history);
 
 // Set up Google Analytics
-googleAnalytics.initialize('UA-4404225-6');
-const logPageView = () => {
-  googleAnalytics.set({ page: window.location.pathname });
-  googleAnalytics.pageview(window.location.pathname);
-};
+ReactGA.initialize('UA-4404225-6');
+history.listen(location => {
+  ReactGA.set({ page: location.pathname });
+  ReactGA.pageview(location.pathname);
+});
+
+const routes = createRoutes(store).map(route => (
+  <Route
+    path={route.path}
+    component={route.component}
+    key={route.path}
+    exact={route.exact}
+  />
+));
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter history={history} routes={rootRoute} onUpdate={logPageView}>
-      <App />
-    </BrowserRouter>
+    <ConnectedRouter history={history}>
+      <App routes={routes} />
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('app'),
 );
