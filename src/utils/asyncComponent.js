@@ -14,13 +14,6 @@ export default function asyncComponent(getComponent) {
           this.setState({ Component });
         });
       }
-      /*
-      this.props.history.listen(location => {
-        if (location.pathname !== this.props.location.pathname) {
-          this.props.location.pathname = location.pathname;
-          this.forceUpdate();
-        }
-      });*/
     }
     render() {
       const { Component } = this.state;
