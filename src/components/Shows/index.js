@@ -7,6 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 import { selectShows, selectShowsLoading, selectShowsError } from './selectors';
 import styles from './styles.css';
 import { loadShows } from './actions';
@@ -14,12 +15,12 @@ import { loadShows } from './actions';
 import ShowPreviewList from 'components/ShowPreviewList';
 
 export class Shows extends React.Component {
-  // eslint-disable-line react/prefer-stateless-function
+  state = {
+    hideArchivedShows: true,
+  };
+
   componentWillMount() {
     this.props.loadShow();
-    this.state = {
-      hideArchivedShows: true,
-    };
     this.toggleArchivedShows = this.toggleArchivedShows.bind(this);
   }
 
@@ -43,11 +44,7 @@ export class Shows extends React.Component {
       );
     }
 
-    return (
-      <div className={styles.shows}>
-        {showPreviewList}
-      </div>
-    );
+    return <div className={styles.shows}>{showPreviewList}</div>;
   }
 }
 
@@ -80,4 +77,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Shows);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Shows));

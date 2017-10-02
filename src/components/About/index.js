@@ -1,6 +1,6 @@
 import React from 'react';
 
-const About = () =>
+const About = () => (
   <div>
     <h1>Om Radio Revolt</h1>
     <p>
@@ -14,10 +14,10 @@ const About = () =>
     </p>
     <h2>Historie</h2>
     <p>
-      Studentradio'n i Trondheim ble stiftet 17. november 1984, men forløperne
-      til dagens Studentradio går mye lenger tilbake. Allerede i 1929 ble
-      Akademisk Radioklubb (ARK) startet opp ved Studentersamfundet, og under
-      UKA i 1933 ble det for første gang eksperimentert med radiosendinger
+      Studentradio&#39;n i Trondheim ble stiftet 17. november 1984, men
+      forløperne til dagens Studentradio går mye lenger tilbake. Allerede i 1929
+      ble Akademisk Radioklubb (ARK) startet opp ved Studentersamfundet, og
+      under UKA i 1933 ble det for første gang eksperimentert med radiosendinger
       &ndash; kjent som UKEsenderen.
     </p>
     <p>
@@ -87,6 +87,7 @@ const About = () =>
       ble lokal-DAB-nettet i Sør-Trøndelag lansert, og Radio Revolt var blant
       den første gruppen lokalkanaler som fikk konsesjon til sending på DAB.
     </p>
-  </div>;
+  </div>
+);
 
 export default About;

@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import {
   selectDigasShows,
@@ -102,11 +103,11 @@ export class ShowAdmin extends React.Component {
   render() {
     let digasShows = false;
     if (this.props.digasShows !== false && this.props.digasShows.length > 0) {
-      digasShows = this.props.digasShows.map(show =>
+      digasShows = this.props.digasShows.map(show => (
         <option value={show.id} key={show.id}>
           {show.name}
-        </option>,
-      );
+        </option>
+      ));
       digasShows.unshift(
         <option value={''} key={'digasShow-placeholder'}>
           Velg show
@@ -180,4 +181,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowAdmin);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(ShowAdmin),
+);

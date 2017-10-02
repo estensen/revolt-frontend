@@ -33,7 +33,7 @@ export function injectAsyncReducer(store, isValid) {
       '(src/utils...) injectAsyncReducer: Expected `asyncReducer` to be a reducer function',
     );
 
-    store.asyncReducers[name] = asyncReducer; // eslint-disable-line no-param-reassign
+    store.asyncReducers[name] = asyncReducer;
     store.replaceReducer(createReducer(store.asyncReducers));
   };
 }

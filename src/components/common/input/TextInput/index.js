@@ -2,18 +2,17 @@ import React from 'react';
 
 import styles from './styles.css';
 
-const TextInput = props =>
+const TextInput = props => (
   <div className={styles.textFieldWrapper}>
-    <span className={styles.label}>
-      {props.label}
-    </span>
+    <span className={styles.label}>{props.label}</span>
     <input
       type="text"
       className={styles.textField}
       onChange={props.onChange}
       value={props.value}
     />
-  </div>;
+  </div>
+);
 
 TextInput.propTypes = {
   onChange: React.PropTypes.func.isRequired,

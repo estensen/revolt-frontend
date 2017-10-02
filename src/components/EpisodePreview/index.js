@@ -24,9 +24,7 @@ function EpisodePreview(props) {
         <div className={styles.title}>
           {props.showName} {getNormalizedDateString(props.publishAt)}
         </div>
-        <div className={styles.lead}>
-          {props.lead}
-        </div>
+        <div className={styles.lead}>{props.lead}</div>
       </div>
     </div>
   );

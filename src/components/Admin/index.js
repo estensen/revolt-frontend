@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import selectAdmin from './selectors';
 import styles from './styles.css';
@@ -8,7 +9,7 @@ import svgMic from './microphone.svg';
 import svgShow from './show.svg';
 import AdminOptionButton from 'components/common/button/AdminOptionButton';
 
-const Admin = () =>
+const Admin = () => (
   <div className={styles.admin}>
     <div className={styles.adminRow}>
       <AdminOptionButton
@@ -30,7 +31,8 @@ const Admin = () =>
         editObjectPath="/admin/programmer/endre"
       />
     </div>
-  </div>;
+  </div>
+);
 
 const mapStateToProps = selectAdmin();
 
@@ -40,4 +42,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Admin);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Admin));

@@ -6,9 +6,7 @@ const SelectInput = props => {
   if (props.options) {
     return (
       <div className={styles.selectInput}>
-        <span className={styles.label}>
-          {props.label}
-        </span>
+        <span className={styles.label}>{props.label}</span>
         <select onChange={event => props.onChange(event, props)}>
           {props.options}
         </select>

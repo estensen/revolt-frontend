@@ -7,6 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import styles from './styles.css';
 import {
@@ -33,11 +34,7 @@ export class FrontPage extends React.Component {
       );
       posts = <PostPreviewList posts={this.props.posts} />;
     }
-    return (
-      <div className={styles.frontPage}>
-        {posts}
-      </div>
-    );
+    return <div className={styles.frontPage}>{posts}</div>;
   }
 }
 
@@ -64,4 +61,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FrontPage);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(FrontPage),
+);

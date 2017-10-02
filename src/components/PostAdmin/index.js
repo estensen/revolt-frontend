@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import {
   selectShows,
@@ -102,11 +103,11 @@ export class PostAdmin extends React.Component {
   render() {
     let shows;
     if (this.props.shows !== false && this.props.shows.length > 0) {
-      shows = this.props.shows.map(show =>
+      shows = this.props.shows.map(show => (
         <option value={show.id} key={show.id}>
           {show.title}
-        </option>,
-      );
+        </option>
+      ));
       shows.unshift(
         <option value={''} key={'show-placeholder'}>
           Velg show
@@ -116,11 +117,11 @@ export class PostAdmin extends React.Component {
 
     let categories;
     if (this.props.categories !== false && this.props.categories.length > 0) {
-      categories = this.props.categories.map(category =>
+      categories = this.props.categories.map(category => (
         <option value={category.id} key={category.id}>
           {category.title}
-        </option>,
-      );
+        </option>
+      ));
       categories.unshift(
         <option value={''} key={'category-placeholder'}>
           Velg kategori
@@ -214,4 +215,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostAdmin);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(PostAdmin),
+);

@@ -6,9 +6,7 @@ import styles from './styles.css';
 const AdminOptionButton = props => {
   return (
     <div className={styles.adminOptionButton}>
-      <h2 className={styles.title}>
-        {props.name}
-      </h2>
+      <h2 className={styles.title}>{props.name}</h2>
       <img src={props.image} alt={props.name} className={styles.image} />
       <LinkButton to={props.newObjectPath} text="Opprett" />
       <LinkButton to={props.editObjectPath} text="Endre" />

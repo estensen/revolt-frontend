@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import styles from './styles.css';
 
-const ShowPreview = props =>
+const ShowPreview = props => (
   <div className={styles.container}>
     <Link className={styles.imageLink} to={`/programmer/${props.slug}`}>
       <img
@@ -13,14 +13,11 @@ const ShowPreview = props =>
       />
     </Link>
     <Link className={styles.nameLink} to={`/programmer/${props.slug}`}>
-      <h2 className={styles.name}>
-        {props.title}
-      </h2>
+      <h2 className={styles.name}>{props.title}</h2>
     </Link>
-    <div className={styles.lead}>
-      {props.lead}
-    </div>
-  </div>;
+    <div className={styles.lead}>{props.lead}</div>
+  </div>
+);
 
 ShowPreview.propTypes = {
   title: React.PropTypes.string.isRequired,

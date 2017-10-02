@@ -169,11 +169,11 @@ export class EpisodeAdminEditor extends React.Component {
     const arrayToOptionComponents = (array, defaultKey, defaultText) => {
       let reactComponents;
       if (array !== false && array.length > 0) {
-        reactComponents = array.map(element =>
+        reactComponents = array.map(element => (
           <option value={element.id} key={element.id}>
             {element.title}
-          </option>,
-        );
+          </option>
+        ));
         reactComponents.unshift(
           <option value={''} key={defaultKey}>
             {defaultText}
@@ -218,46 +218,52 @@ export class EpisodeAdminEditor extends React.Component {
           onChange={this.handleSelectedEpisode}
           options={episodes}
         />
-        {this.state.selectedEpisode
-          ? <EpisodeForm
-              onTitleChange={this.handleTitleChange}
-              onLeadChange={this.handleLeadChange}
-              onShowChange={this.handleShowChange}
-              onOnDemandEpisodeChange={event =>
-                this.handleOnDemandEpisodeChange(
-                  event,
-                  this.props.digasOnDemandEpisodes,
-                )}
-              onPodcastEpisodeChange={event =>
-                this.handlePodcastEpisodeChange(
-                  event,
-                  this.props.digasPodcastEpisodes,
-                )}
-              title={this.state.title}
+        {this.state.selectedEpisode ? (
+          <EpisodeForm
+            onTitleChange={this.handleTitleChange}
+            onLeadChange={this.handleLeadChange}
+            onShowChange={this.handleShowChange}
+            onOnDemandEpisodeChange={event =>
+              this.handleOnDemandEpisodeChange(
+                event,
+                this.props.digasOnDemandEpisodes,
+              )}
+            onPodcastEpisodeChange={event =>
+              this.handlePodcastEpisodeChange(
+                event,
+                this.props.digasPodcastEpisodes,
+              )}
+            title={this.state.title}
+            lead={this.state.lead}
+            shows={shows}
+            digasOnDemandEpisodes={digasOnDemandEpisodes}
+            digasPodcastEpisodes={digasPodcastEpisodes}
+            onAddButtonDisabled={!this.isValidEpisode(this.state)}
+            onAddEpisode={() => this.handleUpdateEpisode(this.state)}
+          />
+        ) : (
+          <div />
+        )}
+        {this.state.selectedEpisode ? (
+          <div className={styles.previewSection}>
+            <EpisodePreview
+              showName={this.props.show ? this.props.show.title : null}
               lead={this.state.lead}
-              shows={shows}
-              digasOnDemandEpisodes={digasOnDemandEpisodes}
-              digasPodcastEpisodes={digasPodcastEpisodes}
-              onAddButtonDisabled={!this.isValidEpisode(this.state)}
-              onAddEpisode={() => this.handleUpdateEpisode(this.state)}
             />
-          : <div />}
-        {this.state.selectedEpisode
-          ? <div className={styles.previewSection}>
-              <EpisodePreview
-                showName={this.props.show ? this.props.show.title : null}
-                lead={this.state.lead}
-              />
-            </div>
-          : <div />}
-        {this.state.selectedEpisode
-          ? <DeleteButton
-              onClick={this.handleDeleteEpisode}
-              confirmText={'Er du sikker på at du vil slette episoden?'}
-            >
-              SLETT
-            </DeleteButton>
-          : <div />}
+          </div>
+        ) : (
+          <div />
+        )}
+        {this.state.selectedEpisode ? (
+          <DeleteButton
+            onClick={this.handleDeleteEpisode}
+            confirmText={'Er du sikker på at du vil slette episoden?'}
+          >
+            SLETT
+          </DeleteButton>
+        ) : (
+          <div />
+        )}
       </div>
     );
   }
