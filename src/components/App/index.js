@@ -57,8 +57,8 @@ class App extends React.Component {
         <header className={styles.header}>
           <button
             className={styles.liveButton}
-            onClick={this.props.playLive}
-            onKeyPress={this.props.playLive}
+            onClick={() => this.props.playLive()}
+            onKeyPress={() => this.props.playLive()}
           >
             <HeaderLiveButton />
           </button>

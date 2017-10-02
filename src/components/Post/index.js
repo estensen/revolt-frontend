@@ -14,10 +14,8 @@ import { loadPost } from './actions';
 import styles from './styles.css';
 
 export class Post extends React.Component {
-  // eslint-disable-line react/prefer-stateless-function
-
   componentWillMount() {
-    this.props.loadPost(this.props.params.slug);
+    this.props.loadPost(this.props.match.params.slug);
     moment.locale('NB_no', {
       calendar: {
         lastDay: '[I går] HH:mm',
@@ -43,7 +41,6 @@ export class Post extends React.Component {
     if (this.props.loading || this.props.post === false) {
       return <div />;
     }
-
     const time = this.getNormalizedDateString(this.props.post.createdAt);
 
     return (
@@ -63,7 +60,7 @@ Post.propTypes = {
     React.PropTypes.bool,
     React.PropTypes.object,
   ]),
-  params: React.PropTypes.object,
+  match: React.PropTypes.object,
   loadPost: React.PropTypes.func.isRequired,
   loading: React.PropTypes.bool,
   error: React.PropTypes.bool,
