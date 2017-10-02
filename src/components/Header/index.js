@@ -2,7 +2,7 @@ import React from 'react';
 
 import Logo from 'components/Header/Logo';
 import NavBar from 'components/Header/NavBar';
-import HeaderLiveButton from 'components/HeaderLiveButton';
+import HeaderPlayButton from 'components/Header/HeaderPlayButton';
 
 import styles from './styles.css';
 
@@ -12,7 +12,7 @@ class Header extends React.Component {
       <header className={styles.header}>
         <NavBar />
         <Logo />
-        <HeaderLiveButton />
+        <HeaderPlayButton />
       </header>
     );
   }

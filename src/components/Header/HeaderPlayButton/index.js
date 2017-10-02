@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import styles from './styles.css';
 import { playLive } from 'components/Player/actions';
 
-class HeaderLiveButton extends React.Component {
+class HeaderPlayButton extends React.Component {
   static propTypes = {
     playLive: React.PropTypes.func.required,
   };
@@ -15,8 +15,8 @@ class HeaderLiveButton extends React.Component {
       <div className={styles.container}>
         <button
           className={styles.playButton}
-          onClick={this.props.playLive}
-          onKeyPress={this.props.playLive}
+          onClick={() => this.props.playLive()}
+          onKeyPress={() => this.props.playLive()}
         >
           <div className={styles.playIcon}>
             <div className={styles.playIconInner} />
@@ -36,4 +36,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderLiveButton);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderPlayButton);
