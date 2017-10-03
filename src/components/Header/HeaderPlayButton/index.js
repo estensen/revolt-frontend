@@ -5,9 +5,9 @@ import { createStructuredSelector } from 'reselect';
 import styles from './styles.css';
 import { playLive } from 'components/Player/actions';
 
-class HeaderPlayButton extends React.Component {
+export class HeaderPlayButton extends React.Component {
   static propTypes = {
-    playLive: React.PropTypes.func.required,
+    playLive: React.PropTypes.func.isRequired,
   };
 
   render() {
