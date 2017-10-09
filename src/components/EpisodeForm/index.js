@@ -15,7 +15,7 @@ const EpisodeForm = props => {
         value={props.title}
       />
       <TextAreaInput
-        label={'Kort beskrivelse'}
+        label={'Ingress'}
         onChange={props.onLeadChange}
         value={props.lead}
       />

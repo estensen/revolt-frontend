@@ -28,7 +28,7 @@ const ShowForm = props => {
       />
       <UploadFileInput label={'Programbilde'} onChange={props.onImageChange} />
       <TextAreaInput
-        label={'Kort beskrivelse'}
+        label={'Ingress'}
         onChange={props.onLeadChange}
         value={props.lead}
       />

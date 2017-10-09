@@ -142,12 +142,12 @@ export class PostAdmin extends React.Component {
             onChange={this.handleCoverPhotoChange}
           />
           <TextAreaInput
-            label={'Kort beskrivelse'}
+            label={'Ingress'}
             onChange={this.handleLeadChange}
             value={this.state.lead}
           />
           <TextAreaInput
-            label={'Innhold'}
+            label={'Brødtekst'}
             onChange={this.handleContentChange}
             value={this.state.content}
           />
