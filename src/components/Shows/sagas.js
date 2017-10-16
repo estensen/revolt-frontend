@@ -1,13 +1,24 @@
 import { take, call, put } from 'redux-saga/effects';
 import { showsLoaded, showsLoadedError } from 'components/Shows/actions';
 import { LOAD_SHOWS_PENDING } from './constants';
-import { get, SHOWS_URL } from 'utils/api';
+import { getGraphQL } from 'utils/api';
+import { showFormat } from 'utils/dataFormatters';
 
 // Individual exports for testing
 export function* getShows() {
+  const query = `query {
+    allShows {
+      id,
+      name,
+      image,
+      lead,
+      slug,
+      archived
+    }
+  }`;
   try {
-    const result = yield get(SHOWS_URL);
-    yield put(showsLoaded(result));
+    const result = yield call(getGraphQL, query);
+    yield put(showsLoaded(result.data.allShows.map(showFormat)));
   } catch (error) {
     yield put(showsLoadedError());
   }

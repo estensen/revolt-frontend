@@ -1,13 +1,29 @@
 import { take, call, put } from 'redux-saga/effects';
 import { LOAD_POST_PENDING } from './constants';
 import { postLoaded, postError } from './actions';
-import { getQuery, POSTS_URL } from 'utils/api';
+import { getGraphQL } from 'utils/api';
+import { postFormat } from 'utils/dataFormatters';
 
 // Individual exports for testing
 export function* loadPost(slug) {
+  const query = `query {
+    post(slug:"${slug}") {
+      id,
+      title,
+      content,
+      publishAt,
+      createdBy {
+        fullName
+      },
+      show{
+        name,
+        slug
+      }
+    }
+  }`;
   try {
-    const result = yield call(getQuery, POSTS_URL, 'slug', slug);
-    yield put(postLoaded(result[0]));
+    const result = yield call(getGraphQL, query);
+    yield put(postLoaded(postFormat(result.data.post)));
   } catch (error) {
     yield put(postError());
   }

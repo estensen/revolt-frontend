@@ -49,7 +49,10 @@ export class Post extends React.Component {
         <div className={styles.meta}>
           <span className={styles.createdAt}>{time}</span>
         </div>
-        <p className={styles.body}>{this.props.post.content}</p>
+        <p
+          className={styles.body}
+          dangerouslySetInnerHTML={{ __html: this.props.post.content }}
+        />
       </div>
     );
   }
