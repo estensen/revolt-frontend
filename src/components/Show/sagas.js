@@ -1,42 +1,45 @@
 import { take, call, put } from 'redux-saga/effects';
-import { LOAD_SHOW_PENDING, LOAD_SHOW_BY_ID_PENDING } from './constants';
+import { LOAD_SHOW_PENDING } from './constants';
 import { showLoaded, showError } from './actions';
-import { getQuery, SHOWS_URL, EPISODES_URL, POSTS_URL } from 'utils/api';
+import { getGraphQL } from 'utils/api';
+import { showFormat, episodeFormat, postFormat } from 'utils/dataFormatters';
 
-// TODO: Refactor methods to share behaviour
+const formatShowQuery = ({ episodes, posts, ...show }) => ({
+  show: showFormat(show),
+  episodes: episodes.map(episodeFormat),
+  posts: posts.map(postFormat),
+});
 
 // Individual exports for testing
 export function* loadShow(slug) {
+  const query = `query {
+    show(slug:"${slug}") {
+      id,
+      name,
+      image,
+      content,
+      archived,
+      episodes {
+        id,
+        lead,
+        createdAt,
+      },
+      posts {
+        id,
+        title,
+        slug,
+        image,
+        publishAt,
+        lead,
+        createdBy {
+          fullName
+        }
+      }
+    }
+  }`;
   try {
-    let show = yield call(getQuery, SHOWS_URL, 'slug', slug);
-    show = show[0];
-    const episodes = yield call(getQuery, EPISODES_URL, 'showId', show.id);
-    const posts = yield call(getQuery, POSTS_URL, 'showId', show.id);
-    yield put(
-      showLoaded({
-        show,
-        episodes,
-        posts,
-      }),
-    );
-  } catch (error) {
-    yield put(showError());
-  }
-}
-
-export function* loadShowById(id) {
-  try {
-    let show = yield call(getQuery, SHOWS_URL, 'id', id);
-    show = show[0];
-    const episodes = yield call(getQuery, EPISODES_URL, 'showId', show.id);
-    const posts = yield call(getQuery, POSTS_URL, 'showId', show.id);
-    yield put(
-      showLoaded({
-        show,
-        episodes,
-        posts,
-      }),
-    );
+    let result = yield call(getGraphQL, query);
+    yield put(showLoaded(formatShowQuery(result.data.show)));
   } catch (error) {
     yield put(showError());
   }
@@ -50,12 +53,5 @@ export function* loadShowWatcher() {
   }
 }
 
-export function* loadShowByIdWatcher() {
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    const { id } = yield take(LOAD_SHOW_BY_ID_PENDING);
-    yield call(loadShowById, id);
-  }
-}
 // All sagas to be loaded
-export default [loadShowWatcher, loadShowByIdWatcher];
+export default [loadShowWatcher];

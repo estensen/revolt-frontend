@@ -1,13 +1,23 @@
 import { take, call, put } from 'redux-saga/effects';
 import { frontPagePostsLoaded, frontPagePostsError } from './actions';
 import { LOAD_FRONT_PAGE_POSTS_PENDING } from './constants';
-import { get, POSTS_URL } from 'utils/api';
+import { getGraphQL } from 'utils/api';
+import { postFormat } from 'utils/dataFormatters';
 
 // Individual exports for testing
 export function* loadFrontPageArticles() {
+  const query = `query {
+    frontPagePosts {
+      id,
+      title,
+      slug,
+      image,
+      lead
+    }
+  }`;
   try {
-    const result = yield call(get, POSTS_URL);
-    yield put(frontPagePostsLoaded(result));
+    const result = yield call(getGraphQL, query);
+    yield put(frontPagePostsLoaded(result.data.frontPagePosts.map(postFormat)));
   } catch (error) {
     yield put(frontPagePostsError());
   }

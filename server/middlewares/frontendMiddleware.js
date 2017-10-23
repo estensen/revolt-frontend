@@ -32,6 +32,8 @@ const addDevMiddlewares = (app, webpackConfig) => {
   }
 
   app.use('/api', proxy({ target: 'http://localhost:9000/' }));
+  app.use('/media', proxy({ target: 'http://localhost:8000/' }));
+  app.use('/graphql', proxy({ target: 'http://localhost:8000/' }));
 
   app.get('*', (req, res) => {
     fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
