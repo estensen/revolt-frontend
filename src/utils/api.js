@@ -1,7 +1,4 @@
-const API_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:8000/graphql'
-    : '/graphql';
+const API_URL = '/graphql';
 export const MEDIA_URL = '/media/';
 
 const handleError = res => {
